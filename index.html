@@ -1,0 +1,1376 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Opportunity Zones & Gentrification</title>
+	<meta name='robots' content='noindex, nofollow'>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+	<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.1/mapbox-gl-geocoder.min.js'></script>
+	<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.1/mapbox-gl-geocoder.css' type='text/css' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        h2, h3 {
+            margin: 10px;
+            font-size: 1.4em;
+        }
+        h3 {
+            font-size: 1em;
+        }
+        p {
+            font-size: 0.85em;
+            margin: 10px;
+            text-align: left;
+        }
+		#map { 
+			position:absolute; 
+			top:0; 
+			bottom:0; 
+			width:100%; 
+		}
+		.map-overlay {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.7);
+            margin-right: 20px;
+            font-family: Arial, sans-serif;
+            overflow: auto;
+            border-radius: 3px;
+        }
+		#features {
+            top: 0;
+            height: 450px;
+            margin-top: 20px;
+            width: 225px;
+        }
+        #legend {
+            padding: 10px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+            line-height: 18px;
+            height: 55px;
+            margin-bottom: 40px;
+            width: 140px;
+        }
+        .legend-key {
+            display:inline-block;
+            border-radius: 20%;
+            margin-top: 0px;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+           	vertical-align: center;
+           	
+        }
+    </style>
+</head>
+
+<body>
+
+<style>
+	.mapboxgl-popup {
+		max-width: 100px;
+	    font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	}
+	#menu {
+		position: absolute;
+		z-index: 1;
+		top: 10%; 
+		left: 20px;
+		border-radius: 0;
+		line-height: 20px;
+		width: 120px;
+		font-family: 'Open Sans', sans-serif;
+	}
+	#menu a {
+		font-size: 16px;
+		display: inline-block;
+		margin: 5px;
+		padding: 0px;
+		padding: 5px;
+		border-radius: 5%;
+		text-decoration: none;
+		border-bottom: 1px solid rgba(0,0,0,0.25);
+		box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+		text-align: left;
+	}
+	#menu a:last-child {
+		border: none;
+	}
+	#menu a:hover {
+		background-color: #f8f8f8;
+		color: #404040;
+	}
+	#menu a.active {
+		background-color: #3887be;
+		color: #ffffff;
+	}
+	#menu a.active:hover {
+		background: #3074a4;
+	}
+</style>
+
+<nav id="menu"></nav>
+<div id='map'></div>
+
+
+<script>
+
+mapboxgl.accessToken = 'pk.eyJ1IjoiamVkbGViaSIsImEiOiJjanhhc3M4NnYwMmxsM3lyODlxYTFhOGRxIn0.746AmyW45uwRPeUy1PczOg';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/jedlebi/cl8nedpge000l14mj5qgt2da4',
+    center: [-100.04, 38.907],
+    zoom: 3
+});
+var popup = new mapboxgl.Popup().addTo(map);
+	popup.remove();
+var markerHeight = 50, markerRadius = 10, linearOffset = 25;
+var popupOffsets = {
+	'top': [0, 0],
+ 	'top-left': [0,0],
+	'top-right': [0,0],
+	'bottom': [0, -markerHeight],
+	'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+	'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+	'left': [markerRadius, (markerHeight - markerRadius) * -1],
+	'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+};
+var hoveredStateId1 = null;
+var hoveredStateId2 = null;
+var hoveredStateId3 = null;
+var hoveredStateId4 = null;
+
+map.on('load', function () {
+	
+	// make a pointer cursor
+    map.getCanvas().style.cursor = 'default';
+	
+    // continental US
+    // map.fitBounds([[-130.283740, 20.221380], [-53.815326, 50.998720]]);
+	
+	// Washington, DC
+	map.fitBounds([[-77.493555, 38.724826], [-76.643236, 39.083450]]);
+	
+    // define layer names
+    var layers = ['Gentrified 1980', 'Gentrified 1990', 'Gentrified 2000', 'Gentrified 2010', 'Gentrified 2020']; // 'gentrified-1980', 'gentrified-1990', 'gentrified-2000', 'gentrified-2010', 'gentrified-2020'
+    var colors = ['#fefeb9', '#a1dab4', '#41b6c4', '#2c7fb8', '#253494'];
+	var toggleableLayerIds = [ 'Gentrified 1980', 'Gentrified 1990', 'Gentrified 2000', 'Gentrified 2010', 'Gentrified 2020' ];
+
+	// add source layers for hover effect
+	map.addSource('info-northeast', {
+		'type': 'vector',
+		'url' : 'mapbox://jedlebi.48hz5l69'
+	});
+	map.addSource('info-west', {
+		'type': 'vector',
+		'url' : 'mapbox://jedlebi.8mhn80gu'
+	});
+	map.addSource('info-midwest', {
+		'type': 'vector',
+		'url' : 'mapbox://jedlebi.0r3bnvpn'
+	});
+	map.addSource('info-south-1', {
+		'type': 'vector',
+		'url' : 'mapbox://jedlebi.a523mkem'
+	});
+	map.addSource('info-south-2', {
+		'type': 'vector',
+		'url' : 'mapbox://jedlebi.d0ck2g1b'
+	});
+	map.addSource('info-null', {
+		'type': 'vector',
+		'url' : 'mapbox://jedlebi.05aacycv'
+	});
+	// highlighted layers on hover.
+	map.addLayer({
+		'id': 'tracts-ne-fill',
+		'type': 'fill',
+		'source': 'info-northeast',
+		'source-layer': 'gent19702020_tracts2010_place-atm9c4',
+		'layout': {},
+		'paint': {
+			'fill-color': '#627BC1',
+			'fill-opacity': [
+				'case',
+				['boolean', ['feature-state', 'hover'], false],
+				0.5,
+				0
+			]
+		}
+	});
+	map.addLayer({
+		'id': 'tracts-w-fill',
+		'type': 'fill',
+		'source': 'info-west',
+		'source-layer': 'gent19702020_tracts2010_place-8dijgu',
+		'layout': {},
+		'paint': {
+			'fill-color': '#627BC1',
+			'fill-opacity': [
+				'case',
+				['boolean', ['feature-state', 'hover'], false],
+				0.5,
+				0
+			]
+		}
+	});
+	map.addLayer({
+		'id': 'tracts-mw-fill',
+		'type': 'fill',
+		'source': 'info-midwest',
+		'source-layer': 'gent19702020_tracts2010_place-9wumyn',
+		'layout': {},
+		'paint': {
+			'fill-color': '#627BC1',
+			'fill-opacity': [
+				'case',
+				['boolean', ['feature-state', 'hover'], false],
+				0.5,
+				0
+			]
+		}
+	});
+	map.addLayer({
+		'id': 'tracts-s1-fill',
+		'type': 'fill',
+		'source': 'info-south-1',
+		'source-layer': 'gent19702020_tracts2010_place-9gnwpl',
+		'layout': {},
+		'paint': {
+			'fill-color': '#627BC1',
+			'fill-opacity': [
+				'case',
+				['boolean', ['feature-state', 'hover'], false],
+				0.5,
+				0
+			]
+		}
+	});
+	map.addLayer({
+		'id': 'tracts-s2-fill',
+		'type': 'fill',
+		'source': 'info-south-2',
+		'source-layer': 'gent19702020_tracts2010_place-3zl6xx',
+		'layout': {},
+		'paint': {
+			'fill-color': '#627BC1',
+			'fill-opacity': [
+				'case',
+				['boolean', ['feature-state', 'hover'], false],
+				0.5,
+				0
+			]
+		}
+	});
+	map.addLayer({
+		'id': 'tracts-null-fill',
+		'type': 'fill',
+		'source': 'info-null',
+		'source-layer': 'gent19702020_tracts2010_place-1sfgxe',
+		'layout': {},
+		'paint': {
+			'fill-color': '#627BC1',
+			'fill-opacity': [
+				'case',
+				['boolean', ['feature-state', 'hover'], false],
+				0.5,
+				0
+			]
+		}
+	});
+	// highlighted layers on click.
+	map.addLayer(
+		{
+			'id': 'tracts-ne-lit',
+			'type': 'fill',
+			'source': 'info-northeast',
+			'source-layer': 'gent19702020_tracts2010_place-atm9c4',
+			'paint': {
+				'fill-outline-color': '#484896',
+				'fill-color': '#627BC1',
+				'fill-opacity': 0.8
+			},
+			'filter': ['in', 'GEOID', '']
+		},
+	);
+	map.addLayer(
+		{
+			'id': 'tracts-w-lit',
+			'type': 'fill',
+			'source': 'info-west',
+			'source-layer': 'gent19702020_tracts2010_place-8dijgu',
+			'paint': {
+				'fill-outline-color': '#484896',
+				'fill-color': '#627BC1',
+				'fill-opacity': 0.8
+			},
+			'filter': ['in', 'GEOID', '']
+		},
+	);
+	map.addLayer(
+		{
+			'id': 'tracts-mw-lit',
+			'type': 'fill',
+			'source': 'info-midwest',
+			'source-layer': 'gent19702020_tracts2010_place-9wumyn',
+			'paint': {
+				'fill-outline-color': '#484896',
+				'fill-color': '#627BC1',
+				'fill-opacity': 0.8
+			},
+			'filter': ['in', 'GEOID', '']
+		},
+	);
+	map.addLayer(
+		{
+			'id': 'tracts-s1-lit',
+			'type': 'fill',
+			'source': 'info-south-1',
+			'source-layer': 'gent19702020_tracts2010_place-9gnwpl',
+			'paint': {
+				'fill-outline-color': '#484896',
+				'fill-color': '#627BC1',
+				'fill-opacity': 0.8
+			},
+			'filter': ['in', 'GEOID', '']
+		},
+	);
+	map.addLayer(
+		{
+			'id': 'tracts-s2-lit',
+			'type': 'fill',
+			'source': 'info-south-2',
+			'source-layer': 'gent19702020_tracts2010_place-3zl6xx',
+			'paint': {
+				'fill-outline-color': '#484896',
+				'fill-color': '#627BC1',
+				'fill-opacity': 0.8
+			},
+			'filter': ['in', 'GEOID', '']
+		},
+	);
+	map.addLayer(
+		{
+			'id': 'tracts-null-lit',
+			'type': 'fill',
+			'source': 'info-null',
+			'source-layer': 'gent19702020_tracts2010_place-1sfgxe',
+			'paint': {
+				'fill-outline-color': '#484896',
+				'fill-color': '#627BC1',
+				'fill-opacity': 0.8
+			},
+			'filter': ['in', 'GEOID', '']
+		},
+	);
+	// When the user moves their mouse over the fill layer, we'll update the
+	// feature state for the feature under the mouse.
+	map.on('mousemove', 'tracts-ne-fill', function(e) {
+		if (e.features.length > 0) {
+			if (hoveredStateId1) {
+				map.setFeatureState(
+					{ source: 'info-northeast', sourceLayer: 'gent19702020_tracts2010_place-atm9c4', id: hoveredStateId1 },
+					{ hover: false }
+				);
+			}
+			hoveredStateId1 = e.features[0].id;
+			map.setFeatureState(
+				{ source: 'info-northeast', sourceLayer: 'gent19702020_tracts2010_place-atm9c4', id: hoveredStateId1 },
+				{ hover: true }
+			);
+		}
+	});
+	map.on('mousemove', 'tracts-w-fill', function(e) {
+		if (e.features.length > 0) {
+			if (hoveredStateId2) {
+				map.setFeatureState(
+					{ source: 'info-west', sourceLayer: 'gent19702020_tracts2010_place-8dijgu', id: hoveredStateId2 },
+					{ hover: false }
+				);
+			}
+			hoveredStateId2 = e.features[0].id;
+			map.setFeatureState(
+				{ source: 'info-west', sourceLayer: 'gent19702020_tracts2010_place-8dijgu', id: hoveredStateId2 },
+				{ hover: true }
+			);
+		}
+	});
+	map.on('mousemove', 'tracts-mw-fill', function(e) {
+		if (e.features.length > 0) {
+			if (hoveredStateId3) {
+				map.setFeatureState(
+					{ source: 'info-midwest', sourceLayer: 'gent19702020_tracts2010_place-9wumyn', id: hoveredStateId3 },
+					{ hover: false }
+				);
+			}
+			hoveredStateId3 = e.features[0].id;
+			map.setFeatureState(
+				{ source: 'info-midwest', sourceLayer: 'gent19702020_tracts2010_place-9wumyn', id: hoveredStateId3 },
+				{ hover: true }
+			);
+		}
+	});
+	map.on('mousemove', 'tracts-s1-fill', function(e) {
+		if (e.features.length > 0) {
+			if (hoveredStateId4) {
+				map.setFeatureState(
+					{ source: 'info-south-1', sourceLayer: 'gent19702020_tracts2010_place-9gnwpl', id: hoveredStateId4 },
+					{ hover: false }
+				);
+			}
+			hoveredStateId4 = e.features[0].id;
+			map.setFeatureState(
+				{ source: 'info-south-1', sourceLayer: 'gent19702020_tracts2010_place-9gnwpl', id: hoveredStateId4 },
+				{ hover: true }
+			);
+		}
+	});
+	map.on('mousemove', 'tracts-s2-fill', function(e) {
+		if (e.features.length > 0) {
+			if (hoveredStateId4) {
+				map.setFeatureState(
+					{ source: 'info-south-2', sourceLayer: 'gent19702020_tracts2010_place-3zl6xx', id: hoveredStateId4 },
+					{ hover: false }
+				);
+			}
+			hoveredStateId4 = e.features[0].id;
+			map.setFeatureState(
+				{ source: 'info-south-2', sourceLayer: 'gent19702020_tracts2010_place-3zl6xx', id: hoveredStateId4 },
+				{ hover: true }
+			);
+		}
+	});
+	map.on('mousemove', 'tracts-null-fill', function(e) {
+		if (e.features.length > 0) {
+			if (hoveredStateId4) {
+				map.setFeatureState(
+					{ source: 'info-null', sourceLayer: 'gent19702020_tracts2010_place-1sfgxe', id: hoveredStateId4 },
+					{ hover: false }
+				);
+			}
+			hoveredStateId4 = e.features[0].id;
+			map.setFeatureState(
+				{ source: 'info-null', sourceLayer: 'gent19702020_tracts2010_place-1sfgxe', id: hoveredStateId4 },
+				{ hover: true }
+			);
+		}
+	});
+	// When the mouse leaves the fill layer, update the feature state of the
+	// previously hovered feature.
+	map.on('mouseleave', 'tracts-ne-fill', function() {
+		if (hoveredStateId1) {
+			map.setFeatureState(
+				{ source: 'info-northeast', sourceLayer: 'gent19702020_tracts2010_place-atm9c4', id: hoveredStateId1 },
+				{ hover: false }
+			);
+		}
+		hoveredStateId1 = null;
+	});
+	map.on('mouseleave', 'tracts-w-fill', function() {
+		if (hoveredStateId2) {
+			map.setFeatureState(
+				{ source: 'info-west', sourceLayer: 'gent19702020_tracts2010_place-8dijgu', id: hoveredStateId2 },
+				{ hover: false }
+			);
+		}
+		hoveredStateId2 = null;
+	});
+	map.on('mouseleave', 'tracts-mw-fill', function() {
+		if (hoveredStateId3) {
+			map.setFeatureState(
+				{ source: 'info-midwest', sourceLayer: 'gent19702020_tracts2010_place-9wumyn', id: hoveredStateId3 },
+				{ hover: false }
+			);
+		}
+		hoveredStateId3 = null;
+	});
+	map.on('mouseleave', 'tracts-s1-fill', function() {
+		if (hoveredStateId4) {
+			map.setFeatureState(
+				{ source: 'info-south-1', sourceLayer: 'gent19702020_tracts2010_place-9gnwpl', id: hoveredStateId4 },
+				{ hover: false }
+			);
+		}
+		hoveredStateId4 = null;
+	});
+	map.on('mouseleave', 'tracts-s2-fill', function() {
+		if (hoveredStateId4) {
+			map.setFeatureState(
+				{ source: 'info-south-2', sourceLayer: 'gent19702020_tracts2010_place-3zl6xx', id: hoveredStateId4 },
+				{ hover: false }
+			);
+		}
+		hoveredStateId4 = null;
+	});
+	map.on('mouseleave', 'tracts-null-fill', function() {
+		if (hoveredStateId4) {
+			map.setFeatureState(
+				{ source: 'info-null', sourceLayer: 'gent19702020_tracts2010_place-1sfgxe', id: hoveredStateId4 },
+				{ hover: false }
+			);
+		}
+		hoveredStateId4 = null;
+	});
+
+	// Round values to nearest whole integer and include thousand seperators.
+	function round(num) {
+		return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+		// console.log((typeof num).concat(', ', num))
+		// return num
+	}
+	// // Round values to nearest second decimal and include thousand seperators.
+	function decimalRound(num) {
+		return num.toFixed(1).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+	}	
+
+    // When a click event occurs on a feature in the layer, open a popup at the
+    // location of the click, with description HTML from its properties.
+    map.on('click', 'info-west', function (e) {
+    	var gent80 = e.features[0].properties.GENT80
+    	var gent90 = e.features[0].properties.GENT90
+    	var gent00 = e.features[0].properties.GENT00
+    	var gent10 = e.features[0].properties.GENT10
+    	var gent20 = e.features[0].properties.GENT20
+    	if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Not Gentrified</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2000)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000, 2010)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2010, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000, 2020)</h1>"
+        } else {
+            null
+        }
+
+		new mapboxgl.Popup({offset: popupOffsets})
+			.remove()
+            .setLngLat(e.lngLat)
+            .setHTML(
+            "<h3><strong>" + e.features[0].properties.PLACE_FINA + 
+            "<br>" + 
+            "GEOID: " +  e.features[0].properties.GEOID10 +
+            "<h1 style=text-align:center;width:100%;color:#6F6C6C>" + gent + "</h1>" +
+            "<table style='width:100%;text-align:center'>" +
+            	"<tr>" + 
+                    "<th></th>" +
+                    "<th>POP</th>" + 
+                    "<th>MFI ($)</th>" +
+                    "<th>HVAL ($)</th>" +
+                    "<th>COL (%)</th>" +
+                "</tr>" + 
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1970</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP70) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC70) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL70) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT70*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1980</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP80) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC80) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL80) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT80*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1990</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP90) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC90) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL90) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT90*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2000</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP00) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC00) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL00) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT00*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2010</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP10) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC10) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL10) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT10*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2020</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP20) + "</th>" +
+                    "<th style='width:13%'>" + round(parseFloat(e.features[0].properties.INC20)) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL20) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT20*100) + "</th>" +
+                "</tr>" +
+            "</table>" 
+            )
+            .addTo(map);
+        var features = map.queryRenderedFeatures( {
+			layers: ['info-west']
+		});
+
+		// Run through the selected features and set a filter
+		// to match features with unique FIPS codes to activate
+		// the `counties-highlighted` layer.
+		var filter = features.reduce(
+			function(memo, feature) {
+				memo.push(e.features[0].properties.GEOID);
+				return memo;
+			},
+			['in', 'GEOID']
+		);
+
+		map.setFilter('tracts-w-lit', filter);
+		// console.log("lorem ipsum")
+    });
+	map.on('click', 'info-midwest', function (e) {
+        var gent80 = e.features[0].properties.GENT80
+    	var gent90 = e.features[0].properties.GENT90
+    	var gent00 = e.features[0].properties.GENT00
+    	var gent10 = e.features[0].properties.GENT10
+    	var gent20 = e.features[0].properties.GENT20
+    	if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Not Gentrified</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2000)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000, 2010)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2010, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000, 2020)</h1>"
+        } else {
+            null
+        }
+
+		new mapboxgl.Popup({offset: popupOffsets})
+			.remove()
+            .setLngLat(e.lngLat)
+            .setHTML(
+            "<h3><strong>" + e.features[0].properties.PLACE_FINA + 
+            "<br>" + 
+            "GEOID: " +  e.features[0].properties.GEOID10 +
+            "<h1 style=text-align:center;width:100%;color:#6F6C6C>" + gent + "</h1>" +
+            "<table style='width:100%;text-align:center'>" +
+            	"<tr>" + 
+                    "<th></th>" +
+                    "<th>POP</th>" + 
+                    "<th>MFI ($)</th>" +
+                    "<th>HVAL ($)</th>" +
+                    "<th>COL (%)</th>" +
+                "</tr>" + 
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1970</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP70) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC70) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL70) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT70*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1980</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP80) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC80) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL80) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT80*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1990</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP90) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC90) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL90) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT90*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2000</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP00) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC00) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL00) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT00*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2010</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP10) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC10) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL10) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT10*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2020</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP20) + "</th>" +
+                    "<th style='width:13%'>" + round(parseFloat(e.features[0].properties.INC20)) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL20) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT20*100) + "</th>" +
+                "</tr>" +
+            "</table>" 
+            )
+            .addTo(map);
+        var features = map.queryRenderedFeatures( {
+			layers: ['info-midwest']
+		});
+
+		// Run through the selected features and set a filter
+		// to match features with unique FIPS codes to activate
+		// the `counties-highlighted` layer.
+		var filter = features.reduce(
+			function(memo, feature) {
+				memo.push(e.features[0].properties.GEOID);
+				return memo;
+			},
+			['in', 'GEOID']
+		);
+
+		map.setFilter('tracts-mw-lit', filter);
+    });
+	map.on('click', 'info-northeast', function (e) {
+        var gent80 = e.features[0].properties.GENT80
+    	var gent90 = e.features[0].properties.GENT90
+    	var gent00 = e.features[0].properties.GENT00
+    	var gent10 = e.features[0].properties.GENT10
+    	var gent20 = e.features[0].properties.GENT20
+    	if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Not Gentrified</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2000)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000, 2010)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2010, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000, 2020)</h1>"
+        } else {
+            null
+        }
+
+		new mapboxgl.Popup({offset: popupOffsets})
+			.remove()
+            .setLngLat(e.lngLat)
+            .setHTML(
+            "<h3><strong>" + e.features[0].properties.PLACE_FINA + 
+            "<br>" + 
+            "GEOID: " +  e.features[0].properties.GEOID10 +
+            "<h1 style=text-align:center;width:100%;color:#6F6C6C>" + gent + "</h1>" +
+            "<table style='width:100%;text-align:center'>" +
+            	"<tr>" + 
+                    "<th></th>" +
+                    "<th>POP</th>" + 
+                    "<th>MFI ($)</th>" +
+                    "<th>HVAL ($)</th>" +
+                    "<th>COL (%)</th>" +
+                "</tr>" + 
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1970</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP70) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC70) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL70) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT70*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1980</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP80) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC80) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL80) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT80*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1990</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP90) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC90) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL90) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT90*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2000</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP00) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC00) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL00) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT00*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2010</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP10) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC10) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL10) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT10*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2020</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP20) + "</th>" +
+                    "<th style='width:13%'>" + round(parseFloat(e.features[0].properties.INC20)) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL20) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT20*100) + "</th>" +
+                "</tr>" +
+            "</table>" 
+            )
+            .addTo(map);
+        var features = map.queryRenderedFeatures( {
+			layers: ['info-northeast']
+		});
+
+		// Run through the selected features and set a filter
+		// to match features with unique FIPS codes to activate
+		// the `counties-highlighted` layer.
+		var filter = features.reduce(
+			function(memo, feature) {
+				memo.push(e.features[0].properties.GEOID);
+				return memo;
+			},
+			['in', 'GEOID']
+		);
+
+		map.setFilter('tracts-ne-lit', filter);
+	});
+	map.on('click', 'info-south-1', function (e) {
+        var gent80 = e.features[0].properties.GENT80
+    	var gent90 = e.features[0].properties.GENT90
+    	var gent00 = e.features[0].properties.GENT00
+    	var gent10 = e.features[0].properties.GENT10
+    	var gent20 = e.features[0].properties.GENT20
+    	if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Not Gentrified</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2000)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000, 2010)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2010, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000, 2020)</h1>"
+        } else {
+            null
+        }
+
+		new mapboxgl.Popup({offset: popupOffsets})
+			.remove()
+            .setLngLat(e.lngLat)
+            .setHTML(
+            "<h3><strong>" + e.features[0].properties.PLACE_FINA + 
+            "<br>" + 
+            "GEOID: " +  e.features[0].properties.GEOID10 +
+            "<h1 style=text-align:center;width:100%;color:#6F6C6C>" + gent + "</h1>" +
+            "<table style='width:100%;text-align:center'>" +
+            	"<tr>" + 
+                    "<th></th>" +
+                    "<th>POP</th>" + 
+                    "<th>MFI ($)</th>" +
+                    "<th>HVAL ($)</th>" +
+                    "<th>COL (%)</th>" +
+                "</tr>" + 
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1970</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP70) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC70) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL70) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT70*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1980</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP80) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC80) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL80) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT80*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1990</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP90) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC90) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL90) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT90*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2000</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP00) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC00) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL00) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT00*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2010</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP10) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC10) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL10) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT10*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2020</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP20) + "</th>" +
+                    "<th style='width:13%'>" + round(parseFloat(e.features[0].properties.INC20)) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL20) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT20*100) + "</th>" +
+                "</tr>" +
+            "</table>" 
+            )
+            .addTo(map);
+        var features = map.queryRenderedFeatures( {
+			layers: ['info-south-1']
+		});
+
+		// Run through the selected features and set a filter
+		// to match features with unique FIPS codes to activate
+		// the `counties-highlighted` layer.
+		var filter = features.reduce(
+			function(memo, feature) {
+				memo.push(e.features[0].properties.GEOID);
+				return memo;
+			},
+			['in', 'GEOID']
+		);
+
+		map.setFilter('tracts-s1-lit', filter);
+    });
+    map.on('click', 'info-south-2', function (e) {
+        var gent80 = e.features[0].properties.GENT80
+    	var gent90 = e.features[0].properties.GENT90
+    	var gent00 = e.features[0].properties.GENT00
+    	var gent10 = e.features[0].properties.GENT10
+    	var gent20 = e.features[0].properties.GENT20
+    	if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Not Gentrified</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2000)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000, 2010)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2010, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000, 2020)</h1>"
+        } else {
+            null
+        }
+
+		new mapboxgl.Popup({offset: popupOffsets})
+			.remove()
+            .setLngLat(e.lngLat)
+            .setHTML(
+            "<h3><strong>" + e.features[0].properties.PLACE_FINA + 
+            "<br>" + 
+            "GEOID: " +  e.features[0].properties.GEOID10 +
+            "<h1 style=text-align:center;width:100%;color:#6F6C6C>" + gent + "</h1>" +
+            "<table style='width:100%;text-align:center'>" +
+            	"<tr>" + 
+                    "<th></th>" +
+                    "<th>POP</th>" + 
+                    "<th>MFI ($)</th>" +
+                    "<th>HVAL ($)</th>" +
+                    "<th>COL (%)</th>" +
+                "</tr>" + 
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1970</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP70) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC70) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL70) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT70*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1980</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP80) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC80) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL80) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT80*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1990</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP90) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC90) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL90) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT90*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2000</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP00) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC00) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL00) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT00*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2010</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP10) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC10) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL10) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT10*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2020</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP20) + "</th>" +
+                    "<th style='width:13%'>" + round(parseFloat(e.features[0].properties.INC20)) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL20) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT20*100) + "</th>" +
+                "</tr>" +
+            "</table>" 
+            )
+            .addTo(map);
+        var features = map.queryRenderedFeatures( {
+			layers: ['info-south-2']
+		});
+
+		// Run through the selected features and set a filter
+		// to match features with unique FIPS codes to activate
+		// the `counties-highlighted` layer.
+		var filter = features.reduce(
+			function(memo, feature) {
+				memo.push(e.features[0].properties.GEOID);
+				return memo;
+			},
+			['in', 'GEOID']
+		);
+
+		map.setFilter('tracts-s2-lit', filter);
+    });
+    map.on('click', 'info-null', function (e) {
+        var gent80 = e.features[0].properties.GENT80
+    	var gent90 = e.features[0].properties.GENT90
+    	var gent00 = e.features[0].properties.GENT00
+    	var gent10 = e.features[0].properties.GENT10
+    	var gent20 = e.features[0].properties.GENT20
+    	if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Not Gentrified</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2000)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000, 2010)</h1>"
+        } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 1 && gent20 == 0) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000, 2010)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2010, 2020)</h1>"
+        } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 0 && gent20 == 1) {
+            gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000, 2020)</h1>"
+        } else {
+            null
+        }
+
+		new mapboxgl.Popup({offset: popupOffsets})
+			.remove()
+            .setLngLat(e.lngLat)
+            .setHTML(
+            "<h3><strong>" + e.features[0].properties.PLACE_FINA + 
+            "<br>" + 
+            "GEOID: " +  e.features[0].properties.GEOID10 +
+            "<h1 style=text-align:center;width:100%;color:#6F6C6C>" + gent + "</h1>" +
+            "<table style='width:100%;text-align:center'>" +
+            	"<tr>" + 
+                    "<th></th>" +
+                    "<th>POP</th>" + 
+                    "<th>MFI ($)</th>" +
+                    "<th>HVAL ($)</th>" +
+                    "<th>COL (%)</th>" +
+                "</tr>" + 
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1970</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP70) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC70) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL70) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT70*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1980</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP80) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC80) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL80) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT80*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>1990</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP90) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC90) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL90) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT90*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2000</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP00) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC00) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL00) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT00*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2010</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP10) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.INC10) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL10) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT10*100) + "</th>" +
+                "</tr>" +
+                "<tr style='font-size:10px;text-align:center'>" + 
+                    "<th style='width:22%'>2020</th>" + 
+                    "<th style='width:13%'>" + round(e.features[0].properties.POP20) + "</th>" +
+                    "<th style='width:13%'>" + round(parseFloat(e.features[0].properties.INC20)) + "</th>" +
+                    "<th style='width:13%'>" + round(e.features[0].properties.HVAL20) + "</th>" +
+                    "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT20*100) + "</th>" +
+                "</tr>" +
+            "</table>" 
+            )
+            .addTo(map);
+        var features = map.queryRenderedFeatures( {
+			layers: ['info-null']
+		});
+
+		// Run through the selected features and set a filter
+		// to match features with unique FIPS codes to activate
+		// the `counties-highlighted` layer.
+		var filter = features.reduce(
+			function(memo, feature) {
+				memo.push(e.features[0].properties.GEOID);
+				return memo;
+			},
+			['in', 'GEOID']
+		);
+
+		map.setFilter('tracts-null-lit', filter);
+    });
+
+    // Change the cursor to a pointer when the mouse is over the layer.
+    map.on('mouseenter', 'info-northeast', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+	map.on('mouseenter', 'info-midwest', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+	map.on('mouseenter', 'info-west', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+	map.on('mouseenter', 'info-south-1', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseenter', 'info-south-2', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseenter', 'info-null', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'info-northeast', function () {
+        map.getCanvas().style.cursor = '';
+    });
+	map.on('mouseleave', 'info-midwest', function () {
+        map.getCanvas().style.cursor = '';
+    });
+	map.on('mouseleave', 'info-west', function () {
+        map.getCanvas().style.cursor = '';		
+    });
+	map.on('mouseleave', 'info-south-1', function () {
+        map.getCanvas().style.cursor = '';
+    });
+    map.on('mouseleave', 'info-south-2', function () {
+        map.getCanvas().style.cursor = '';
+    });
+    map.on('mouseleave', 'info-null', function () {
+        map.getCanvas().style.cursor = '';
+    });
+	
+	// Add a search bar to the map.
+	map.addControl(new MapboxGeocoder({
+		accessToken: mapboxgl.accessToken,
+		mapboxgl: mapboxgl
+	}));
+	// Add in option for full-screen.
+	map.addControl(new mapboxgl.FullscreenControl());
+	// Add geolocate control to the map.
+	map.addControl(new mapboxgl.GeolocateControl({
+		positionOptions: {
+			enableHighAccuracy: true
+		},
+		trackUserLocation: true
+	}));
+	// Add zoom and rotation controls to the map.
+	map.addControl(new mapboxgl.NavigationControl());
+
+	for (var i = 0; i < toggleableLayerIds.length; i++) {
+		var ide = toggleableLayerIds[i];
+ 		var color = colors[i];
+        var item = document.createElement('div');
+ 		var key = document.createElement('span');
+        key.className = 'legend-key';
+        key.style.backgroundColor = color;
+		var link = document.createElement('a');
+		link.href = '#';
+		link.className = 'active';
+		link.textContent = ide;
+ 
+		link.onclick = function (e) {
+			var clickedLayer = this.textContent;
+			e.preventDefault();
+			e.stopPropagation();
+ 
+			var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+			
+			 
+			if (visibility != 'none') {
+				map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+				this.className = '';
+			} else {
+				this.className = 'active';
+				map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+			}
+		};
+ 		
+		var fills = document.getElementById('menu');
+		fills.appendChild(key);
+		fills.appendChild(link);
+	}
+
+ // create legend <div class='map-overlay' id='legend'></div>
+ //   for (i=0; i<layers.length; i++) {
+ //       var layer = layers[i];
+ //       var color = colors[i];
+ //       var item = document.createElement('div');
+ //       var key = document.createElement('span');
+ //       key.className = 'legend-key';
+ //       key.style.backgroundColor = color;
+ //
+    //    var value = document.createElement('span');
+    //    value.innerHTML = layer;
+    //    item.appendChild(key);
+    //    item.appendChild(value);
+    //    legend.appendChild(item);
+ //   }
+
+});
+
+</script>
+</body>
+</html>
