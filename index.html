@@ -24,13 +24,25 @@
       right: 10px;
       z-index: 1;
     }
-    .map-overlay {
-        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    #logo {
         position: absolute;
-        width: 20%;
-        top: 0;
-        left: 0;
-        padding: 10px;
+        border-radius: 3px;
+        bottom: 30px;
+        left: 20px;
+        width: 2px;
+        opacity: 80%;
+    }
+    .map-overlay {
+        position: fixed;
+        right: 20px;
+        bottom: 100px;
+        height: 95px;
+        background-color: rgba(255, 255, 255, .9);
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        color: black;
+        padding: 2px;
+        z-index: 1;
     }
     .map-overlay .map-overlay-inner {
         background-color: #fff;
@@ -125,6 +137,7 @@
       </div>
     </div>
   </div>
+  <pre id="logo"></pre>
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiamVkbGViaSIsImEiOiJjanhhc3M4NnYwMmxsM3lyODlxYTFhOGRxIn0.746AmyW45uwRPeUy1PczOg';
       var map = new mapboxgl.Map({
@@ -173,6 +186,9 @@
         // Washington, DC
         map.fitBounds([[-77.493555, 38.724826], [-76.643236, 39.083450]]);
         
+        // NCRC logo
+        document.getElementById('logo').innerHTML = "<img src='./ncrc.png'>"
+
         // define decades as binary indicator expressions
         const decades = [
           ['==', 'GENT80', 1],
