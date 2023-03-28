@@ -209,7 +209,7 @@
         // add source layers for hover effect
         map.addSource("gentrified", {
           type: "vector",
-          url: "mapbox://jedlebi.7rj1euwf"
+          url: "mapbox://jedlebi.291jev7o"
         });
         map.addSource("central-city", {
           type: "vector",
@@ -221,7 +221,7 @@
           id: "gentrified-tracts",
           type: "fill",
           source: "gentrified",
-          "source-layer": "GENT2020-agfgsj",
+          "source-layer": "GENT2023_CLEAN-2wk3sd",
           paint: {
             "fill-outline-color": "#484896",
             // "fill-color": "#627BC1",
@@ -242,7 +242,7 @@
           id: "info-tracts",
           type: "fill",
           source: "gentrified",
-          "source-layer": "GENT2020-agfgsj",
+          "source-layer": "GENT2023_CLEAN-2wk3sd",
           paint: {
             "fill-outline-color": "#000000",
             "fill-color": "#000000",
@@ -324,8 +324,10 @@
                 .setLngLat(e.lngLat)
                 .setHTML(
                 "<h3><strong>" + e.features[0].properties.PLACE + 
+                "<br>" +
+                "(" + e.features[0].properties.county_nam + ")" +
                 "<br>" + 
-                "GEOID: " +  e.features[0].properties.GEOID10 +
+                "Tract: " +  e.features[0].properties.GEOID10 +
                 "<h1 style=text-align:center;width:100%;color:#6F6C6C>" + gent + "</h1>" +
                 "<table style='width:100%;text-align:center'>" +
                   "<tr>" + 
