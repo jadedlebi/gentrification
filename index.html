@@ -220,14 +220,14 @@
         map.addLayer({
           id: "gentrified-tracts",
           type: "fill",
+          before: "building",
           source: "gentrified",
           "source-layer": "GENT2023_CLEAN-2wk3sd",
           paint: {
-            "fill-outline-color": "#484896",
-            // "fill-color": "#627BC1",
+            "fill-outline-color": "#000000",
             "fill-color": [
               "case",
-              ["==", ["get", "GENT80"], 1], "#a5d8cf",
+              ["==", ["get", "GENT80"], 1], "#9CCEC5",
               ["==", ["get", "GENT90"], 1], "#63a69b",
               ["==", ["get", "GENT00"], 1], "#267568",
               ["==", ["get", "GENT12"], 1], "#04453a",
@@ -237,6 +237,29 @@
             "fill-opacity": 0.5
           },
           filter: decades[0]
+        });
+        // Define the hover layer with an exponential fading effect
+        map.addLayer({
+          id: "gentrified-tracts-hover",
+          type: "fill",
+          before: "building",
+          source: "gentrified",
+          "source-layer": "GENT2023_CLEAN-2wk3sd",
+          paint: {
+            "fill-outline-color": "#000000",
+            "fill-color": [
+              "case",
+              ["==", ["get", "GENT80"], 1], "#a5d8cf",
+              ["==", ["get", "GENT90"], 1], "#63a69b",
+              ["==", ["get", "GENT00"], 1], "#267568",
+              ["==", ["get", "GENT12"], 1], "#04453a",
+              ["==", ["get", "GENT19"], 1], "#001f1a",
+              "#A1A3A9"
+              ],
+            "fill-opacity": 0.8
+            },
+          filter: ["==", ["get", "geoid"], ""],
+          interactive: true
         });
         map.addLayer({
           id: "info-tracts",
@@ -253,6 +276,7 @@
         map.addLayer({
           id: "cc-tracts",
           type: "fill",
+          before: "building",
           source: "central-city",
           "source-layer": "CentralCity2010-36ay2s",
           paint: {
@@ -261,6 +285,26 @@
             "fill-opacity": 0.1
           },
         });
+
+        map.moveLayer('gentrified-tracts', 'road-label');
+        map.moveLayer('gentrified-tracts', 'road-primary');
+        map.moveLayer('gentrified-tracts', 'road-secondary-tertiary');
+        map.moveLayer('gentrified-tracts', 'road-street');
+        map.moveLayer('gentrified-tracts', 'water');
+        map.moveLayer('gentrified-tracts', 'national-park');
+        map.moveLayer('gentrified-tracts-hover', 'road-label');
+        map.moveLayer('gentrified-tracts-hover', 'road-primary');
+        map.moveLayer('gentrified-tracts-hover', 'road-secondary-tertiary');
+        map.moveLayer('gentrified-tracts-hover', 'road-street');
+        map.moveLayer('gentrified-tracts-hover', 'water');
+        map.moveLayer('gentrified-tracts-hover', 'national-park');
+        map.moveLayer('gentrified-tracts-hover', 'road-polygon');
+        map.moveLayer('cc-tracts', 'gentrified-tracts');
+        map.moveLayer('cc-tracts', 'gentrified-tracts-hover');
+        map.moveLayer('cc-tracts', 'road-label');
+        map.moveLayer('cc-tracts', 'road-primary');
+        map.moveLayer('cc-tracts', 'road-secondary-tertiary');
+        map.moveLayer('cc-tracts', 'road-street');
 
         // Round values to nearest whole integer and include thousand seperators.
         function round(num) {
@@ -397,15 +441,31 @@
           map.getCanvas().style.cursor = '';
         });
 
-        // Change the cursor to a pointer when the mouse is over the layer.
-        map.on('mouseenter', 'info-tracts', function () {
-            map.getCanvas().style.cursor = 'pointer';
+        // Listen to the mousemove event on the map
+        map.on("mousemove", function(e) {
+          // Get the features that are currently being rendered at the mouse pointer
+          var features = map.queryRenderedFeatures(e.point, { layers: ["gentrified-tracts"] });
+          
+          // Change the cursor style to "pointer" if the mouse pointer is over a tract feature
+          map.getCanvas().style.cursor = (features.length) ? "pointer" : "";
+          
+          // Update the filter for the hover layer to show the selected tract feature
+          if (features.length) {
+            map.setFilter("gentrified-tracts-hover", ["==", ["get", "geoid"], features[0].properties.geoid]);
+          } else {
+            map.setFilter("gentrified-tracts-hover", ["==", ["get", "geoid"], ""]);
+          }
         });
 
-        // Change it back to a pointer when it leaves.
-        map.on('mouseleave', 'info-tracts', function () {
-            map.getCanvas().style.cursor = '';
+        // Listen to the mouseleave event on the map
+        map.on("mouseleave", "gentrified-tracts-hover", function() {
+          // Reset the filter for the hover layer
+          map.setFilter("gentrified-tracts-hover", ["==", ["get", "geoid"], ""]);
+          
+          // Reset the cursor style
+          map.getCanvas().style.cursor = "";
         });
+
 
         var intervalId;
 
@@ -450,10 +510,9 @@
           });
         });
       });
-    </script>
-  </body>
-</html>
-
 // https://www.compart.com/en/unicode
 // ❚❚ heavy vertical bar (U+275A)
 // ▶ black right-pointing triangle (U+25B6)
+    </script>
+  </body>
+</html>
