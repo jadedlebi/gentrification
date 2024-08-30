@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>Gentrification in the US - NCRC</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js'></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css' rel='stylesheet' />
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+  <style>
+    body { margin: 0; padding: 0; }
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+    .slider {
+      position: absolute;
+      bottom: 20px;
+      left: 10px;
+      right: 10px;
+      z-index: 1;
+    }
+    #logo {
+        position: absolute;
+        border-radius: 3px;
+        bottom: 30px;
+        left: 20px;
+        width: 2px;
+        opacity: 80%;
+    }
+    .map-overlay {
+        position: fixed;
+        right: 20px;
+        bottom: 100px;
+        height: 95px;
+        background-color: rgba(255, 255, 255, .9);
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        color: black;
+        padding: 2px;
+        z-index: 1;
+    }
+    .map-overlay .map-overlay-inner {
+        background-color: #fff;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    .map-overlay h2 {
+        line-height: 24px;
+        display: block;
+        margin: 0 0 10px;
+    }
+    .map-overlay .legend .bar {
+        height: 10px;
+        width: 100%;
+        background: linear-gradient(to right, #fca107, #7f3121);
+    }
+    .map-overlay input {
+        background-color: transparent;
+        display: inline-block;
+        width: 100%;
+        position: relative;
+        margin: 0;
+        cursor: ew-resize;
+    }
+    .mapboxgl-popup {
+        max-width: 100px;
+        font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+    #slider {
+        width: 100%;
+    }
+    #slider-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #play-button {
+      display: inline-block;
+      margin-right: 90%;
+      margin-bottom: 2%;
+    }
+    #slider-labels-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 400px;
+      margin-top: 10px;
+    }
+    .slider-label {
+      font-size: 14px;
+      color: #666;
+    }
+    .slider-label.active {
+      font-weight: bold;
+      color: #333;
+    }
+    #labels-container {
+      display: flex;
+      justify-content: space-between;
+      width: 80%;
+      margin-top: 10px;
+    }
+    .label {
+      width: 19%;
+      text-align: center;
+      font-size: 12px;
+      color: #999;
+    }
+    .active {
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div id='map'></div>
+  <div class="map-overlay top">
+    <div class="map-overlay-inner">
+      <h2>Gentrification in US Cities<br/>(1980 - 2020)</h2>
+      <div id="slider-container">
+        <button id="play-button">▶</button>
+        <input id="slider" type="range" min="0" max="5" value="0" step="1">
+        <div id="slider-labels-container">
+          <div class="slider-label active">1980</div>
+          <div class="slider-label">1990</div>
+          <div class="slider-label">2000</div>
+          <div class="slider-label">2010</div>
+          <div class="slider-label">2020</div>
+          <div class="slider-label">ALL</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <pre id="logo"></pre>
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiamVkbGViaSIsImEiOiJjanhhc3M4NnYwMmxsM3lyODlxYTFhOGRxIn0.746AmyW45uwRPeUy1PczOg';
+      var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/jedlebi/cku2skjsw2o5817r19li2o5y1', 
+        projection: {
+            name: 'mercator'
+        },
+        center: [-96, 37.8],
+        zoom: 3
+      });
+
+      var popup = new mapboxgl.Popup().addTo(map);
+        popup.remove();
+      var markerHeight = 50, markerRadius = 10, linearOffset = 25;
+      var popupOffsets = {
+        'top': [0, 0],
+        'top-left': [0,0],
+        'top-right': [0,0],
+        'bottom': [0, -markerHeight],
+        'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+        'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+        'left': [markerRadius, (markerHeight - markerRadius) * -1],
+        'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+      };
+      var hoveredStateId1 = null;
+
+      // Add a search bar to the map.
+        map.addControl(new MapboxGeocoder({
+          accessToken: mapboxgl.accessToken,
+          mapboxgl: mapboxgl
+        }));
+        // Add in option for full-screen.
+        map.addControl(new mapboxgl.FullscreenControl());
+        // Add geolocate control to the map.
+        map.addControl(new mapboxgl.GeolocateControl({
+          positionOptions: {
+            enableHighAccuracy: true
+          },
+          trackUserLocation: true
+        }));
+        // Add zoom and rotation controls to the map.
+        map.addControl(new mapboxgl.NavigationControl());
+
+      map.on('load', function() {
+        // Washington, DC
+        map.fitBounds([[-77.493555, 38.724826], [-76.643236, 39.083450]]);
+        
+        // NCRC logo
+        document.getElementById('logo').innerHTML = "<img src='./ncrc.png'>"
+
+        // define decades as binary indicator expressions
+        const decades = [
+          ['==', 'GENT80', 1],
+          ['==', 'g80_90', 1],
+          ['==', 'g80_00', 1],
+          ['==', 'g80_12', 1],
+          ['==', 'g80_19', 1],
+          ['>=', 'OBJECTID', 0]
+        ];
+
+        function updateMap(decade) {
+          // code to update the map based on the selected decade
+          const filter = Array.isArray(decade) ? decade : decades[decade];
+          map.setFilter("gentrified-tracts", filter);
+          map.setFilter("info-tracts", filter);
+        }
+
+        // add source layers for hover effect
+        map.addSource("gentrified", {
+          type: "vector",
+          url: "mapbox://jedlebi.291jev7o"
+        });
+        map.addSource("central-city", {
+          type: "vector",
+          url: "mapbox://jedlebi.4p985ni3"
+        });
+        
+        // highlighted layers on hover.
+        map.addLayer({
+          id: "gentrified-tracts",
+          type: "fill",
+          before: "building",
+          source: "gentrified",
+          "source-layer": "GENT2023_CLEAN-2wk3sd",
+          paint: {
+            "fill-outline-color": "#000000",
+            "fill-color": [
+              "case",
+              ["==", ["get", "GENT80"], 1], "#9CCEC5",
+              ["==", ["get", "GENT90"], 1], "#63a69b",
+              ["==", ["get", "GENT00"], 1], "#267568",
+              ["==", ["get", "GENT12"], 1], "#04453a",
+              ["==", ["get", "GENT19"], 1], "#001f1a",
+              "#A1A3A9"
+            ],
+            "fill-opacity": 0.5
+          },
+          filter: decades[0]
+        });
+        // Define the hover layer with an exponential fading effect
+        map.addLayer({
+          id: "gentrified-tracts-hover",
+          type: "fill",
+          before: "building",
+          source: "gentrified",
+          "source-layer": "GENT2023_CLEAN-2wk3sd",
+          paint: {
+            "fill-outline-color": "#000000",
+            "fill-color": [
+              "case",
+              ["==", ["get", "GENT80"], 1], "#a5d8cf",
+              ["==", ["get", "GENT90"], 1], "#63a69b",
+              ["==", ["get", "GENT00"], 1], "#267568",
+              ["==", ["get", "GENT12"], 1], "#04453a",
+              ["==", ["get", "GENT19"], 1], "#001f1a",
+              "#A1A3A9"
+              ],
+            "fill-opacity": 0.8
+            },
+          filter: ["==", ["get", "geoid"], ""],
+          interactive: true
+        });
+        map.addLayer({
+          id: "info-tracts",
+          type: "fill",
+          source: "gentrified",
+          "source-layer": "GENT2023_CLEAN-2wk3sd",
+          paint: {
+            "fill-outline-color": "#000000",
+            "fill-color": "#000000",
+            "fill-opacity": 0
+          },
+          filter: decades[0]
+        });
+        map.addLayer({
+          id: "cc-tracts",
+          type: "fill",
+          before: "building",
+          source: "central-city",
+          "source-layer": "CentralCity2010-36ay2s",
+          paint: {
+            "fill-outline-color": "#000000",
+            "fill-color": "#000000",
+            "fill-opacity": 0.05
+          },
+        });
+
+        map.moveLayer('gentrified-tracts', 'road-label');
+        map.moveLayer('gentrified-tracts', 'road-primary');
+        map.moveLayer('gentrified-tracts', 'road-secondary-tertiary');
+        map.moveLayer('gentrified-tracts', 'road-street');
+        map.moveLayer('gentrified-tracts', 'water');
+        map.moveLayer('gentrified-tracts', 'national-park');
+        map.moveLayer('gentrified-tracts-hover', 'road-label');
+        map.moveLayer('gentrified-tracts-hover', 'road-primary');
+        map.moveLayer('gentrified-tracts-hover', 'road-secondary-tertiary');
+        map.moveLayer('gentrified-tracts-hover', 'road-street');
+        map.moveLayer('gentrified-tracts-hover', 'water');
+        map.moveLayer('gentrified-tracts-hover', 'national-park');
+        map.moveLayer('gentrified-tracts-hover', 'road-polygon');
+        map.moveLayer('cc-tracts', 'gentrified-tracts');
+        map.moveLayer('cc-tracts', 'gentrified-tracts-hover');
+        map.moveLayer('cc-tracts', 'road-label');
+        map.moveLayer('cc-tracts', 'road-primary');
+        map.moveLayer('cc-tracts', 'road-secondary-tertiary');
+        map.moveLayer('cc-tracts', 'road-street');
+
+        // Round values to nearest whole integer and include thousand seperators.
+        function round(num) {
+          return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+          // console.log((typeof num).concat(', ', num))
+          // return num
+        }
+        // // Round values to nearest second decimal and include thousand seperators.
+        function decimalRound(num) {
+          return num.toFixed(1).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        } 
+
+        // When a click event occurs on a feature in the layer, open a popup at the
+        // location of the click, with description HTML from its properties.
+        map.on('click', 'info-tracts', function (e) {
+          var gent80 = e.features[0].properties.GENT80
+          var gent90 = e.features[0].properties.GENT90
+          var gent00 = e.features[0].properties.GENT00
+          var gent10 = e.features[0].properties.GENT12
+          var gent20 = e.features[0].properties.GENT19
+          if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Not Gentrified</h1>"
+            } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980)</h1>"
+            } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990)</h1>"
+            } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000)</h1>"
+            } else if (gent80 == 1 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2000)</h1>"
+            } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2010)</h1>"
+            } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000)</h1>"
+            } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2010)</h1>"
+            } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2010)</h1>"
+            } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2020)</h1>"
+            } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 1 && gent20 == 0) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000, 2010)</h1>"
+            } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2020)</h1>"
+            } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2020)</h1>"
+            } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 1 && gent20 == 0) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000, 2010)</h1>"
+            } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 1) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000, 2020)</h1>"
+            } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 1) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2010, 2020)</h1>"
+            } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 0 && gent20 == 1) {
+                gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000, 2020)</h1>"
+            } else {
+                null
+            }
+
+        new mapboxgl.Popup({offset: popupOffsets})
+          .remove()
+                .setLngLat(e.lngLat)
+                .setHTML(
+                "<h3><strong>" + e.features[0].properties.PLACE + 
+                "<br>" +
+                "(" + e.features[0].properties.county_nam + ")" +
+                "<br>" + 
+                "Tract: " +  e.features[0].properties.geoid +
+                "<h1 style=text-align:center;width:100%;color:#6F6C6C>" + gent + "</h1>" +
+                "<table style='width:100%;text-align:center'>" +
+                  "<tr>" + 
+                        "<th></th>" +
+                        "<th>POP</th>" + 
+                        "<th>MFI ($)</th>" +
+                        "<th>HVAL ($)</th>" +
+                        "<th>COL (%)</th>" +
+                    "</tr>" + 
+                    "<tr style='font-size:10px;text-align:center'>" + 
+                        "<th style='width:22%'>1970</th>" + 
+                        "<th style='width:13%'>" + round(e.features[0].properties.POP70) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.INC70) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.HVAL70) + "</th>" +
+                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT70*100) + "</th>" +
+                    "</tr>" +
+                    "<tr style='font-size:10px;text-align:center'>" + 
+                        "<th style='width:22%'>1980</th>" + 
+                        "<th style='width:13%'>" + round(e.features[0].properties.POP80) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.INC80) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.HVAL80) + "</th>" +
+                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT80*100) + "</th>" +
+                    "</tr>" +
+                    "<tr style='font-size:10px;text-align:center'>" + 
+                        "<th style='width:22%'>1990</th>" + 
+                        "<th style='width:13%'>" + round(e.features[0].properties.POP90) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.INC90) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.HVAL90) + "</th>" +
+                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT90*100) + "</th>" +
+                    "</tr>" +
+                    "<tr style='font-size:10px;text-align:center'>" + 
+                        "<th style='width:22%'>2000</th>" + 
+                        "<th style='width:13%'>" + round(e.features[0].properties.POP00) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.INC00) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.HVAL00) + "</th>" +
+                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT00*100) + "</th>" +
+                    "</tr>" +
+                    "<tr style='font-size:10px;text-align:center'>" + 
+                        "<th style='width:22%'>2010</th>" + 
+                        "<th style='width:13%'>" + round(e.features[0].properties.POP10) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.INC10) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.HVAL10) + "</th>" +
+                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT10*100) + "</th>" +
+                    "</tr>" +
+                    "<tr style='font-size:10px;text-align:center'>" + 
+                        "<th style='width:22%'>2020</th>" + 
+                        "<th style='width:13%'>" + round(e.features[0].properties.POP20) + "</th>" +
+                        "<th style='width:13%'>" + round(parseFloat(e.features[0].properties.INC20)) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.HVAL20) + "</th>" +
+                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT20*100) + "</th>" +
+                    "</tr>" +
+                "</table>" 
+                )
+                .addTo(map);
+            var features = map.queryRenderedFeatures( {
+            layers: ['info-tracts']
+          });
+        });
+         
+        // Change the cursor to a pointer when the mouse is over the places layer.
+        map.on('mouseenter', 'info-tracts', () => {
+          map.getCanvas().style.cursor = 'pointer';
+        });
+         
+        // Change it back to a pointer when it leaves.
+        map.on('mouseleave', 'info-tracts', () => {
+          map.getCanvas().style.cursor = '';
+        });
+
+        // Listen to the mousemove event on the map
+        map.on("mousemove", function(e) {
+          // Get the features that are currently being rendered at the mouse pointer
+          var features = map.queryRenderedFeatures(e.point, { layers: ["gentrified-tracts"] });
+          
+          // Change the cursor style to "pointer" if the mouse pointer is over a tract feature
+          map.getCanvas().style.cursor = (features.length) ? "pointer" : "";
+          
+          // Update the filter for the hover layer to show the selected tract feature
+          if (features.length) {
+            map.setFilter("gentrified-tracts-hover", ["==", ["get", "geoid"], features[0].properties.geoid]);
+          } else {
+            map.setFilter("gentrified-tracts-hover", ["==", ["get", "geoid"], ""]);
+          }
+        });
+
+        // Listen to the mouseleave event on the map
+        map.on("mouseleave", "gentrified-tracts-hover", function() {
+          // Reset the filter for the hover layer
+          map.setFilter("gentrified-tracts-hover", ["==", ["get", "geoid"], ""]);
+          
+          // Reset the cursor style
+          map.getCanvas().style.cursor = "";
+        });
+
+
+        var intervalId;
+
+        $('#play-button').click(function() {
+          if (intervalId) {
+            clearInterval(intervalId);
+            intervalId = null;
+            $(this).text('▶');
+          } else {
+            intervalId = setInterval(function() {
+              var currentValue = $('#slider').val();
+              var nextValue = parseInt(currentValue) + 1;
+              if (nextValue > 2020) {
+                clearInterval(intervalId);
+                intervalId = null;
+                $('#play-button').text('▶');
+              } else {
+                $('#slider').val(nextValue);
+                updateMap(nextValue);
+              }
+            }, 1000);
+            $(this).text('❚❚');
+          }
+        });
+
+        var yearLabels = document.getElementsByClassName("slider-label");
+        var activeYearLabel = document.getElementsByClassName("active")[0];
+
+        // add slider control to the map
+        const slider = document.getElementById('slider');
+        const sliderLabels = document.querySelectorAll('.slider-label');
+        sliderLabels[0].classList.add('active');
+        slider.addEventListener('input', () => {
+          const decade = parseInt(slider.value);
+          updateMap(decades[decade]);
+          sliderLabels.forEach((label, index) => {
+            if (index === decade) {
+              label.classList.add('active');
+            } else {
+              label.classList.remove('active');
+            }
+          });
+        });
+      });
+// https://www.compart.com/en/unicode
+// ❚❚ heavy vertical bar (U+275A)
+// ▶ black right-pointing triangle (U+25B6)
+    </script>
+  </body>
+</html>
