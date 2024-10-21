@@ -191,12 +191,12 @@
 
         // define decades as binary indicator expressions
         const decades = [
-          ['==', 'gent80', 1],
+          ['==', 'GENT80', 1],
           ['==', 'g80_90', 1],
           ['==', 'g80_00', 1],
-          ['==', 'g80_10', 1],
-          ['==', 'g80_20', 1],
-          ['>=', 'gent80', 0]
+          ['==', 'g80_12', 1],
+          ['==', 'g80_19', 1],
+          ['>=', 'GENT80', 0]
         ];
 
         function updateMap(decade) {
@@ -209,7 +209,7 @@
         // add source layers for hover effect
         map.addSource("gentrified", {
           type: "vector",
-          url: "mapbox://jedlebi.4mhqopu1"
+          url: "mapbox://jedlebi.0m2kz49o"
         });
         map.addSource("central-city", {
           type: "vector",
@@ -222,16 +222,16 @@
           type: "fill",
           before: "building",
           source: "gentrified",
-          "source-layer": "gent24-7tmac9",
+          "source-layer": "gent24-7lnp9y",
           paint: {
             "fill-outline-color": "#000000",
             "fill-color": [
               "case",
-              ["==", ["get", "gent80"], 1], "#9CCEC5",
-              ["==", ["get", "gent90"], 1], "#63a69b",
-              ["==", ["get", "gent00"], 1], "#267568",
-              ["==", ["get", "gent10"], 1], "#04453a",
-              ["==", ["get", "gent20"], 1], "#001f1a",
+              ["==", ["get", "GENT80"], 1], "#9CCEC5",
+              ["==", ["get", "GENT90"], 1], "#63a69b",
+              ["==", ["get", "GENT00"], 1], "#267568",
+              ["==", ["get", "GENT12"], 1], "#04453a",
+              ["==", ["get", "GENT22"], 1], "#001f1a",
               "#A1A3A9"
             ],
             "fill-opacity": 0.5
@@ -244,28 +244,28 @@
           type: "fill",
           before: "building",
           source: "gentrified",
-          "source-layer": "gent24-7tmac9",
+          "source-layer": "gent24-7lnp9y",
           paint: {
             "fill-outline-color": "#000000",
             "fill-color": [
               "case",
-              ["==", ["get", "gent80"], 1], "#a5d8cf",
-              ["==", ["get", "gent90"], 1], "#63a69b",
-              ["==", ["get", "gent00"], 1], "#267568",
-              ["==", ["get", "gent10"], 1], "#04453a",
-              ["==", ["get", "gent20"], 1], "#001f1a",
+              ["==", ["get", "GENT80"], 1], "#a5d8cf",
+              ["==", ["get", "GENT90"], 1], "#63a69b",
+              ["==", ["get", "GENT00"], 1], "#267568",
+              ["==", ["get", "GENT12"], 1], "#04453a",
+              ["==", ["get", "GENT22"], 1], "#001f1a",
               "#A1A3A9"
               ],
             "fill-opacity": 0.8
             },
-          filter: ["==", ["get", "geoid10"], ""],
+          filter: ["==", ["get", "geoid"], ""],
           interactive: true
         });
         map.addLayer({
           id: "info-tracts",
           type: "fill",
           source: "gentrified",
-          "source-layer": "gent24-7tmac9",
+          "source-layer": "gent24-7lnp9y",
           paint: {
             "fill-outline-color": "#000000",
             "fill-color": "#000000",
@@ -320,44 +320,44 @@
         // When a click event occurs on a feature in the layer, open a popup at the
         // location of the click, with description HTML from its properties.
         map.on('click', 'info-tracts', function (e) {
-          var gent80 = e.features[0].properties.gent80
-          var gent90 = e.features[0].properties.gent90
-          var gent00 = e.features[0].properties.gent00
-          var gent10 = e.features[0].properties.gent10
-          var gent20 = e.features[0].properties.gent20
-          if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+          var GENT80 = e.features[0].properties.GENT80
+          var GENT90 = e.features[0].properties.GENT90
+          var GENT00 = e.features[0].properties.GENT00
+          var GENT12 = e.features[0].properties.GENT12
+          var GENT22 = e.features[0].properties.GENT22
+          if (GENT80 == 0 && GENT90 == 0 && GENT00 == 0 && GENT12 == 0 && GENT22 == 0) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Not Gentrified</h1>"
-            } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            } else if (GENT80 == 1 && GENT90 == 0 && GENT00 == 0 && GENT12 == 0 && GENT22 == 0) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980)</h1>"
-            } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 0 && gent20 == 0) {
+            } else if (GENT80 == 0 && GENT90 == 1 && GENT00 == 0 && GENT12 == 0 && GENT22 == 0) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990)</h1>"
-            } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            } else if (GENT80 == 0 && GENT90 == 0 && GENT00 == 1 && GENT12 == 0 && GENT22 == 0) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000)</h1>"
-            } else if (gent80 == 1 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            } else if (GENT80 == 1 && GENT90 == 0 && GENT00 == 1 && GENT12 == 0 && GENT22 == 0) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2000)</h1>"
-            } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            } else if (GENT80 == 0 && GENT90 == 0 && GENT00 == 0 && GENT12 == 1 && GENT22 == 0) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2010)</h1>"
-            } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 0 && gent20 == 0) {
+            } else if (GENT80 == 0 && GENT90 == 1 && GENT00 == 1 && GENT12 == 0 && GENT22 == 0) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000)</h1>"
-            } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            } else if (GENT80 == 1 && GENT90 == 0 && GENT00 == 0 && GENT12 == 1 && GENT22 == 0) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2010)</h1>"
-            } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 1 && gent20 == 0) {
+            } else if (GENT80 == 0 && GENT90 == 1 && GENT00 == 0 && GENT12 == 1 && GENT22 == 0) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2010)</h1>"
-            } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            } else if (GENT80 == 0 && GENT90 == 0 && GENT00 == 0 && GENT12 == 0 && GENT22 == 1) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2020)</h1>"
-            } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 1 && gent20 == 0) {
+            } else if (GENT80 == 0 && GENT90 == 0 && GENT00 == 1 && GENT12 == 1 && GENT22 == 0) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000, 2010)</h1>"
-            } else if (gent80 == 1 && gent90 == 0 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            } else if (GENT80 == 1 && GENT90 == 0 && GENT00 == 0 && GENT12 == 0 && GENT22 == 1) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1980, 2020)</h1>"
-            } else if (gent80 == 0 && gent90 == 1 && gent00 == 0 && gent10 == 0 && gent20 == 1) {
+            } else if (GENT80 == 0 && GENT90 == 1 && GENT00 == 0 && GENT12 == 0 && GENT22 == 1) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2020)</h1>"
-            } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 1 && gent20 == 0) {
+            } else if (GENT80 == 0 && GENT90 == 1 && GENT00 == 1 && GENT12 == 1 && GENT22 == 0) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000, 2010)</h1>"
-            } else if (gent80 == 0 && gent90 == 0 && gent00 == 1 && gent10 == 0 && gent20 == 1) {
+            } else if (GENT80 == 0 && GENT90 == 0 && GENT00 == 1 && GENT12 == 0 && GENT22 == 1) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2000, 2020)</h1>"
-            } else if (gent80 == 0 && gent90 == 0 && gent00 == 0 && gent10 == 1 && gent20 == 1) {
+            } else if (GENT80 == 0 && GENT90 == 0 && GENT00 == 0 && GENT12 == 1 && GENT22 == 1) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (2010, 2020)</h1>"
-            } else if (gent80 == 0 && gent90 == 1 && gent00 == 1 && gent10 == 0 && gent20 == 1) {
+            } else if (GENT80 == 0 && GENT90 == 1 && GENT00 == 1 && GENT12 == 0 && GENT22 == 1) {
                 gent = "<h1 style=line-height:30px;text-align:center;width:100%;color:#1E4B00>Gentrified (1990, 2000, 2020)</h1>"
             } else {
                 null
@@ -367,11 +367,11 @@
           .remove()
                 .setLngLat(e.lngLat)
                 .setHTML(
-                "<h3><strong>" + e.features[0].properties.place + 
+                "<h3><strong>" + e.features[0].properties.PLACE + 
                 "<br>" +
-                "(" + e.features[0].properties.county + ")" +
+                "(" + e.features[0].properties.COUNTY + ")" +
                 "<br>" + 
-                "Tract: " +  e.features[0].properties.geoid10 +
+                "Tract: " +  e.features[0].properties.geoid +
                 "<h1 style=text-align:center;width:100%;color:#6F6C6C>" + gent + "</h1>" +
                 "<table style='width:100%;text-align:center'>" +
                   "<tr>" + 
@@ -383,45 +383,45 @@
                     "</tr>" + 
                     "<tr style='font-size:10px;text-align:center'>" + 
                         "<th style='width:22%'>1970</th>" + 
-                        "<th style='width:13%'>" + round(e.features[0].properties.pop70) + "</th>" +
-                        "<th style='width:13%'>" + round(e.features[0].properties.amhi70) + "</th>" +
-                        "<th style='width:13%'>" + round(e.features[0].properties.amhv70) + "</th>" +
-                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.pctcol70*100) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.POP70) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.INC70) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.HVAL70) + "</th>" +
+                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT70*100) + "</th>" +
                     "</tr>" +
                     "<tr style='font-size:10px;text-align:center'>" + 
                         "<th style='width:22%'>1980</th>" + 
-                        "<th style='width:13%'>" + round(e.features[0].properties.pop80) + "</th>" +
-                        "<th style='width:13%'>" + round(e.features[0].properties.amhi80) + "</th>" +
-                        "<th style='width:13%'>" + round(e.features[0].properties.amhv80) + "</th>" +
-                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.pctcol80*100) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.POP80) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.INC80) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.HVAL80) + "</th>" +
+                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT80*100) + "</th>" +
                     "</tr>" +
                     "<tr style='font-size:10px;text-align:center'>" + 
                         "<th style='width:22%'>1990</th>" + 
-                        "<th style='width:13%'>" + round(e.features[0].properties.pop90) + "</th>" +
-                        "<th style='width:13%'>" + round(e.features[0].properties.amhi90) + "</th>" +
-                        "<th style='width:13%'>" + round(e.features[0].properties.amhv90) + "</th>" +
-                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.pctcol90*100) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.POP90) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.INC90) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.HVAL90) + "</th>" +
+                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT90*100) + "</th>" +
                     "</tr>" +
                     "<tr style='font-size:10px;text-align:center'>" + 
                         "<th style='width:22%'>2000</th>" + 
-                        "<th style='width:13%'>" + round(e.features[0].properties.pop00) + "</th>" +
-                        "<th style='width:13%'>" + round(e.features[0].properties.amhi00) + "</th>" +
-                        "<th style='width:13%'>" + round(e.features[0].properties.amhv00) + "</th>" +
-                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.pctcol00*100) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.POP00) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.INC00) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.HVAL00) + "</th>" +
+                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT00*100) + "</th>" +
                     "</tr>" +
                     "<tr style='font-size:10px;text-align:center'>" + 
                         "<th style='width:22%'>2010</th>" + 
-                        "<th style='width:13%'>" + round(e.features[0].properties.pop10) + "</th>" +
-                        "<th style='width:13%'>" + round(e.features[0].properties.amhi12) + "</th>" +
-                        "<th style='width:13%'>" + round(e.features[0].properties.amhv12) + "</th>" +
-                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.pctcol12*100) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.POP10) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.INC10) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.HVAL10) + "</th>" +
+                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT10*100) + "</th>" +
                     "</tr>" +
                     "<tr style='font-size:10px;text-align:center'>" + 
                         "<th style='width:22%'>2020</th>" + 
-                        "<th style='width:13%'>" + round(e.features[0].properties.pop20) + "</th>" +
-                        "<th style='width:13%'>" + round(e.features[0].properties.amhi22) + "</th>" +
-                        "<th style='width:13%'>" + round(e.features[0].properties.amhv22) + "</th>" +
-                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.pctcol20) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.POP20) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.INC20) + "</th>" +
+                        "<th style='width:13%'>" + round(e.features[0].properties.HVAL20) + "</th>" +
+                        "<th style='width:13%'>" + decimalRound(e.features[0].properties.COLPCT20) + "</th>" +
                     "</tr>" +
                 "</table>" 
                 )
@@ -451,16 +451,16 @@
           
           // Update the filter for the hover layer to show the selected tract feature
           if (features.length) {
-            map.setFilter("gentrified-tracts-hover", ["==", ["get", "geoid10"], features[0].properties.geoid10]);
+            map.setFilter("gentrified-tracts-hover", ["==", ["get", "geoid"], features[0].properties.geoid]);
           } else {
-            map.setFilter("gentrified-tracts-hover", ["==", ["get", "geoid10"], ""]);
+            map.setFilter("gentrified-tracts-hover", ["==", ["get", "geoid"], ""]);
           }
         });
 
         // Listen to the mouseleave event on the map
         map.on("mouseleave", "gentrified-tracts-hover", function() {
           // Reset the filter for the hover layer
-          map.setFilter("gentrified-tracts-hover", ["==", ["get", "geoid10"], ""]);
+          map.setFilter("gentrified-tracts-hover", ["==", ["get", "geoid"], ""]);
           
           // Reset the cursor style
           map.getCanvas().style.cursor = "";
