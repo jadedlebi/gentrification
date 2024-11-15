@@ -1,0 +1,940 @@
+cbsa_code,cbsa,city,latitude,longitude
+10100,"Aberdeen, SD","Aberdeen, SD",45.4647,-98.4865
+10140,"Aberdeen, WA","Aberdeen, WA",46.9754,-123.8157
+10180,"Abilene, TX","Abilene, TX",32.4487,-99.7331
+10220,"Ada, OK","Ada, OK",34.7745,-96.6783
+10300,"Adrian, MI","Adrian, MI",41.8975,-84.0372
+10380,"Aguadilla-Isabela, PR","Aguadilla, PR",18.4274,-67.1541
+10420,"Akron, OH","Akron, OH",41.0814,-81.519
+10460,"Alamogordo, NM","Alamogordo, NM",32.8995,-105.9603
+10500,"Albany, GA","Albany, GA",31.5785,-84.1557
+10540,"Albany-Lebanon, OR","Albany, OR",44.6365,-123.1059
+10580,"Albany-Schenectady-Troy, NY","Albany, NY",42.6526,-73.7562
+10620,"Albemarle, NC","Albemarle, NC",35.3507,-80.2001
+10660,"Albert Lea, MN","Albert Lea, MN",43.6476,-93.3683
+10700,"Albertville, AL","Albertville, AL",34.2676,-86.2089
+10740,"Albuquerque, NM","Albuquerque, NM",35.0844,-106.6504
+10760,"Alexander City, AL","Alexander City, AL",32.944,-85.9539
+10780,"Alexandria, LA","Alexandria, LA",31.3113,-92.4451
+10820,"Alexandria, MN","Alexandria, MN",45.8848,-95.3777
+10860,"Alice, TX","Alice, TX",27.7523,-98.0697
+10900,"Allentown-Bethlehem-Easton, PA-NJ","Allentown, PA",40.6023,-75.4714
+10940,"Alma, MI","Alma, MI",43.3781,-84.6592
+10980,"Alpena, MI","Alpena, MI",45.0617,-83.4327
+11020,"Altoona, PA","Altoona, PA",40.5187,-78.3947
+11060,"Altus, OK","Altus, OK",34.6381,-99.3339
+11100,"Amarillo, TX","Amarillo, TX",35.221,-101.8313
+11140,"Americus, GA","Americus, GA",32.0724,-84.2327
+11180,"Ames, IA","Ames, IA",42.0347,-93.6199
+11220,"Amsterdam, NY","Amsterdam, NY",42.9387,-74.1904
+11260,"Anchorage, AK","Anchorage, AK",61.2181,-149.9003
+11380,"Andrews, TX","Andrews, TX",32.3187,-102.5454
+11420,"Angola, IN","Angola, IN",41.6345,-85.0005
+11460,"Ann Arbor, MI","Ann Arbor, MI",42.2808,-83.743
+11500,"Anniston-Oxford, AL","Anniston, AL",33.6598,-85.8316
+11540,"Appleton, WI","Appleton, WI",44.2619,-88.4154
+11580,"Arcadia, FL","Arcadia, FL",27.2159,-81.8584
+11620,"Ardmore, OK","Ardmore, OK",34.1743,-97.1436
+11640,"Arecibo, PR","Arecibo, PR",18.4724,-66.7158
+11660,"Arkadelphia, AR","Arkadelphia, AR",34.1209,-93.0538
+11700,"Asheville, NC","Asheville, NC",35.5951,-82.5515
+11740,"Ashland, OH","Ashland, OH",40.867,-82.3153
+11780,"Ashtabula, OH","Ashtabula, OH",41.8651,-80.7898
+11820,"Astoria, OR","Astoria, OR",46.1879,-123.8313
+11860,"Atchison, KS","Atchison, KS",39.5638,-95.1211
+11900,"Athens, OH","Athens, OH",39.3292,-82.1013
+11940,"Athens, TN","Athens, TN",35.442,-84.5923
+11980,"Athens, TX","Athens, TX",32.2049,-95.8555
+12020,"Athens-Clarke County, GA","Athens, GA",33.9519,-83.3576
+12060,"Atlanta-Sandy Springs-Alpharetta, GA","Atlanta, GA",33.749,-84.388
+12100,"Atlantic City-Hammonton, NJ","Atlantic City, NJ",39.3643,-74.4229
+12120,"Atmore, AL","Atmore, AL",31.0235,-87.4931
+12140,"Auburn, IN","Auburn, IN",41.3664,-85.058
+12180,"Auburn, NY","Auburn, NY",42.9317,-76.5661
+12220,"Auburn-Opelika, AL","Auburn, AL",32.6099,-85.4808
+12260,"Augusta-Richmond County, GA-SC","Augusta, GA",33.4735,-82.0105
+12300,"Augusta-Waterville, ME","Augusta, ME",44.3106,-69.7795
+12380,"Austin, MN","Austin, MN",43.6666,-92.9746
+12420,"Austin-Round Rock-Georgetown, TX","Austin, TX",30.2672,-97.7431
+12460,"Bainbridge, GA","Bainbridge, GA",30.9033,-84.5811
+12540,"Bakersfield, CA","Bakersfield, CA",35.3733,-119.0187
+12580,"Baltimore-Columbia-Towson, MD","Baltimore, MD",39.2904,-76.6122
+12620,"Bangor, ME","Bangor, ME",44.8012,-68.7778
+12660,"Baraboo, WI","Baraboo, WI",43.4715,-89.7443
+12680,"Bardstown, KY","Bardstown, KY",37.8092,-85.4669
+12700,"Barnstable Town, MA","Barnstable Town, MA",41.7003,-70.3002
+12740,"Barre, VT","Barre, VT",44.197,-72.5027
+12780,"Bartlesville, OK","Bartlesville, OK",36.7473,-95.9808
+12860,"Batavia, NY","Batavia, NY",42.9981,-78.1875
+12900,"Batesville, AR","Batesville, AR",35.7698,-91.6404
+12940,"Baton Rouge, LA","Baton Rouge, LA",30.4515,-91.1871
+12980,"Battle Creek, MI","Battle Creek, MI",42.3212,-85.1797
+13020,"Bay City, MI","Bay City, MI",43.5945,-83.8889
+13060,"Bay City, TX","Bay City, TX",28.9828,-95.9694
+13100,"Beatrice, NE","Beatrice, NE",40.265,-96.7467
+13140,"Beaumont-Port Arthur, TX","Beaumont, TX",30.0802,-94.1266
+13180,"Beaver Dam, WI","Beaver Dam, WI",43.4576,-88.8379
+13220,"Beckley, WV","Beckley, WV",37.7782,-81.1882
+13260,"Bedford, IN","Bedford, IN",38.8614,-86.4872
+13300,"Beeville, TX","Beeville, TX",28.4006,-97.7483
+13340,"Bellefontaine, OH","Bellefontaine, OH",40.3614,-83.7597
+13380,"Bellingham, WA","Bellingham, WA",48.7519,-122.4787
+13420,"Bemidji, MN","Bemidji, MN",47.4736,-94.8803
+13460,"Bend, OR","Bend, OR",44.0582,-121.3153
+13500,"Bennettsville, SC","Bennettsville, SC",34.6179,-79.6842
+13540,"Bennington, VT","Bennington, VT",42.8781,-73.1968
+13620,"Berlin, NH","Berlin, NH",44.4681,-71.1851
+13660,"Big Rapids, MI","Big Rapids, MI",43.6989,-85.4832
+13700,"Big Spring, TX","Big Spring, TX",32.2504,-101.4787
+13720,"Big Stone Gap, VA","Big Stone Gap, VA",36.8637,-82.7749
+13740,"Billings, MT","Billings, MT",45.7833,-108.5007
+13780,"Binghamton, NY","Binghamton, NY",42.0987,-75.918
+13820,"Birmingham-Hoover, AL","Birmingham, AL",33.5186,-86.8104
+13900,"Bismarck, ND","Bismarck, ND",46.8083,-100.7837
+13940,"Blackfoot, ID","Blackfoot, ID",43.1905,-112.3447
+13980,"Blacksburg-Christiansburg, VA","Blacksburg, VA",37.2296,-80.4139
+14010,"Bloomington, IL","Bloomington, IL",40.4842,-88.9937
+14020,"Bloomington, IN","Bloomington, IN",39.1653,-86.5264
+14100,"Bloomsburg-Berwick, PA","Bloomsburg, PA",41.0026,-76.4536
+14140,"Bluefield, WV-VA","Bluefield, WV",37.2698,-81.2223
+14160,"Bluffton, IN","Bluffton, IN",40.7387,-85.1711
+14180,"Blytheville, AR","Blytheville, AR",35.9276,-89.9184
+14220,"Bogalusa, LA","Bogalusa, LA",30.7913,-89.8487
+14260,"Boise City, ID","Boise City, ID",43.615,-116.2023
+14300,"Bonham, TX","Bonham, TX",33.5773,-96.1788
+14380,"Boone, NC","Boone, NC",36.2168,-81.6746
+14420,"Borger, TX","Borger, TX",35.667,-101.3971
+14460,"Boston-Cambridge-Newton, MA-NH","Boston, MA",42.3601,-71.0589
+14500,"Boulder, CO","Boulder, CO",40.015,-105.2705
+14540,"Bowling Green, KY","Bowling Green, KY",36.9685,-86.4808
+14580,"Bozeman, MT","Bozeman, MT",45.677,-111.0429
+14620,"Bradford, PA","Bradford, PA",41.955,-78.6498
+14660,"Brainerd, MN","Brainerd, MN",46.3556,-94.202
+14700,"Branson, MO","Branson, MO",36.6437,-93.2185
+14720,"Breckenridge, CO","Breckenridge, CO",39.4817,-106.0384
+14740,"Bremerton-Silverdale-Port Orchard, WA","Bremerton, WA",47.5673,-122.6326
+14780,"Brenham, TX","Brenham, TX",30.1669,-96.3977
+14820,"Brevard, NC","Brevard, NC",35.2335,-82.7343
+14860,"Bridgeport-Stamford-Norwalk, CT","Bridgeport, CT",41.1792,-73.1894
+15020,"Brookhaven, MS","Brookhaven, MS",31.5791,-90.4401
+15060,"Brookings, OR","Brookings, OR",42.0526,-124.28
+15100,"Brookings, SD","Brookings, SD",44.3114,-96.7984
+15140,"Brownsville, TN","Brownsville, TN",35.5934,-89.2626
+15180,"Brownsville-Harlingen, TX","Brownsville, TX",25.9017,-97.4975
+15220,"Brownwood, TX","Brownwood, TX",31.7093,-98.9912
+15260,"Brunswick, GA","Brunswick, GA",31.1499,-81.4915
+15340,"Bucyrus-Galion, OH","Bucyrus, OH",40.8087,-82.9741
+15380,"Buffalo-Cheektowaga, NY","Buffalo, NY",42.8864,-78.8784
+15420,"Burley, ID","Burley, ID",42.535,-113.7922
+15460,"Burlington, IA-IL","Burlington, IA",40.8076,-91.1129
+15500,"Burlington, NC","Burlington, NC",36.0957,-79.4378
+15540,"Burlington-South Burlington, VT","Burlington, VT",44.4759,-73.2121
+15580,"Butte-Silver Bow, MT","Butte, MT",46.0038,-112.5348
+15620,"Cadillac, MI","Cadillac, MI",44.2511,-85.4012
+15660,"Calhoun, GA","Calhoun, GA",34.5026,-84.9511
+15680,"California-Lexington Park, MD","California, MD",38.3006,-76.5072
+15700,"Cambridge, MD","Cambridge, MD",38.5632,-76.0788
+15740,"Cambridge, OH","Cambridge, OH",40.0312,-81.5885
+15780,"Camden, AR","Camden, AR",33.5843,-92.8346
+15820,"Campbellsville, KY","Campbellsville, KY",37.3434,-85.3419
+15860,"Cañon City, CO","Cañon City, CO",38.4407,-105.2425
+15940,"Canton-Massillon, OH","Canton, OH",40.7989,-81.3784
+15980,"Cape Coral-Fort Myers, FL","Cape Coral, FL",26.5629,-81.9495
+16020,"Cape Girardeau, MO-IL","Cape Girardeau, MO",37.3059,-89.5181
+16060,"Carbondale-Marion, IL","Carbondale, IL",37.7273,-89.2168
+16100,"Carlsbad-Artesia, NM","Carlsbad, NM",32.4207,-104.2288
+16140,"Carroll, IA","Carroll, IA",42.0656,-94.8672
+16180,"Carson City, NV","Carson City, NV",39.1638,-119.7674
+16220,"Casper, WY","Casper, WY",42.8501,-106.3252
+16260,"Cedar City, UT","Cedar City, UT",37.6775,-113.0619
+16300,"Cedar Rapids, IA","Cedar Rapids, IA",41.9779,-91.6656
+16340,"Cedartown, GA","Cedartown, GA",34.0112,-85.2572
+16380,"Celina, OH","Celina, OH",40.5489,-84.5708
+16420,"Central City, KY","Central City, KY",37.2934,-87.1289
+16460,"Centralia, IL","Centralia, IL",38.5264,-89.1334
+16500,"Centralia, WA","Centralia, WA",46.7164,-122.9543
+16540,"Chambersburg-Waynesboro, PA","Chambersburg, PA",39.9376,-77.6611
+16580,"Champaign-Urbana, IL","Champaign, IL",40.1164,-88.2434
+16620,"Charleston, WV","Charleston, WV",38.3498,-81.6326
+16660,"Charleston-Mattoon, IL","Charleston, IL",39.4961,-88.1762
+16700,"Charleston-North Charleston, SC","Charleston, SC",32.7765,-79.9311
+16740,"Charlotte-Concord-Gastonia, NC-SC","Charlotte, NC",35.2271,-80.8431
+16820,"Charlottesville, VA","Charlottesville, VA",38.0293,-78.4767
+16860,"Chattanooga, TN-GA","Chattanooga, TN",35.0456,-85.3097
+16940,"Cheyenne, WY","Cheyenne, WY",41.1391,-104.8202
+16980,"Chicago-Naperville-Elgin, IL-IN-WI","Chicago, IL",41.8781,-87.6298
+17020,"Chico, CA","Chico, CA",39.7285,-121.8375
+17060,"Chillicothe, OH","Chillicothe, OH",39.3331,-82.9824
+17140,"Cincinnati, OH-KY-IN","Cincinnati, OH",39.1031,-84.512
+17220,"Clarksburg, WV","Clarksburg, WV",39.2806,-80.3445
+17260,"Clarksdale, MS","Clarksdale, MS",34.2001,-90.5704
+17300,"Clarksville, TN-KY","Clarksville, TN",36.5298,-87.3595
+17340,"Clearlake, CA","Clearlake, CA",38.9582,-122.6264
+17380,"Cleveland, MS","Cleveland, MS",33.7448,-90.724
+17420,"Cleveland, TN","Cleveland, TN",35.1595,-84.8766
+17460,"Cleveland-Elyria, OH","Cleveland, OH",41.4993,-81.6944
+17500,"Clewiston, FL","Clewiston, FL",26.7542,-80.9333
+17540,"Clinton, IA","Clinton, IA",41.844,-90.1887
+17580,"Clovis, NM","Clovis, NM",34.4048,-103.2052
+17620,"Coamo, PR","Coamo, PR",18.0807,-66.3639
+17640,"Coco, PR","Coco, PR",18.3995,-65.955
+17660,"Coeur d'Alene, ID","Coeur d'Alene, ID",47.6777,-116.7805
+17700,"Coffeyville, KS","Coffeyville, KS",37.0379,-95.6264
+17740,"Coldwater, MI","Coldwater, MI",41.9403,-85.0005
+17780,"College Station-Bryan, TX","College Station, TX",30.628,-96.3344
+17820,"Colorado Springs, CO","Colorado Springs, CO",38.8339,-104.8214
+17860,"Columbia, MO","Columbia, MO",38.9517,-92.3341
+17900,"Columbia, SC","Columbia, SC",34.0007,-81.0348
+17980,"Columbus, GA-AL","Columbus, GA",32.4608,-84.9877
+18020,"Columbus, IN","Columbus, IN",39.2014,-85.9214
+18060,"Columbus, MS","Columbus, MS",33.4957,-88.4273
+18100,"Columbus, NE","Columbus, NE",41.4299,-97.3684
+18140,"Columbus, OH","Columbus, OH",39.9612,-82.9988
+18180,"Concord, NH","Concord, NH",43.2081,-71.5376
+18220,"Connersville, IN","Connersville, IN",39.6412,-85.1411
+18260,"Cookeville, TN","Cookeville, TN",36.1628,-85.5016
+18300,"Coos Bay, OR","Coos Bay, OR",43.3665,-124.2179
+18380,"Cordele, GA","Cordele, GA",31.9635,-83.7702
+18420,"Corinth, MS","Corinth, MS",34.934,-88.5223
+18460,"Cornelia, GA","Cornelia, GA",34.5118,-83.5304
+18500,"Corning, NY","Corning, NY",42.1429,-77.0547
+18580,"Corpus Christi, TX","Corpus Christi, TX",27.8006,-97.3964
+18620,"Corsicana, TX","Corsicana, TX",32.0954,-96.4689
+18660,"Cortland, NY","Cortland, NY",42.6012,-76.1805
+18700,"Corvallis, OR","Corvallis, OR",44.5646,-123.262
+18740,"Coshocton, OH","Coshocton, OH",40.2728,-81.8604
+18780,"Craig, CO","Craig, CO",40.5153,-107.5469
+18820,"Crawfordsville, IN","Crawfordsville, IN",40.0414,-86.8742
+18860,"Crescent City, CA","Crescent City, CA",41.7558,-124.2026
+18880,"Crestview-Fort Walton Beach-Destin, FL","Crestview, FL",30.7621,-86.5705
+18900,"Crossville, TN","Crossville, TN",35.9484,-85.0269
+18980,"Cullman, AL","Cullman, AL",34.1748,-86.8436
+19000,"Cullowhee, NC","Cullowhee, NC",35.3134,-83.176
+19060,"Cumberland, MD-WV","Cumberland, MD",39.6529,-78.7625
+19100,"Dallas-Fort Worth-Arlington, TX","Dallas, TX",32.7767,-96.797
+19140,"Dalton, GA","Dalton, GA",34.7698,-84.9702
+19180,"Danville, IL","Danville, IL",40.1245,-87.6301
+19220,"Danville, KY","Danville, KY",37.6456,-84.7722
+19260,"Danville, VA","Danville, VA",36.5859,-79.395
+19300,"Daphne-Fairhope-Foley, AL","Daphne, AL",30.6035,-87.9036
+19340,"Davenport-Moline-Rock Island, IA-IL","Davenport, IA",41.5236,-90.5776
+19420,"Dayton, TN","Dayton, TN",35.4934,-85.0127
+19430,"Dayton-Kettering, OH","Dayton, OH",39.7589,-84.1916
+19460,"Decatur, AL","Decatur, AL",34.6059,-86.9833
+19500,"Decatur, IL","Decatur, IL",39.8403,-88.9548
+19540,"Decatur, IN","Decatur, IN",40.8306,-84.9294
+19580,"Defiance, OH","Defiance, OH",41.2842,-84.3558
+19620,"Del Rio, TX","Del Rio, TX",29.3709,-100.8953
+19660,"Deltona-Daytona Beach-Ormond Beach, FL","Deltona, FL",28.9005,-81.2637
+19700,"Deming, NM","Deming, NM",32.2687,-107.7586
+19740,"Denver-Aurora-Lakewood, CO","Denver, CO",39.7392,-104.9903
+19760,"DeRidder, LA","DeRidder, LA",30.846,-93.2893
+19780,"Des Moines-West Des Moines, IA","Des Moines, IA",41.5868,-93.625
+19820,"Detroit-Warren-Dearborn, MI","Detroit, MI",42.3314,-83.0458
+19860,"Dickinson, ND","Dickinson, ND",46.8792,-102.7896
+19940,"Dixon, IL","Dixon, IL",41.8389,-89.4795
+19980,"Dodge City, KS","Dodge City, KS",37.7528,-100.0171
+20020,"Dothan, AL","Dothan, AL",31.2232,-85.3905
+20060,"Douglas, GA","Douglas, GA",31.5085,-82.849
+20100,"Dover, DE","Dover, DE",39.1582,-75.5244
+20140,"Dublin, GA","Dublin, GA",32.5404,-82.9038
+20180,"DuBois, PA","DuBois, PA",41.1173,-78.7609
+20220,"Dubuque, IA","Dubuque, IA",42.5006,-90.6646
+20260,"Duluth, MN-WI","Duluth, MN",46.7867,-92.1005
+20300,"Dumas, TX","Dumas, TX",35.8656,-101.9738
+20340,"Duncan, OK","Duncan, OK",34.5023,-97.9578
+20420,"Durango, CO","Durango, CO",37.2753,-107.8801
+20460,"Durant, OK","Durant, OK",33.9937,-96.3708
+20500,"Durham-Chapel Hill, NC","Durham, NC",35.994,-78.8986
+20540,"Dyersburg, TN","Dyersburg, TN",36.0345,-89.3856
+20580,"Eagle Pass, TX","Eagle Pass, TX",28.7091,-100.4995
+20660,"Easton, MD","Easton, MD",38.7746,-76.0763
+20700,"East Stroudsburg, PA","East Stroudsburg, PA",40.9995,-75.1813
+20740,"Eau Claire, WI","Eau Claire, WI",44.8113,-91.4985
+20780,"Edwards, CO","Edwards, CO",39.6443,-106.5943
+20820,"Effingham, IL","Effingham, IL",39.1201,-88.5434
+20900,"El Campo, TX","El Campo, TX",29.1961,-96.2697
+20940,"El Centro, CA","El Centro, CA",32.792,-115.5631
+20980,"El Dorado, AR","El Dorado, AR",33.2076,-92.6663
+21020,"Elizabeth City, NC","Elizabeth City, NC",36.2946,-76.251
+21060,"Elizabethtown-Fort Knox, KY","Elizabethtown, KY",37.6939,-85.8591
+21120,"Elk City, OK","Elk City, OK",35.4064,-99.4043
+21140,"Elkhart-Goshen, IN","Elkhart, IN",41.681,-85.9767
+21180,"Elkins, WV","Elkins, WV",38.9257,-79.8467
+21220,"Elko, NV","Elko, NV",40.8324,-115.7631
+21260,"Ellensburg, WA","Ellensburg, WA",46.9965,-120.5478
+21300,"Elmira, NY","Elmira, NY",42.0898,-76.8077
+21340,"El Paso, TX","El Paso, TX",31.7619,-106.485
+21380,"Emporia, KS","Emporia, KS",38.4039,-96.1817
+21420,"Enid, OK","Enid, OK",36.3956,-97.8784
+21460,"Enterprise, AL","Enterprise, AL",31.3152,-85.8552
+21500,"Erie, PA","Erie, PA",42.1292,-80.0851
+21540,"Escanaba, MI","Escanaba, MI",45.7459,-87.0646
+21580,"Espanola, NM","Espanola, NM",35.9916,-106.0806
+21640,"Eufaula, AL-GA","Eufaula, AL",31.8916,-85.1452
+21660,"Eugene-Springfield, OR","Eugene, OR",44.0521,-123.0868
+21700,"Eureka-Arcata, CA","Eureka, CA",40.8021,-124.1637
+21740,"Evanston, WY","Evanston, WY",41.2683,-110.9632
+21780,"Evansville, IN-KY","Evansville, IN",37.9716,-87.5711
+21820,"Fairbanks, AK","Fairbanks, AK",64.8378,-147.7164
+21840,"Fairfield, IA","Fairfield, IA",41.0089,-91.962
+21860,"Fairmont, MN","Fairmont, MN",43.6527,-94.4586
+21900,"Fairmont, WV","Fairmont, WV",39.4851,-80.1426
+21980,"Fallon, NV","Fallon, NV",39.474,-118.7786
+22020,"Fargo, ND-MN","Fargo, ND",46.8772,-96.7898
+22060,"Faribault-Northfield, MN","Faribault, MN",44.2951,-93.2688
+22100,"Farmington, MO","Farmington, MO",37.7805,-90.4218
+22140,"Farmington, NM","Farmington, NM",36.7281,-108.2187
+22180,"Fayetteville, NC","Fayetteville, NC",35.0527,-78.8784
+22220,"Fayetteville-Springdale-Rogers, AR","Fayetteville, AR",36.0822,-94.1719
+22260,"Fergus Falls, MN","Fergus Falls, MN",46.2836,-96.0723
+22280,"Fernley, NV","Fernley, NV",39.608,-119.2517
+22300,"Findlay, OH","Findlay, OH",41.0442,-83.6499
+22340,"Fitzgerald, GA","Fitzgerald, GA",31.7143,-83.253
+22380,"Flagstaff, AZ","Flagstaff, AZ",35.1981,-111.6513
+22420,"Flint, MI","Flint, MI",43.0125,-83.6875
+22500,"Florence, SC","Florence, SC",34.1954,-79.7626
+22520,"Florence-Muscle Shoals, AL","Florence, AL",34.7998,-87.6773
+22540,"Fond du Lac, WI","Fond du Lac, WI",43.773,-88.4471
+22580,"Forest City, NC","Forest City, NC",35.3343,-81.8656
+22620,"Forrest City, AR","Forrest City, AR",35.0081,-90.789
+22660,"Fort Collins, CO","Fort Collins, CO",40.5853,-105.0844
+22700,"Fort Dodge, IA","Fort Dodge, IA",42.4975,-94.168
+22780,"Fort Leonard Wood, MO","Fort Leonard Wood, MO",37.7181,-92.1405
+22800,"Fort Madison-Keokuk, IA-IL-MO","Fort Madison, IA",40.6286,-91.3148
+22820,"Fort Morgan, CO","Fort Morgan, CO",40.2503,-103.799
+22840,"Fort Payne, AL","Fort Payne, AL",34.4443,-85.7199
+22860,"Fort Polk South, LA","Fort Polk South, LA",31.0506,-93.2057
+22900,"Fort Smith, AR-OK","Fort Smith, AR",35.3859,-94.3986
+23060,"Fort Wayne, IN","Fort Wayne, IN",41.0793,-85.1394
+23140,"Frankfort, IN","Frankfort, IN",40.2795,-86.5106
+23180,"Frankfort, KY","Frankfort, KY",38.2009,-84.8733
+23240,"Fredericksburg, TX","Fredericksburg, TX",30.2752,-98.871
+23300,"Freeport, IL","Freeport, IL",42.2967,-89.6212
+23340,"Fremont, NE","Fremont, NE",41.4337,-96.496
+23380,"Fremont, OH","Fremont, OH",41.3503,-83.1219
+23420,"Fresno, CA","Fresno, CA",36.7378,-119.7871
+23460,"Gadsden, AL","Gadsden, AL",34.0143,-86.0066
+23500,"Gaffney, SC","Gaffney, SC",35.0718,-81.6495
+23540,"Gainesville, FL","Gainesville, FL",29.6516,-82.3248
+23580,"Gainesville, GA","Gainesville, GA",34.2979,-83.8241
+23620,"Gainesville, TX","Gainesville, TX",33.6259,-97.1334
+23660,"Galesburg, IL","Galesburg, IL",40.9478,-90.3712
+23700,"Gallup, NM","Gallup, NM",35.5281,-108.7426
+23780,"Garden City, KS","Garden City, KS",37.9717,-100.8727
+23820,"Gardnerville Ranchos, NV","Gardnerville Ranchos, NV",38.9105,-119.7468
+23860,"Georgetown, SC","Georgetown, SC",33.3768,-79.2945
+23900,"Gettysburg, PA","Gettysburg, PA",39.8309,-77.2311
+23940,"Gillette, WY","Gillette, WY",44.2911,-105.5022
+23980,"Glasgow, KY","Glasgow, KY",36.9959,-85.9119
+24020,"Glens Falls, NY","Glens Falls, NY",43.3095,-73.644
+24060,"Glenwood Springs, CO","Glenwood Springs, CO",39.5505,-107.3248
+24100,"Gloversville, NY","Gloversville, NY",43.052,-74.3432
+24140,"Goldsboro, NC","Goldsboro, NC",35.3849,-77.9928
+24180,"Granbury, TX","Granbury, TX",32.4421,-97.7942
+24220,"Grand Forks, ND-MN","Grand Forks, ND",47.9253,-97.0329
+24260,"Grand Island, NE","Grand Island, NE",40.9264,-98.342
+24300,"Grand Junction, CO","Grand Junction, CO",39.0639,-108.5506
+24330,"Grand Rapids, MN","Grand Rapids, MN",47.2372,-93.5302
+24340,"Grand Rapids-Kentwood, MI","Grand Rapids, MI",42.9634,-85.6681
+24380,"Grants, NM","Grants, NM",35.1473,-107.8519
+24420,"Grants Pass, OR","Grants Pass, OR",42.439,-123.3284
+24460,"Great Bend, KS","Great Bend, KS",38.3645,-98.7648
+24500,"Great Falls, MT","Great Falls, MT",47.5053,-111.3008
+24540,"Greeley, CO","Greeley, CO",40.4233,-104.7091
+24580,"Green Bay, WI","Green Bay, WI",44.5133,-88.0133
+24620,"Greeneville, TN","Greeneville, TN",36.1632,-82.8319
+24660,"Greensboro-High Point, NC","Greensboro, NC",36.0726,-79.791
+24700,"Greensburg, IN","Greensburg, IN",39.3373,-85.4833
+24740,"Greenville, MS","Greenville, MS",33.4102,-91.0618
+24780,"Greenville, NC","Greenville, NC",35.6127,-77.3664
+24820,"Greenville, OH","Greenville, OH",40.102,-84.6358
+24860,"Greenville-Anderson, SC","Greenville, SC",34.8526,-82.394
+24900,"Greenwood, MS","Greenwood, MS",33.5162,-90.179
+24940,"Greenwood, SC","Greenwood, SC",34.1954,-82.1618
+24980,"Grenada, MS","Grenada, MS",33.769,-89.8081
+25020,"Guayama, PR","Guayama, PR",17.9958,-66.111
+25060,"Gulfport-Biloxi, MS","Gulfport, MS",30.3674,-89.0928
+25100,"Guymon, OK","Guymon, OK",36.6822,-101.481
+25180,"Hagerstown-Martinsburg, MD-WV","Hagerstown, MD",39.6418,-77.719
+25200,"Hailey, ID","Hailey, ID",43.519,-114.3151
+25220,"Hammond, LA","Hammond, LA",30.5044,-90.4612
+25260,"Hanford-Corcoran, CA","Hanford, CA",36.3275,-119.6457
+25300,"Hannibal, MO","Hannibal, MO",39.7084,-91.3585
+25420,"Harrisburg-Carlisle, PA","Harrisburg, PA",40.2732,-76.8867
+25460,"Harrison, AR","Harrison, AR",36.2298,-93.1077
+25500,"Harrisonburg, VA","Harrisonburg, VA",38.4496,-78.8689
+25540,"Hartford-East Hartford-Middletown, CT","Hartford, CT",41.7637,-72.6851
+25580,"Hastings, NE","Hastings, NE",40.5863,-98.3899
+25620,"Hattiesburg, MS","Hattiesburg, MS",31.3271,-89.2903
+25700,"Hays, KS","Hays, KS",38.8792,-99.3268
+25720,"Heber, UT","Heber, UT",40.5078,-111.4133
+25740,"Helena, MT","Helena, MT",46.5884,-112.0245
+25760,"Helena-West Helena, AR","Helena, AR",34.5292,-90.5918
+25780,"Henderson, NC","Henderson, NC",36.3296,-78.3992
+25820,"Hereford, TX","Hereford, TX",34.8151,-102.3988
+25840,"Hermiston-Pendleton, OR","Hermiston, OR",45.8404,-119.2891
+25860,"Hickory-Lenoir-Morganton, NC","Hickory, NC",35.7332,-81.3412
+25880,"Hillsdale, MI","Hillsdale, MI",41.9239,-84.6308
+25900,"Hilo, HI","Hilo, HI",19.7076,-155.0854
+25940,"Hilton Head Island-Bluffton, SC","Hilton Head Island, SC",32.2163,-80.7526
+25980,"Hinesville, GA","Hinesville, GA",31.851,-81.6112
+26020,"Hobbs, NM","Hobbs, NM",32.7026,-103.136
+26090,"Holland, MI","Holland, MI",42.7875,-86.1089
+26140,"Homosassa Springs, FL","Homosassa Springs, FL",28.8035,-82.5795
+26220,"Hood River, OR","Hood River, OR",45.7054,-121.5215
+26260,"Hope, AR","Hope, AR",33.6671,-93.591
+26300,"Hot Springs, AR","Hot Springs, AR",34.5037,-93.0552
+26340,"Houghton, MI","Houghton, MI",47.1211,-88.5676
+26380,"Houma-Thibodaux, LA","Houma, LA",29.5958,-90.7195
+26420,"Houston-The Woodlands-Sugar Land, TX","Houston, TX",29.7604,-95.3698
+26460,"Hudson, NY","Hudson, NY",42.2529,-73.7903
+26500,"Huntingdon, PA","Huntingdon, PA",40.4985,-78.0117
+26540,"Huntington, IN","Huntington, IN",40.8834,-85.4975
+26580,"Huntington-Ashland, WV-KY-OH","Huntington, WV",38.4192,-82.4452
+26620,"Huntsville, AL","Huntsville, AL",34.7304,-86.5861
+26660,"Huntsville, TX","Huntsville, TX",30.7235,-95.5508
+26700,"Huron, SD","Huron, SD",44.3633,-98.214
+26740,"Hutchinson, KS","Hutchinson, KS",38.0608,-97.9298
+26780,"Hutchinson, MN","Hutchinson, MN",44.8977,-94.3694
+26820,"Idaho Falls, ID","Idaho Falls, ID",43.4917,-112.0339
+26860,"Indiana, PA","Indiana, PA",40.6215,-79.1525
+26900,"Indianapolis-Carmel-Anderson, IN","Indianapolis, IN",39.7684,-86.1581
+26940,"Indianola, MS","Indianola, MS",33.4501,-90.6557
+26980,"Iowa City, IA","Iowa City, IA",41.6611,-91.5302
+27020,"Iron Mountain, MI-WI","Iron Mountain, MI",45.8202,-88.0653
+27060,"Ithaca, NY","Ithaca, NY",42.4439,-76.5019
+27100,"Jackson, MI","Jackson, MI",42.2459,-84.4014
+27140,"Jackson, MS","Jackson, MS",32.2988,-90.1848
+27160,"Jackson, OH","Jackson, OH",39.0523,-82.6371
+27180,"Jackson, TN","Jackson, TN",35.6145,-88.8139
+27220,"Jackson, WY-ID","Jackson, WY",43.4799,-110.7624
+27260,"Jacksonville, FL","Jacksonville, FL",30.3322,-81.6557
+27300,"Jacksonville, IL","Jacksonville, IL",39.7337,-90.229
+27340,"Jacksonville, NC","Jacksonville, NC",34.7541,-77.4302
+27380,"Jacksonville, TX","Jacksonville, TX",31.9635,-95.2703
+27420,"Jamestown, ND","Jamestown, ND",46.9105,-98.7084
+27460,"Jamestown-Dunkirk-Fredonia, NY","Jamestown, NY",42.097,-79.2353
+27500,"Janesville-Beloit, WI","Janesville, WI",42.6828,-89.0187
+27530,"Jasper, AL","Jasper, AL",33.8318,-87.2775
+27540,"Jasper, IN","Jasper, IN",38.3914,-86.9311
+27580,"Jayuya, PR","Jayuya, PR",18.2191,-66.5897
+27600,"Jefferson, GA","Jefferson, GA",34.1179,-83.5727
+27620,"Jefferson City, MO","Jefferson City, MO",38.5767,-92.1735
+27660,"Jennings, LA","Jennings, LA",30.2227,-92.6579
+27700,"Jesup, GA","Jesup, GA",31.6074,-81.8854
+27740,"Johnson City, TN","Johnson City, TN",36.3134,-82.3535
+27780,"Johnstown, PA","Johnstown, PA",40.3267,-78.9215
+27860,"Jonesboro, AR","Jonesboro, AR",35.8423,-90.7043
+27900,"Joplin, MO","Joplin, MO",37.0842,-94.5133
+27940,"Juneau, AK","Juneau, AK",58.3019,-134.4197
+27980,"Kahului-Wailuku-Lahaina, HI","Kahului, HI",20.889,-156.4729
+28020,"Kalamazoo-Portage, MI","Kalamazoo, MI",42.2917,-85.5872
+28060,"Kalispell, MT","Kalispell, MT",48.1958,-114.3161
+28100,"Kankakee, IL","Kankakee, IL",41.1207,-87.8612
+28140,"Kansas City, MO-KS","Kansas City, MO",39.0997,-94.5786
+28180,"Kapaa, HI","Kapaa, HI",22.0881,-159.3375
+28260,"Kearney, NE","Kearney, NE",40.6995,-99.0815
+28300,"Keene, NH","Keene, NH",42.9336,-72.2782
+28340,"Kendallville, IN","Kendallville, IN",41.4412,-85.2641
+28380,"Kennett, MO","Kennett, MO",36.2362,-90.0551
+28420,"Kennewick-Richland, WA","Kennewick, WA",46.2112,-119.1372
+28500,"Kerrville, TX","Kerrville, TX",30.0474,-99.1403
+28540,"Ketchikan, AK","Ketchikan, AK",55.3422,-131.6461
+28580,"Key West, FL","Key West, FL",24.5551,-81.78
+28620,"Kill Devil Hills, NC","Kill Devil Hills, NC",36.0307,-75.676
+28660,"Killeen-Temple, TX","Killeen, TX",31.1171,-97.7278
+28700,"Kingsport-Bristol, TN-VA","Kingsport, TN",36.5484,-82.5618
+28740,"Kingston, NY","Kingston, NY",41.927,-73.9974
+28780,"Kingsville, TX","Kingsville, TX",27.5159,-97.8561
+28820,"Kinston, NC","Kinston, NC",35.2627,-77.581
+28860,"Kirksville, MO","Kirksville, MO",40.1942,-92.5833
+28900,"Klamath Falls, OR","Klamath Falls, OR",42.2249,-121.7817
+28940,"Knoxville, TN","Knoxville, TN",35.9606,-83.9207
+29020,"Kokomo, IN","Kokomo, IN",40.4864,-86.1336
+29060,"Laconia, NH","Laconia, NH",43.5279,-71.4704
+29100,"La Crosse-Onalaska, WI-MN","La Crosse, WI",43.8014,-91.2396
+29180,"Lafayette, LA","Lafayette, LA",30.2241,-92.0198
+29200,"Lafayette-West Lafayette, IN","Lafayette, IN",40.4167,-86.8753
+29260,"La Grande, OR","La Grande, OR",45.3244,-118.0868
+29300,"LaGrange, GA-AL","LaGrange, GA",33.0387,-85.0319
+29340,"Lake Charles, LA","Lake Charles, LA",30.2266,-93.2174
+29380,"Lake City, FL","Lake City, FL",30.1897,-82.6393
+29420,"Lake Havasu City-Kingman, AZ","Lake Havasu City, AZ",34.4839,-114.3225
+29460,"Lakeland-Winter Haven, FL","Lakeland, FL",28.0395,-81.9498
+29500,"Lamesa, TX","Lamesa, TX",32.7371,-101.9496
+29540,"Lancaster, PA","Lancaster, PA",40.0379,-76.3055
+29620,"Lansing-East Lansing, MI","Lansing, MI",42.7325,-84.5555
+29660,"Laramie, WY","Laramie, WY",41.3114,-105.5911
+29700,"Laredo, TX","Laredo, TX",27.5306,-99.4803
+29740,"Las Cruces, NM","Las Cruces, NM",32.3199,-106.7637
+29780,"Las Vegas, NM","Las Vegas, NM",35.5942,-105.2228
+29820,"Las Vegas-Henderson-Paradise, NV","Las Vegas, NV",36.1699,-115.1398
+29860,"Laurel, MS","Laurel, MS",31.6948,-89.1306
+29900,"Laurinburg, NC","Laurinburg, NC",34.7749,-79.462
+29940,"Lawrence, KS","Lawrence, KS",38.9717,-95.2353
+29980,"Lawrenceburg, TN","Lawrenceburg, TN",35.2429,-87.3347
+30020,"Lawton, OK","Lawton, OK",34.6087,-98.3903
+30060,"Lebanon, MO","Lebanon, MO",37.6803,-92.6638
+30100,"Lebanon, NH-VT","Lebanon, NH",43.6423,-72.2518
+30140,"Lebanon, PA","Lebanon, PA",40.3409,-76.4113
+30220,"Levelland, TX","Levelland, TX",33.587,-102.3771
+30260,"Lewisburg, PA","Lewisburg, PA",40.9645,-76.8844
+30280,"Lewisburg, TN","Lewisburg, TN",35.4492,-86.7886
+30300,"Lewiston, ID-WA","Lewiston, ID",46.4165,-117.0177
+30340,"Lewiston-Auburn, ME","Lewiston, ME",44.1004,-70.2148
+30380,"Lewistown, PA","Lewistown, PA",40.5998,-77.5772
+30420,"Lexington, NE","Lexington, NE",40.7806,-99.7418
+30460,"Lexington-Fayette, KY","Lexington, KY",38.0406,-84.5037
+30580,"Liberal, KS","Liberal, KS",37.0438,-100.9204
+30620,"Lima, OH","Lima, OH",40.7426,-84.1052
+30660,"Lincoln, IL","Lincoln, IL",40.1456,-89.3645
+30700,"Lincoln, NE","Lincoln, NE",40.8136,-96.7026
+30780,"Little Rock-North Little Rock-Conway, AR","Little Rock, AR",34.7465,-92.2896
+30820,"Lock Haven, PA","Lock Haven, PA",41.1376,-77.446
+30860,"Logan, UT-ID","Logan, UT",41.7364,-111.8338
+30900,"Logansport, IN","Logansport, IN",40.7545,-86.3567
+30940,"London, KY","London, KY",37.1289,-84.0833
+30980,"Longview, TX","Longview, TX",32.5007,-94.7405
+31020,"Longview, WA","Longview, WA",46.1382,-122.9382
+31060,"Los Alamos, NM","Los Alamos, NM",35.8881,-106.3062
+31080,"Los Angeles-Long Beach-Anaheim, CA","Los Angeles, CA",34.0522,-118.2437
+31140,"Louisville/Jefferson County, KY-IN","Louisville, KY",38.2527,-85.7585
+31180,"Lubbock, TX","Lubbock, TX",33.5779,-101.8552
+31220,"Ludington, MI","Ludington, MI",43.9553,-86.4526
+31260,"Lufkin, TX","Lufkin, TX",31.3382,-94.7291
+31300,"Lumberton, NC","Lumberton, NC",34.6182,-79.0086
+31340,"Lynchburg, VA","Lynchburg, VA",37.4138,-79.1422
+31380,"Macomb, IL","Macomb, IL",40.4592,-90.671
+31420,"Macon-Bibb County, GA","Macon, GA",32.8407,-83.6324
+31460,"Madera, CA","Madera, CA",36.9613,-120.0607
+31500,"Madison, IN","Madison, IN",38.7359,-85.379
+31540,"Madison, WI","Madison, WI",43.0731,-89.4012
+31580,"Madisonville, KY","Madisonville, KY",37.3281,-87.4989
+31620,"Magnolia, AR","Magnolia, AR",33.2673,-93.2394
+31660,"Malone, NY","Malone, NY",44.8489,-74.2943
+31680,"Malvern, AR","Malvern, AR",34.3629,-92.8129
+31700,"Manchester-Nashua, NH","Manchester, NH",42.9956,-71.4548
+31740,"Manhattan, KS","Manhattan, KS",39.1836,-96.5717
+31820,"Manitowoc, WI","Manitowoc, WI",44.0886,-87.6576
+31860,"Mankato, MN","Mankato, MN",44.1636,-94.009
+31900,"Mansfield, OH","Mansfield, OH",40.7584,-82.5154
+31930,"Marietta, OH","Marietta, OH",39.4154,-81.4548
+31940,"Marinette, WI-MI","Marinette, WI",45.0998,-87.6307
+31980,"Marion, IN","Marion, IN",40.5584,-85.6591
+32000,"Marion, NC","Marion, NC",35.6846,-82.0098
+32020,"Marion, OH","Marion, OH",40.5887,-83.1285
+32100,"Marquette, MI","Marquette, MI",46.5436,-87.3954
+32140,"Marshall, MN","Marshall, MN",44.4469,-95.788
+32180,"Marshall, MO","Marshall, MO",39.1222,-93.196
+32260,"Marshalltown, IA","Marshalltown, IA",42.0491,-92.9128
+32280,"Martin, TN","Martin, TN",36.3434,-88.8503
+32300,"Martinsville, VA","Martinsville, VA",36.6915,-79.8725
+32340,"Maryville, MO","Maryville, MO",40.3469,-94.8728
+32380,"Mason City, IA","Mason City, IA",43.1544,-93.201
+32420,"Mayagüez, PR","Mayagüez, PR",18.2011,-67.1396
+32460,"Mayfield, KY","Mayfield, KY",36.7417,-88.6378
+32500,"Maysville, KY","Maysville, KY",38.6412,-83.7446
+32540,"McAlester, OK","McAlester, OK",34.9337,-95.7697
+32580,"McAllen-Edinburg-Mission, TX","McAllen, TX",26.2034,-98.23
+32620,"McComb, MS","McComb, MS",31.2435,-90.4537
+32660,"McMinnville, TN","McMinnville, TN",35.6834,-85.7697
+32700,"McPherson, KS","McPherson, KS",38.3706,-97.6648
+32740,"Meadville, PA","Meadville, PA",41.6414,-80.1514
+32780,"Medford, OR","Medford, OR",42.3265,-122.8756
+32820,"Memphis, TN-MS-AR","Memphis, TN",35.1495,-90.049
+32860,"Menomonie, WI","Menomonie, WI",44.8753,-91.9194
+32900,"Merced, CA","Merced, CA",37.3022,-120.482
+32940,"Meridian, MS","Meridian, MS",32.3643,-88.7037
+33020,"Mexico, MO","Mexico, MO",39.1651,-91.8849
+33060,"Miami, OK","Miami, OK",36.8745,-94.8772
+33100,"Miami-Fort Lauderdale-Pompano Beach, FL","Miami, FL",25.7617,-80.1918
+33140,"Michigan City-La Porte, IN","Michigan City, IN",41.7075,-86.895
+33180,"Middlesborough, KY","Middlesborough, KY",36.6095,-83.7193
+33220,"Midland, MI","Midland, MI",43.6156,-84.2472
+33260,"Midland, TX","Midland, TX",31.9973,-102.0779
+33300,"Milledgeville, GA","Milledgeville, GA",33.0801,-83.2321
+33340,"Milwaukee-Waukesha, WI","Milwaukee, WI",43.0389,-87.9065
+33380,"Minden, LA","Minden, LA",32.6157,-93.2835
+33420,"Mineral Wells, TX","Mineral Wells, TX",32.8082,-98.1128
+33460,"Minneapolis-St. Paul-Bloomington, MN-WI","Minneapolis, MN",44.9778,-93.265
+33500,"Minot, ND","Minot, ND",48.2325,-101.2963
+33540,"Missoula, MT","Missoula, MT",46.8721,-113.994
+33580,"Mitchell, SD","Mitchell, SD",43.7094,-98.0298
+33620,"Moberly, MO","Moberly, MO",39.4189,-92.436
+33660,"Mobile, AL","Mobile, AL",30.6954,-88.0399
+33700,"Modesto, CA","Modesto, CA",37.6391,-120.9969
+33740,"Monroe, LA","Monroe, LA",32.5093,-92.1193
+33780,"Monroe, MI","Monroe, MI",41.9164,-83.3977
+33860,"Montgomery, AL","Montgomery, AL",32.3792,-86.3077
+33940,"Montrose, CO","Montrose, CO",38.4783,-107.8762
+33980,"Morehead City, NC","Morehead City, NC",34.7213,-76.7266
+34020,"Morgan City, LA","Morgan City, LA",29.6994,-91.2068
+34060,"Morgantown, WV","Morgantown, WV",39.6295,-79.9559
+34100,"Morristown, TN","Morristown, TN",36.2134,-83.2949
+34140,"Moscow, ID","Moscow, ID",46.7324,-117.0002
+34180,"Moses Lake, WA","Moses Lake, WA",47.1301,-119.2781
+34220,"Moultrie, GA","Moultrie, GA",31.1796,-83.7881
+34260,"Mountain Home, AR","Mountain Home, AR",36.3353,-92.3813
+34300,"Mountain Home, ID","Mountain Home, ID",43.1327,-115.6912
+34340,"Mount Airy, NC","Mount Airy, NC",36.4993,-80.607
+34350,"Mount Gay-Shamrock, WV","Mount Gay, WV",37.8334,-82.0576
+34380,"Mount Pleasant, MI","Mount Pleasant, MI",43.5973,-84.7675
+34420,"Mount Pleasant, TX","Mount Pleasant, TX",33.1568,-94.9683
+34460,"Mount Sterling, KY","Mount Sterling, KY",38.0565,-83.9438
+34500,"Mount Vernon, IL","Mount Vernon, IL",38.3173,-88.9031
+34540,"Mount Vernon, OH","Mount Vernon, OH",40.3934,-82.4855
+34580,"Mount Vernon-Anacortes, WA","Mount Vernon, WA",48.4212,-122.334
+34620,"Muncie, IN","Muncie, IN",40.1934,-85.3864
+34660,"Murray, KY","Murray, KY",36.6103,-88.3148
+34700,"Muscatine, IA","Muscatine, IA",41.4245,-91.0432
+34740,"Muskegon, MI","Muskegon, MI",43.2342,-86.2484
+34780,"Muskogee, OK","Muskogee, OK",35.7479,-95.3697
+34820,"Myrtle Beach-Conway-North Myrtle Beach, SC-NC","Myrtle Beach, SC",33.6891,-78.8867
+34860,"Nacogdoches, TX","Nacogdoches, TX",31.6035,-94.6555
+34900,"Napa, CA","Napa, CA",38.2975,-122.2869
+34940,"Naples-Marco Island, FL","Naples, FL",26.142,-81.7948
+34980,"Nashville-Davidson-Murfreesboro-Franklin, TN","Nashville, TN",36.1627,-86.7816
+35020,"Natchez, MS-LA","Natchez, MS",31.5604,-91.4032
+35060,"Natchitoches, LA","Natchitoches, LA",31.7607,-93.0863
+35100,"New Bern, NC","New Bern, NC",35.1085,-77.0441
+35140,"Newberry, SC","Newberry, SC",34.2832,-81.6187
+35220,"New Castle, IN","New Castle, IN",39.9289,-85.3655
+35260,"New Castle, PA","New Castle, PA",41.0037,-80.347
+35300,"New Haven-Milford, CT","New Haven, CT",41.3083,-72.9279
+35380,"New Orleans-Metairie, LA","New Orleans, LA",29.9511,-90.0715
+35420,"New Philadelphia-Dover, OH","New Philadelphia, OH",40.4898,-81.4451
+35440,"Newport, OR","Newport, OR",44.6368,-124.0534
+35460,"Newport, TN","Newport, TN",35.9673,-83.1871
+35580,"New Ulm, MN","New Ulm, MN",44.3141,-94.4555
+35620,"New York-Newark-Jersey City, NY-NJ-PA","New York, NY",40.7128,-74.006
+35660,"Niles, MI","Niles, MI",41.8295,-86.2542
+35700,"Nogales, AZ","Nogales, AZ",31.3404,-110.9343
+35740,"Norfolk, NE","Norfolk, NE",42.0327,-97.4138
+35820,"North Platte, NE","North Platte, NE",41.1403,-100.7601
+35840,"North Port-Sarasota-Bradenton, FL","North Port, FL",27.0442,-82.2359
+35860,"North Vernon, IN","North Vernon, IN",39.0034,-85.623
+35900,"North Wilkesboro, NC","North Wilkesboro, NC",36.1585,-81.1473
+35940,"Norwalk, OH","Norwalk, OH",41.2426,-82.6157
+35980,"Norwich-New London, CT","Norwich, CT",41.5243,-72.0759
+36020,"Oak Harbor, WA","Oak Harbor, WA",48.2933,-122.6432
+36100,"Ocala, FL","Ocala, FL",29.1872,-82.1401
+36140,"Ocean City, NJ","Ocean City, NJ",39.2776,-74.5746
+36220,"Odessa, TX","Odessa, TX",31.8457,-102.3676
+36260,"Ogden-Clearfield, UT","Ogden, UT",41.223,-111.9738
+36300,"Ogdensburg-Massena, NY","Ogdensburg, NY",44.6948,-75.486
+36340,"Oil City, PA","Oil City, PA",41.4331,-79.7067
+36380,"Okeechobee, FL","Okeechobee, FL",27.2439,-80.8298
+36420,"Oklahoma City, OK","Oklahoma City, OK",35.4676,-97.5164
+36460,"Olean, NY","Olean, NY",42.0836,-78.4303
+36500,"Olympia-Lacey-Tumwater, WA","Olympia, WA",47.0379,-122.9007
+36540,"Omaha-Council Bluffs, NE-IA","Omaha, NE",41.2565,-95.9345
+36580,"Oneonta, NY","Oneonta, NY",42.4529,-75.0638
+36620,"Ontario, OR-ID","Ontario, OR",44.0265,-116.9629
+36660,"Opelousas, LA","Opelousas, LA",30.533,-92.081
+36700,"Orangeburg, SC","Orangeburg, SC",33.4918,-80.8556
+36740,"Orlando-Kissimmee-Sanford, FL","Orlando, FL",28.5383,-81.3792
+36780,"Oshkosh-Neenah, WI","Oshkosh, WI",44.0247,-88.5426
+36820,"Oskaloosa, IA","Oskaloosa, IA",41.2958,-92.6442
+36830,"Othello, WA","Othello, WA",46.8262,-119.175
+36837,"Ottawa, IL","Ottawa, IL",41.3456,-88.842
+36840,"Ottawa, KS","Ottawa, KS",38.6156,-95.2675
+36900,"Ottumwa, IA","Ottumwa, IA",41.0201,-92.411
+36940,"Owatonna, MN","Owatonna, MN",44.0838,-93.226
+36980,"Owensboro, KY","Owensboro, KY",37.7742,-87.1133
+37060,"Oxford, MS","Oxford, MS",34.3665,-89.5192
+37100,"Oxnard-Thousand Oaks-Ventura, CA","Oxnard, CA",34.1975,-119.1771
+37120,"Ozark, AL","Ozark, AL",31.4593,-85.6403
+37140,"Paducah, KY-IL","Paducah, KY",37.0834,-88.6001
+37220,"Pahrump, NV","Pahrump, NV",36.2083,-115.9839
+37260,"Palatka, FL","Palatka, FL",29.6486,-81.6376
+37300,"Palestine, TX","Palestine, TX",31.7621,-95.6308
+37340,"Palm Bay-Melbourne-Titusville, FL","Palm Bay, FL",28.0345,-80.5887
+37420,"Pampa, TX","Pampa, TX",35.5361,-100.9599
+37460,"Panama City, FL","Panama City, FL",30.1588,-85.6602
+37500,"Paragould, AR","Paragould, AR",36.0584,-90.4973
+37540,"Paris, TN","Paris, TN",36.3023,-88.3268
+37580,"Paris, TX","Paris, TX",33.6609,-95.5555
+37620,"Parkersburg-Vienna, WV","Parkersburg, WV",39.2667,-81.5615
+37660,"Parsons, KS","Parsons, KS",37.3403,-95.2611
+37740,"Payson, AZ","Payson, AZ",34.2309,-111.3251
+37770,"Pearsall, TX","Pearsall, TX",28.8922,-99.0956
+37780,"Pecos, TX","Pecos, TX",31.4229,-103.4932
+37800,"Pella, IA","Pella, IA",41.4086,-92.916
+37860,"Pensacola-Ferry Pass-Brent, FL","Pensacola, FL",30.4213,-87.2169
+37900,"Peoria, IL","Peoria, IL",40.6936,-89.589
+37940,"Peru, IN","Peru, IN",40.7537,-86.0689
+37980,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD","Philadelphia, PA",39.9526,-75.1652
+38060,"Phoenix-Mesa-Chandler, AZ","Phoenix, AZ",33.4484,-112.074
+38100,"Picayune, MS","Picayune, MS",30.5255,-89.6798
+38180,"Pierre, SD","Pierre, SD",44.3683,-100.3509
+38220,"Pine Bluff, AR","Pine Bluff, AR",34.2284,-92.0032
+38240,"Pinehurst-Southern Pines, NC","Pinehurst, NC",35.1954,-79.4695
+38260,"Pittsburg, KS","Pittsburg, KS",37.4109,-94.7046
+38300,"Pittsburgh, PA","Pittsburgh, PA",40.4406,-79.9959
+38340,"Pittsfield, MA","Pittsfield, MA",42.4501,-73.2454
+38380,"Plainview, TX","Plainview, TX",34.1842,-101.7068
+38420,"Platteville, WI","Platteville, WI",42.7347,-90.4785
+38460,"Plattsburgh, NY","Plattsburgh, NY",44.6995,-73.4529
+38500,"Plymouth, IN","Plymouth, IN",41.3434,-86.3095
+38540,"Pocatello, ID","Pocatello, ID",42.8713,-112.4455
+38580,"Point Pleasant, WV-OH","Point Pleasant, WV",38.8534,-82.1377
+38620,"Ponca City, OK","Ponca City, OK",36.706,-97.0856
+38660,"Ponce, PR","Ponce, PR",17.9712,-66.6141
+38700,"Pontiac, IL","Pontiac, IL",40.8803,-88.6296
+38740,"Poplar Bluff, MO","Poplar Bluff, MO",36.7598,-90.3929
+38780,"Portales, NM","Portales, NM",34.1862,-103.3344
+38820,"Port Angeles, WA","Port Angeles, WA",48.1181,-123.4307
+38860,"Portland-South Portland, ME","Portland, ME",43.6615,-70.2553
+38900,"Portland-Vancouver-Hillsboro, OR-WA","Portland, OR",45.5152,-122.6784
+38920,"Port Lavaca, TX","Port Lavaca, TX",28.6143,-96.629
+38940,"Port St. Lucie, FL","Port St. Lucie, FL",27.273,-80.3582
+39020,"Portsmouth, OH","Portsmouth, OH",38.7317,-82.9977
+39060,"Pottsville, PA","Pottsville, PA",40.6862,-76.1958
+39100,"Poughkeepsie-Newburgh-Middletown, NY","Poughkeepsie, NY",41.7004,-73.9213
+39150,"Prescott Valley-Prescott, AZ","Prescott Valley, AZ",34.6101,-112.3157
+39220,"Price, UT","Price, UT",39.5997,-110.8107
+39260,"Prineville, OR","Prineville, OR",44.2982,-120.8345
+39300,"Providence-Warwick, RI-MA","Providence, RI",41.8236,-71.4222
+39340,"Provo-Orem, UT","Provo, UT",40.2338,-111.6585
+39380,"Pueblo, CO","Pueblo, CO",38.2544,-104.6091
+39420,"Pullman, WA","Pullman, WA",46.7298,-117.1817
+39460,"Punta Gorda, FL","Punta Gorda, FL",26.9298,-82.0454
+39500,"Quincy, IL-MO","Quincy, IL",39.9356,-91.4099
+39540,"Racine, WI","Racine, WI",42.7261,-87.7829
+39580,"Raleigh-Cary, NC","Raleigh, NC",35.7796,-78.6382
+39660,"Rapid City, SD","Rapid City, SD",44.0805,-103.231
+39700,"Raymondville, TX","Raymondville, TX",26.4817,-97.7833
+39740,"Reading, PA","Reading, PA",40.3356,-75.9269
+39780,"Red Bluff, CA","Red Bluff, CA",40.1785,-122.2358
+39820,"Redding, CA","Redding, CA",40.5865,-122.3917
+39860,"Red Wing, MN","Red Wing, MN",44.5667,-92.5363
+39900,"Reno, NV","Reno, NV",39.5296,-119.8138
+39940,"Rexburg, ID","Rexburg, ID",43.826,-111.7897
+39980,"Richmond, IN","Richmond, IN",39.8289,-84.8902
+40060,"Richmond, VA","Richmond, VA",37.5407,-77.436
+40080,"Richmond-Berea, KY","Richmond, KY",37.7479,-84.2947
+40100,"Rio Grande City-Roma, TX","Rio Grande City, TX",26.3804,-98.8203
+40140,"Riverside-San Bernardino-Ontario, CA","Riverside, CA",33.9806,-117.3755
+40180,"Riverton, WY","Riverton, WY",43.024,-108.3806
+40220,"Roanoke, VA","Roanoke, VA",37.2709,-79.9414
+40260,"Roanoke Rapids, NC","Roanoke Rapids, NC",36.4615,-77.6541
+40300,"Rochelle, IL","Rochelle, IL",41.9231,-89.0687
+40340,"Rochester, MN","Rochester, MN",44.0121,-92.4802
+40380,"Rochester, NY","Rochester, NY",43.1566,-77.6088
+40420,"Rockford, IL","Rockford, IL",42.2711,-89.0937
+40460,"Rockingham, NC","Rockingham, NC",34.9399,-79.759
+40530,"Rockport, TX","Rockport, TX",28.0206,-97.0544
+40540,"Rock Springs, WY","Rock Springs, WY",41.5875,-109.2029
+40580,"Rocky Mount, NC","Rocky Mount, NC",35.9375,-77.7903
+40620,"Rolla, MO","Rolla, MO",37.9514,-91.7713
+40660,"Rome, GA","Rome, GA",34.257,-85.1647
+40700,"Roseburg, OR","Roseburg, OR",43.2156,-123.3417
+40740,"Roswell, NM","Roswell, NM",33.3943,-104.523
+40760,"Ruidoso, NM","Ruidoso, NM",33.3317,-105.6731
+40780,"Russellville, AR","Russellville, AR",35.2784,-93.1338
+40820,"Ruston, LA","Ruston, LA",32.5232,-92.6379
+40860,"Rutland, VT","Rutland, VT",43.6106,-72.9726
+40900,"Sacramento-Roseville-Folsom, CA","Sacramento, CA",38.5816,-121.4944
+40940,"Safford, AZ","Safford, AZ",32.8339,-109.7076
+40980,"Saginaw, MI","Saginaw, MI",43.4195,-83.9508
+41060,"St. Cloud, MN","St. Cloud, MN",45.5579,-94.1632
+41100,"St. George, UT","St. George, UT",37.0965,-113.5684
+41140,"St. Joseph, MO-KS","St. Joseph, MO",39.7686,-94.8466
+41180,"St. Louis, MO-IL","St. Louis, MO",38.627,-90.1994
+41220,"St. Marys, GA","St. Marys, GA",30.7305,-81.546
+41260,"St. Marys, PA","St. Marys, PA",41.4273,-78.5603
+41400,"Salem, OH","Salem, OH",40.9003,-80.8565
+41420,"Salem, OR","Salem, OR",44.9429,-123.0351
+41460,"Salina, KS","Salina, KS",38.8403,-97.6114
+41500,"Salinas, CA","Salinas, CA",36.6777,-121.6555
+41540,"Salisbury, MD-DE","Salisbury, MD",38.3607,-75.5994
+41620,"Salt Lake City, UT","Salt Lake City, UT",40.7608,-111.891
+41660,"San Angelo, TX","San Angelo, TX",31.4638,-100.437
+41700,"San Antonio-New Braunfels, TX","San Antonio, TX",29.4241,-98.4936
+41740,"San Diego-Chula Vista-Carlsbad, CA","San Diego, CA",32.7157,-117.1611
+41760,"Sandpoint, ID","Sandpoint, ID",48.2766,-116.5533
+41780,"Sandusky, OH","Sandusky, OH",41.4489,-82.707
+41820,"Sanford, NC","Sanford, NC",35.4799,-79.1803
+41860,"San Francisco-Oakland-Berkeley, CA","San Francisco, CA",37.7749,-122.4194
+41900,"San Germán, PR","San Germán, PR",18.0828,-67.045
+41940,"San Jose-Sunnyvale-Santa Clara, CA","San Jose, CA",37.3382,-121.8863
+41980,"San Juan-Bayamón-Caguas, PR","San Juan, PR",18.4655,-66.1057
+42020,"San Luis Obispo-Paso Robles, CA","San Luis Obispo, CA",35.2828,-120.6596
+42100,"Santa Cruz-Watsonville, CA","Santa Cruz, CA",36.9741,-122.0308
+42140,"Santa Fe, NM","Santa Fe, NM",35.6868,-105.9378
+42180,"Santa Isabel, PR","Santa Isabel, PR",17.9617,-66.4032
+42200,"Santa Maria-Santa Barbara, CA","Santa Maria, CA",34.953,-120.4357
+42220,"Santa Rosa-Petaluma, CA","Santa Rosa, CA",38.4405,-122.7144
+42300,"Sault Ste. Marie, MI","Sault Ste. Marie, MI",46.4953,-84.3453
+42340,"Savannah, GA","Savannah, GA",32.0809,-81.0912
+42380,"Sayre, PA","Sayre, PA",41.9784,-76.5153
+42420,"Scottsbluff, NE","Scottsbluff, NE",41.8666,-103.6675
+42460,"Scottsboro, AL","Scottsboro, AL",34.6723,-86.0341
+42500,"Scottsburg, IN","Scottsburg, IN",38.6851,-85.7702
+42540,"Scranton--Wilkes-Barre, PA","Scranton, PA",41.4086,-75.6624
+42620,"Searcy, AR","Searcy, AR",35.2506,-91.7365
+42660,"Seattle-Tacoma-Bellevue, WA","Seattle, WA",47.6062,-122.3321
+42680,"Sebastian-Vero Beach, FL","Sebastian, FL",27.8164,-80.4706
+42700,"Sebring-Avon Park, FL","Sebring, FL",27.4956,-81.4409
+42740,"Sedalia, MO","Sedalia, MO",38.7045,-93.2283
+42780,"Selinsgrove, PA","Selinsgrove, PA",40.7984,-76.8644
+42820,"Selma, AL","Selma, AL",32.4074,-87.0211
+42860,"Seneca, SC","Seneca, SC",34.6865,-82.9533
+42900,"Seneca Falls, NY","Seneca Falls, NY",42.9103,-76.7972
+42940,"Sevierville, TN","Sevierville, TN",35.8681,-83.5618
+42980,"Seymour, IN","Seymour, IN",38.959,-85.8903
+43020,"Shawano, WI","Shawano, WI",44.7819,-88.606
+43060,"Shawnee, OK","Shawnee, OK",35.3273,-96.9253
+43100,"Sheboygan, WI","Sheboygan, WI",43.7508,-87.7145
+43140,"Shelby, NC","Shelby, NC",35.2923,-81.5356
+43180,"Shelbyville, TN","Shelbyville, TN",35.4834,-86.4608
+43220,"Shelton, WA","Shelton, WA",47.2151,-123.1007
+43260,"Sheridan, WY","Sheridan, WY",44.7972,-106.9562
+43300,"Sherman-Denison, TX","Sherman, TX",33.6357,-96.6089
+43320,"Show Low, AZ","Show Low, AZ",34.2542,-110.0298
+43340,"Shreveport-Bossier City, LA","Shreveport, LA",32.5252,-93.7502
+43380,"Sidney, OH","Sidney, OH",40.2842,-84.1555
+43420,"Sierra Vista-Douglas, AZ","Sierra Vista, AZ",31.5545,-110.3037
+43460,"Sikeston, MO","Sikeston, MO",36.8767,-89.5879
+43500,"Silver City, NM","Silver City, NM",32.7701,-108.2803
+43580,"Sioux City, IA-NE-SD","Sioux City, IA",42.4991,-96.4003
+43620,"Sioux Falls, SD","Sioux Falls, SD",43.5499,-96.7003
+43660,"Snyder, TX","Snyder, TX",32.7171,-100.9176
+43700,"Somerset, KY","Somerset, KY",37.092,-84.6041
+43740,"Somerset, PA","Somerset, PA",40.0087,-79.0789
+43760,"Sonora, CA","Sonora, CA",37.9841,-120.3828
+43780,"South Bend-Mishawaka, IN-MI","South Bend, IN",41.6764,-86.252
+43900,"Spartanburg, SC","Spartanburg, SC",34.9496,-81.932
+43940,"Spearfish, SD","Spearfish, SD",44.4908,-103.8594
+43980,"Spencer, IA","Spencer, IA",43.145,-95.144
+44020,"Spirit Lake, IA","Spirit Lake, IA",43.4224,-95.1028
+44060,"Spokane-Spokane Valley, WA","Spokane, WA",47.6588,-117.426
+44100,"Springfield, IL","Springfield, IL",39.7817,-89.6501
+44140,"Springfield, MA","Springfield, MA",42.1015,-72.5898
+44180,"Springfield, MO","Springfield, MO",37.208,-93.2923
+44220,"Springfield, OH","Springfield, OH",39.9242,-83.8088
+44260,"Starkville, MS","Starkville, MS",33.4504,-88.8184
+44300,"State College, PA","State College, PA",40.7934,-77.86
+44340,"Statesboro, GA","Statesboro, GA",32.4488,-81.7832
+44420,"Staunton, VA","Staunton, VA",38.1496,-79.0717
+44460,"Steamboat Springs, CO","Steamboat Springs, CO",40.484,-106.8317
+44500,"Stephenville, TX","Stephenville, TX",32.2207,-98.2023
+44540,"Sterling, CO","Sterling, CO",40.625,-103.2077
+44580,"Sterling, IL","Sterling, IL",41.7886,-89.6962
+44620,"Stevens Point, WI","Stevens Point, WI",44.5236,-89.5746
+44660,"Stillwater, OK","Stillwater, OK",36.1156,-97.0584
+44700,"Stockton, CA","Stockton, CA",37.9577,-121.2908
+44740,"Storm Lake, IA","Storm Lake, IA",42.6436,-95.2016
+44780,"Sturgis, MI","Sturgis, MI",41.7997,-85.4191
+44860,"Sulphur Springs, TX","Sulphur Springs, TX",33.1384,-95.6011
+44900,"Summerville, GA","Summerville, GA",34.4801,-85.3475
+44940,"Sumter, SC","Sumter, SC",33.9204,-80.3415
+44980,"Sunbury, PA","Sunbury, PA",40.859,-76.7891
+45000,"Susanville, CA","Susanville, CA",40.4163,-120.653
+45020,"Sweetwater, TX","Sweetwater, TX",32.4701,-100.4054
+45060,"Syracuse, NY","Syracuse, NY",43.0481,-76.1474
+45140,"Tahlequah, OK","Tahlequah, OK",35.9154,-94.969
+45180,"Talladega-Sylacauga, AL","Talladega, AL",33.4359,-86.1058
+45220,"Tallahassee, FL","Tallahassee, FL",30.4383,-84.2807
+45300,"Tampa-St. Petersburg-Clearwater, FL","Tampa, FL",27.9506,-82.4572
+45340,"Taos, NM","Taos, NM",36.4072,-105.5731
+45380,"Taylorville, IL","Taylorville, IL",39.5489,-89.2945
+45460,"Terre Haute, IN","Terre Haute, IN",39.4667,-87.4139
+45500,"Texarkana, TX-AR","Texarkana, TX",33.4251,-94.0477
+45520,"The Dalles, OR","The Dalles, OR",45.5946,-121.1787
+45540,"The Villages, FL","The Villages, FL",28.927,-81.9995
+45580,"Thomaston, GA","Thomaston, GA",32.8885,-84.3269
+45620,"Thomasville, GA","Thomasville, GA",30.8366,-83.9784
+45660,"Tiffin, OH","Tiffin, OH",41.1145,-83.1773
+45700,"Tifton, GA","Tifton, GA",31.4505,-83.5085
+45740,"Toccoa, GA","Toccoa, GA",34.579,-83.3291
+45780,"Toledo, OH","Toledo, OH",41.6528,-83.5379
+45820,"Topeka, KS","Topeka, KS",39.0483,-95.678
+45860,"Torrington, CT","Torrington, CT",41.8007,-73.1212
+45900,"Traverse City, MI","Traverse City, MI",44.7631,-85.6206
+45940,"Trenton-Princeton, NJ","Trenton, NJ",40.2171,-74.7429
+45980,"Troy, AL","Troy, AL",31.8088,-85.9699
+46020,"Truckee-Grass Valley, CA","Truckee, CA",39.3279,-120.1833
+46060,"Tucson, AZ","Tucson, AZ",32.2226,-110.9747
+46100,"Tullahoma-Manchester, TN","Tullahoma, TN",35.3629,-86.2085
+46140,"Tulsa, OK","Tulsa, OK",36.1539,-95.9928
+46180,"Tupelo, MS","Tupelo, MS",34.2576,-88.7034
+46220,"Tuscaloosa, AL","Tuscaloosa, AL",33.2098,-87.5692
+46300,"Twin Falls, ID","Twin Falls, ID",42.5628,-114.4609
+46340,"Tyler, TX","Tyler, TX",32.3513,-95.3011
+46380,"Ukiah, CA","Ukiah, CA",39.1502,-123.2078
+46420,"Union, SC","Union, SC",34.7158,-81.6232
+46460,"Union City, TN","Union City, TN",36.4242,-89.0573
+46500,"Urbana, OH","Urbana, OH",40.1081,-83.7524
+46520,"Urban Honolulu, HI","Urban Honolulu, HI",21.3069,-157.8583
+46540,"Utica-Rome, NY","Utica, NY",43.1009,-75.2327
+46620,"Uvalde, TX","Uvalde, TX",29.2097,-99.7862
+46660,"Valdosta, GA","Valdosta, GA",30.8327,-83.2785
+46700,"Vallejo, CA","Vallejo, CA",38.1041,-122.2566
+46780,"Van Wert, OH","Van Wert, OH",40.8697,-84.5841
+46820,"Vermillion, SD","Vermillion, SD",42.7798,-96.9292
+46860,"Vernal, UT","Vernal, UT",40.4555,-109.5287
+46900,"Vernon, TX","Vernon, TX",34.1512,-99.2903
+46980,"Vicksburg, MS","Vicksburg, MS",32.3526,-90.8779
+47020,"Victoria, TX","Victoria, TX",28.8053,-97.0036
+47080,"Vidalia, GA","Vidalia, GA",32.2171,-82.4137
+47180,"Vincennes, IN","Vincennes, IN",38.6773,-87.5286
+47220,"Vineland-Bridgeton, NJ","Vineland, NJ",39.4862,-75.0257
+47240,"Vineyard Haven, MA","Vineyard Haven, MA",41.4543,-70.6027
+47260,"Virginia Beach-Norfolk-Newport News, VA-NC","Virginia Beach, VA",36.8529,-75.978
+47300,"Visalia, CA","Visalia, CA",36.3302,-119.2921
+47340,"Wabash, IN","Wabash, IN",40.7975,-85.8203
+47380,"Waco, TX","Waco, TX",31.5493,-97.1467
+47420,"Wahpeton, ND-MN","Wahpeton, ND",46.2653,-96.6087
+47460,"Walla Walla, WA","Walla Walla, WA",46.0646,-118.343
+47540,"Wapakoneta, OH","Wapakoneta, OH",40.5675,-84.1922
+47580,"Warner Robins, GA","Warner Robins, GA",32.613,-83.6242
+47620,"Warren, PA","Warren, PA",41.8437,-79.145
+47660,"Warrensburg, MO","Warrensburg, MO",38.7628,-93.7356
+47700,"Warsaw, IN","Warsaw, IN",41.2381,-85.853
+47780,"Washington, IN","Washington, IN",38.6592,-87.1725
+47820,"Washington, NC","Washington, NC",35.546,-77.0528
+47900,"Washington-Arlington-Alexandria, DC-VA-MD-WV","Washington, DC",38.9072,-77.0369
+47920,"Washington Court House, OH","Washington Court House, OH",39.5365,-83.4394
+47940,"Waterloo-Cedar Falls, IA","Waterloo, IA",42.4928,-92.3428
+47980,"Watertown, SD","Watertown, SD",44.8994,-97.1134
+48020,"Watertown-Fort Atkinson, WI","Watertown, WI",43.194,-88.724
+48060,"Watertown-Fort Drum, NY","Watertown, NY",43.9748,-75.9108
+48100,"Wauchula, FL","Wauchula, FL",27.5478,-81.8112
+48140,"Wausau-Weston, WI","Wausau, WI",44.9591,-89.6301
+48180,"Waycross, GA","Waycross, GA",31.2135,-82.354
+48220,"Weatherford, OK","Weatherford, OK",35.5267,-98.7073
+48260,"Weirton-Steubenville, WV-OH","Weirton, WV",40.4181,-80.5895
+48300,"Wenatchee, WA","Wenatchee, WA",47.4235,-120.3103
+48460,"West Plains, MO","West Plains, MO",36.7281,-91.8526
+48500,"West Point, MS","West Point, MS",33.6079,-88.641
+48540,"Wheeling, WV-OH","Wheeling, WV",40.0639,-80.7209
+48580,"Whitewater, WI","Whitewater, WI",42.8336,-88.7328
+48620,"Wichita, KS","Wichita, KS",37.6872,-97.3301
+48660,"Wichita Falls, TX","Wichita Falls, TX",33.9137,-98.4934
+48700,"Williamsport, PA","Williamsport, PA",41.2412,-77.0011
+48780,"Williston, ND","Williston, ND",48.1467,-103.617
+48820,"Willmar, MN","Willmar, MN",45.1224,-95.0487
+48900,"Wilmington, NC","Wilmington, NC",34.2257,-77.9447
+48940,"Wilmington, OH","Wilmington, OH",39.4459,-83.828
+48980,"Wilson, NC","Wilson, NC",35.7213,-77.9155
+49020,"Winchester, VA-WV","Winchester, VA",39.1857,-78.1633
+49060,"Winfield, KS","Winfield, KS",37.2397,-96.995
+49080,"Winnemucca, NV","Winnemucca, NV",40.9729,-117.7357
+49100,"Winona, MN","Winona, MN",44.0514,-91.6414
+49180,"Winston-Salem, NC","Winston-Salem, NC",36.0999,-80.2442
+49220,"Wisconsin Rapids-Marshfield, WI","Wisconsin Rapids, WI",44.3836,-89.8174
+49260,"Woodward, OK","Woodward, OK",36.4334,-99.3904
+49300,"Wooster, OH","Wooster, OH",40.8051,-81.9351
+49340,"Worcester, MA-CT","Worcester, MA",42.2626,-71.8023
+49380,"Worthington, MN","Worthington, MN",43.6194,-95.5931
+49420,"Yakima, WA","Yakima, WA",46.6021,-120.5059
+49460,"Yankton, SD","Yankton, SD",42.8711,-97.3978
+49500,"Yauco, PR","Yauco, PR",18.0355,-66.8497
+49620,"York-Hanover, PA","York, PA",39.9626,-76.7277
+49660,"Youngstown-Warren-Boardman, OH-PA","Youngstown, OH",41.0998,-80.6495
+49700,"Yuba City, CA","Yuba City, CA",39.1404,-121.6169
+49740,"Yuma, AZ","Yuma, AZ",32.6927,-114.6277
+49780,"Zanesville, OH","Zanesville, OH",39.9403,-82.0132
+49820,"Zapata, TX","Zapata, TX",26.9076,-99.2712
