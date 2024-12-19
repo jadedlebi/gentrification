@@ -2,15 +2,20 @@ function initializeTractClick(map) {
     function getGentWhen(properties) {
         const {gent80, gent90, gent00, gent10, gent20} = properties;
         
+        // Check if all values are 0
         if (gent80 === 0 && gent90 === 0 && gent00 === 0 && gent10 === 0 && gent20 === 0) {
             return "Not Gentrified";
         }
         
-        // Find first decade of gentrification
+        // Find all decades of gentrification
         const decades = [[1980, gent80], [1990, gent90], [2000, gent00], [2010, gent10], [2020, gent20]];
         const gentYears = decades.filter(([_, val]) => val === 1).map(([year, _]) => year);
         
-        if (gentYears.length === 0) return null;
+        // If no gentrification found, return "Not Gentrified" instead of null
+        if (gentYears.length === 0) {
+            return "Not Gentrified";
+        }
+        
         return gentYears.join(", ");
     }
 
@@ -41,7 +46,12 @@ function initializeTractClick(map) {
                 <h3 style="margin: 5px 0;">GEOID: ${properties.geoid10}</h3>
                 <h3 style="margin: 5px 0;">${properties.neighborho}, ${properties.place}</h3>
                 <h1 style="line-height:20px; margin: 10px 0; color:#63a69b; font-size: 3.5vh;">
-                    ${gentWhen === "Not Gentrified" ? gentWhen : `Gentrified (${gentWhen})`}
+                    ${gentWhen === "Not Gentrified" ? 
+                        "Not Gentrified" : 
+                        (gentWhen && gentWhen.includes(',')) ? 
+                            `Gentrified Multiple Times (${gentWhen})` : 
+                            `Gentrified (${gentWhen})`
+                    }
                 </h1>
             </div>
         `;
@@ -178,54 +188,54 @@ function initializeTractClick(map) {
                 {
                     label: 'White',
                     data: [
-                        properties.nhwht70,
-                        properties.nhwht80,
-                        properties.nhwht90,
-                        properties.nhwht00,
-                        properties.nhwht10,
-                        properties.nhwht20
+                        parseInt(properties.nhwht70),
+                        parseInt(properties.nhwht80),
+                        parseInt(properties.nhwht90),
+                        parseInt(properties.nhwht00),
+                        parseInt(properties.nhwht10),
+                        parseInt(properties.nhwht20)
                     ],
                     borderColor: '#FFFFFF'
                 },
                 {
                     label: 'Black',
                     data: [
-                        properties.nhblk70,
-                        properties.nhblk80,
-                        properties.nhblk90,
-                        properties.nhblk00,
-                        properties.nhblk10,
-                        properties.nhblk20
+                        parseInt(properties.nhblk70),
+                        parseInt(properties.nhblk80),
+                        parseInt(properties.nhblk90),
+                        parseInt(properties.nhblk00),
+                        parseInt(properties.nhblk10),
+                        parseInt(properties.nhblk20)
                     ],
                     borderColor: '#4A90E2'
                 },
                 {
                     label: 'Asian',
                     data: [
-                        properties.asian70,
-                        properties.asian80,
-                        properties.asian90,
-                        properties.asian00,
-                        properties.asian10,
-                        properties.asian20
+                        parseInt(properties.asian70),
+                        parseInt(properties.asian80),
+                        parseInt(properties.asian90),
+                        parseInt(properties.asian00),
+                        parseInt(properties.asian10),
+                        parseInt(properties.asian20)
                     ],
                     borderColor: '#F5A623'
                 },
                 {
                     label: 'Hispanic',
                     data: [
-                        properties.hisp70,
-                        properties.hisp80,
-                        properties.hisp90,
-                        properties.hisp00,
-                        properties.hisp10,
-                        properties.hisp20
+                        parseInt(properties.hisp70),
+                        parseInt(properties.hisp80),
+                        parseInt(properties.hisp90),
+                        parseInt(properties.hisp00),
+                        parseInt(properties.hisp10),
+                        parseInt(properties.hisp20)
                     ],
                     borderColor: '#7ED321'
                 }
             ],
             gentDecade: firstGentDecade,
-            multipleGent: gentWhen.includes(',')
+            multipleGent: gentWhen && gentWhen.includes(',') ? true : false
         };
         updateDisplacementChart(dispData, `Population by Race in Tract ${properties.geoid10}`);
     }
