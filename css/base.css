@@ -1,0 +1,149 @@
+/* Base Layout and Structure */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+}
+
+#map {
+    flex-grow: 1;
+    height: 100vh;
+}
+
+#sidebar {
+    width: 25vw;
+    height: 100vh;
+    background-color: #343434;
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    overflow-y: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Title and Subtitle */
+#title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+#subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #ffffff;
+    padding-bottom: 10px;
+}
+
+/* Base Container Structure */
+#gentrificationContainer,
+#metricContainer,
+#displacementMetricContainer {
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+/* Tract View Specific */
+#gentrificationContainer.tract-view {
+    margin-bottom: 5px;
+    min-height: 80px;
+    height: auto !important;
+}
+
+/* Base Mobile Layout */
+@media screen and (max-width: 768px) {
+    .mobile-charts-container {
+        transition: all 0.3s ease;
+        height: auto;
+        overflow-y: auto;
+    }
+
+    #gentrificationContainer-mobile.tract-view {
+        margin-bottom: 5px;
+        min-height: 80px;
+        height: auto !important;
+    }
+
+    .bottom-sheet {
+        transition: transform 0.3s ease, height 0.3s ease;
+        height: 50vh;  /* Default height */
+    }
+
+    .bottom-sheet.expanded {
+        height: 90vh !important;  /* Expanded state */
+    }
+
+    .bottom-sheet.tract-view {
+        height: 75vh !important;  /* Increased height for tract view */
+        overflow-y: auto;
+        padding-bottom: 20px;
+    }
+}  
+
+/* Dynamic Tract Information */
+#gentrificationContainer h2,
+#gentrificationContainer-mobile h2 {  /* GEOID text */
+    margin: 0.5vh 0;
+    font-size: 2.5vh;
+    text-align: center;
+}
+
+#gentrificationContainer h3,
+#gentrificationContainer-mobile h3 {  /* Neighborhood text */
+    margin: 0.5vh 0;
+    font-size: 2vh;
+    text-align: center;
+}
+
+#gentrificationContainer .status-text,
+#gentrificationContainer-mobile .status-text {  /* Gentrified status */
+    text-align: center;
+    margin: 1vh 0;
+    font-size: 2.5vh;
+    color: #7FB7BE;  /* Match the chart bar color */
+}
+
+/* Adjust spacing in tract view */
+#gentrificationContainer.tract-view h2,
+#gentrificationContainer.tract-view h3,
+#gentrificationContainer-mobile.tract-view h2,
+#gentrificationContainer-mobile.tract-view h3 {
+    margin: 0.5vh 0;
+}
+
+.ncrc-logo-desktop {
+    position: absolute;
+    bottom: 0;
+    left: 100px;
+    z-index: 1;
+    height: 25px;
+    margin: 0 0 5px 0;
+}
+
+.ncrc-logo-mobile {
+    display: none;
+    height: 25px;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.subtitle-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

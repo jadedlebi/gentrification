@@ -1,0 +1,23 @@
+.mapboxgl-popup {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    max-width: 300px !important;
+}
+
+.mapboxgl-popup-content {
+    background: rgba(25, 25, 25, 0.9);
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 12px 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.mapboxgl-popup-tip {
+    border-top-color: rgba(25, 25, 25, 0.9) !important;
+    border-bottom-color: rgba(25, 25, 25, 0.9) !important;
+} 

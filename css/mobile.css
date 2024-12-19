@@ -1,0 +1,241 @@
+/* Base styles - these apply to all screen sizes */
+.bottom-sheet {
+    display: none; /* Hide by default on all screens */
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    #sidebar {
+        width: 100vw;
+        height: auto;
+        padding: 10px;
+        position: fixed;
+        top: 0;
+        z-index: 2;
+        background: #343434;
+    }
+
+    #map {
+        margin-top: 160px;
+        height: calc(100vh - 160px);
+        width: 100vw;
+    }
+
+    /* Hide ALL desktop charts in mobile view */
+    #sidebar #gentrificationContainer,
+    #sidebar #metricContainer,
+    #sidebar #displacementContainer,
+    #sidebar #displacementMetricContainer {
+        display: none !important; /* Force hide desktop charts */
+    }
+
+    /* Bottom sheet styles */
+    .bottom-sheet {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 85vh;
+        background: #343434;
+        z-index: 1000;
+        border-radius: 20px 20px 0 0;
+        padding: 15px 15px 20px 15px;
+        box-sizing: border-box;
+        transform: translateY(92%);
+        transition: transform 0.3s ease;
+        overflow-y: auto;
+    }
+
+    .bottom-sheet.expanded {
+        transform: translateY(10%) !important;
+        overflow-y: auto;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .bottom-sheet-handle {
+        position: sticky;
+        top: -15px;  /* Adjust for padding */
+        background: #343434;
+        padding: 15px 0;
+        z-index: 1001;
+        margin: -15px auto 15px;  /* Negative margin to counter padding */
+    }
+
+    .bottom-sheet-handle::after {
+        content: '';
+        display: block;
+        width: 50px;
+        height: 6px;
+        background: #888;
+        border-radius: 3px;
+        margin: 0 auto;
+    }
+
+    /* Chart container styles */
+    .mobile-charts-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        height: calc(100% - 100px);  /* Account for header elements */
+    }
+
+    /* Chart styles */
+    .gent-charts,
+    .disp-charts {
+        width: 100%;
+        height: 30vh;  /* Fixed height */
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Only hide the inactive view */
+    .gent-charts {
+        display: block;  /* Initial state */
+    }
+
+    .disp-charts {
+        display: none;  /* Initial state */
+    }
+
+    /* Individual chart styles */
+    #gentrificationContainer-mobile {
+        width: 100%;
+        height: 25vh !important;  /* Force fixed height */
+        min-height: 200px;  /* Minimum height */
+        margin-bottom: 2vh;
+        display: block;  /* Ensure proper display */
+    }
+
+    /* Metric containers */
+    #metricContainer-mobile,
+    #displacementMetricContainer-mobile {
+        flex: 1;
+        width: 100%;
+        padding: 15px;
+        border-radius: 8px;
+        
+    }
+
+    /* Chart canvas elements */
+    #gentrificationChart-mobile,
+    #metricChart-mobile,
+    #displacementMetricChart-mobile {
+        width: 100%;
+        height: 105% !important;
+        border-radius: 8px;
+    }
+
+    /* Other mobile adjustments */
+    #title { font-size: 24px; }
+    #subtitle { font-size: 12px; }
+    .toggle-wrapper { gap: 10px; }
+    .toggle-label { font-size: 13px; }
+    .switch { width: 52px; height: 30px; }
+    .slider:before { height: 22px; width: 22px; }
+    .timeline-container { margin: 5px 0 0 0; }
+    .metric-tab { padding: 10px; width: 24%;font-size: 11px; }
+
+    /* Hide desktop toggle */
+    #sidebar .view-toggle-container {
+        display: none !important;
+    }
+
+    /* Style mobile toggle */
+    .view-toggle-container-mobile {
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Ensure no gaps between elements */
+    .view-toggle-container,
+    .search-container {
+        margin-bottom: 5px;
+    }
+
+    /* Mobile specific metric container */
+    #metricContainer-mobile {
+        height: 30vh;
+        width: 95%;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    /* Mobile chart sizing */
+    #metricChart-mobile {
+        height: 250px !important;  /* Fixed height for mobile chart */
+    }
+
+    /* Make sure displacement chart is visible when active */
+    #displacementMetricContainer-mobile {
+        width: 95%;
+        height: 30vh;  /* Fixed height */
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    #displacementMetricChart-mobile {
+        width: 100%;
+        height: 100% !important;
+        max-height: 30vh;  /* Prevent expanding beyond container */
+        border-radius: 8px;
+    }
+
+    #gentrificationChart-mobile {
+        width: 100%;
+        height: 100% !important;
+        border-radius: 8px;
+        display: block;  /* Ensure proper display */
+    }
+
+    .ncrc-logo-desktop {
+        display: none;
+    }
+
+    .ncrc-logo-mobile {
+        display: block;
+    }
+    #title {
+        text-align: center;
+        margin-left: 0;
+    }
+
+    #subtitle {
+        text-align: center;
+    }
+
+    .subtitle-row {
+        justify-content: center;
+    }
+
+    /* Remove the toggle-wrapper-container styles if they exist */
+    .toggle-wrapper-container {
+        display: none;
+    }
+
+    .timeline-container {
+        margin: 5px 0 0 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .timeline-container > div {
+        width: 100%; /* Make the container take full width */
+        justify-content: space-between; /* Space elements evenly */
+    }
+
+    .ncrc-logo-mobile {
+        display: block;
+        height: 30px;
+        margin-left: auto; /* Push logo to the right */
+        padding-right: 5px; /* Add a small right padding */
+        margin-right: -15px; /* Push further right by creating negative margin */
+    }
+}

@@ -1,0 +1,129 @@
+/* Chart-specific Styling */
+#gentrificationChart,
+#metricChart,
+#gentrificationChart-mobile,
+#metricChart-mobile {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+/* Chart Containers */
+#gentrificationContainer,
+#metricContainer,
+#displacementMetricContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+/* Desktop View States */
+@media screen and (min-width: 769px) {
+    #sidebar:not(.displacement-view) #gentrificationContainer {
+        height: 40vh !important;
+        margin-bottom: 2vh;
+    }
+
+    #sidebar.displacement-view #gentrificationContainer {
+        height: 30vh !important;
+        margin-bottom: 2vh;
+    }
+
+    #gentrificationContainer.tract-view {
+        height: auto !important;
+        padding: 5px 0;
+        max-height: 100px;
+    }
+
+    #sidebar.displacement-view #displacementMetricContainer {
+        flex: 1;
+        min-height: 0;
+        height: auto !important;
+    }
+
+    #metricContainer {
+        height: 40vh;
+        padding-bottom: 30px;
+    }
+}
+
+/* Chart Wrapper */
+.metric-chart-wrapper {
+    flex: 1;
+    display: flex;
+    margin-top: 10px;
+    height: 98%;
+    position: relative;
+}
+
+/* Metric Tabs */
+#metricTabs {
+    display: flex;
+    gap: 2px;
+    margin-top: 10px;
+}
+
+.metric-tab {
+    flex: 1;
+    padding: 5px;
+    background: #4a4a4a;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 11px;
+    transition: all 0.2s ease;
+}
+
+.metric-tab:hover {
+    background: #5a5a5a;
+}
+
+.metric-tab.active {
+    background: #007acc;
+}
+
+/* Chart Elements */
+.compact-popup {
+    opacity: 0.8;
+}
+
+.label-text {
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+#demographicDropdown {
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Chart Mobile Specific */
+@media screen and (max-width: 768px) {
+    #gentrificationContainer-mobile.tract-view {
+        height: auto !important;
+        padding: 5px 0;
+        max-height: 100px;
+    }
+
+    .mobile-charts-container {
+        transition: all 0.3s ease;
+    }
+
+    .mobile-charts-container.tract-view {
+        height: 70vh;
+        padding-bottom: 20px;
+    }
+
+    .mobile-charts-container canvas {
+        max-width: 100%;
+        height: 100% !important;
+        max-height: none !important;
+    }
+
+    .mobile-charts-container .gent-charts,
+    .mobile-charts-container .disp-charts {
+        padding-bottom: 5px;
+    }
+}

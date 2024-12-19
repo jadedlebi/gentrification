@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Displaced by Design</title>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href='css/base.css' rel='stylesheet' />
+    <link href='css/search.css' rel='stylesheet' />
+    <link href='css/toggle.css' rel='stylesheet' />
+    <link href='css/timeline.css' rel='stylesheet' />
+    <link href='css/charts.css' rel='stylesheet' />
+    <link href='css/mobile.css' rel='stylesheet' />
+    <link href='css/popup.css' rel='stylesheet' />
+</head>
+<body>
+    <div id="sidebar">
+        <div class="header-container">
+            <div class="title-container">
+                <div id="title">DISPLACED BY DESIGN</div>
+                <div class="subtitle-row">
+                    <div id="subtitle">THE GENTIRIFICATION MACHINE AND ITS HUMAN COST</div>
+                </div>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="metroAreaSearch" placeholder="Search Metro Area" autocomplete="off" />
+            <button id="resetView" class="reset-button">Reset</button>
+        </div>
+        <ul id="searchResults"></ul>
+        <div class="view-toggle-container">
+            <div class="toggle-wrapper">
+                <span class="toggle-label">Gentrification</span>
+                <label class="switch">
+                    <input type="checkbox" id="viewToggle">
+                    <span class="slider round"></span>
+                </label>
+                <span class="toggle-label">Displacement</span>
+            </div>
+        </div>
+        <div class="timeline-container">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <button id="playButton">▶</button>
+                <div style="flex-grow: 1;">
+                    <input type="range" id="timeline" min="1980" max="2020" step="10" value="1980"/>
+                    <div class="timeline-labels" style="display: flex; justify-content: space-between; padding: 0 2px;">
+                        <span class="timeline-label" data-year="1980">1980</span>
+                        <span class="timeline-label" data-year="1990">1990</span>
+                        <span class="timeline-label" data-year="2000">2000</span>
+                        <span class="timeline-label" data-year="2010">2010</span>
+                        <span class="timeline-label" data-year="2020">2020</span>
+                    </div>
+                </div>
+                <img src="ncrc.png" alt="NCRC Logo" class="ncrc-logo-mobile" />
+            </div>
+        </div>
+        <div id="gentrificationContainer">
+            <canvas id="gentrificationChart"></canvas>
+        </div>
+        <div id="metricContainer">
+            <div id="metricTabs">
+                <button class="metric-tab active" data-tab="demographics">Population</button>
+                <button class="metric-tab" data-tab="homeValue">Home Value</button>
+                <button class="metric-tab" data-tab="income">Income</button>
+                <button class="metric-tab" data-tab="education">Education</button>
+            </div>
+            <div class="metric-chart-wrapper">
+                <canvas id="metricChart"></canvas>
+            </div>
+        </div>
+        <div id="displacementMetricContainer" style="display: none;">
+            <canvas id="displacementMetricChart"></canvas>
+        </div>
+    </div>
+    <div id="map">
+        <img src="ncrc.png" alt="NCRC Logo" class="ncrc-logo-desktop" />
+        <img src="ncrc.png" alt="NCRC Logo" class="ncrc-logo-mobile" />
+    </div>
+    <div class="bottom-sheet">
+        <div class="bottom-sheet-handle"></div>
+        <div class="view-toggle-container-mobile">
+            <div class="toggle-wrapper">
+                <span class="toggle-label">Gentrification</span>
+                <label class="switch">
+                    <input type="checkbox" id="viewToggle-mobile">
+                    <span class="slider round"></span>
+                </label>
+                <span class="toggle-label">Displacement</span>
+            </div>
+        </div>
+        <div id="gentrificationContainer-mobile">
+            <canvas id="gentrificationChart-mobile"></canvas>
+        </div>
+        <div class="mobile-charts-container">
+            <div class="gent-charts">
+                <div id="metricContainer-mobile">
+                    <div id="metricTabs-mobile">
+                        <button class="metric-tab active" data-tab="demographics">Population</button>
+                        <button class="metric-tab" data-tab="homeValue">Home Value</button>
+                        <button class="metric-tab" data-tab="income">Income</button>
+                        <button class="metric-tab" data-tab="education">Education</button>
+                    </div>
+                    <div class="metric-chart-wrapper">
+                        <canvas id="metricChart-mobile"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="disp-charts">
+                <div id="displacementMetricContainer-mobile">
+                    <canvas id="displacementMetricChart-mobile"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/sources.js"></script>
+    <script src="js/layers.js"></script>
+    <script src="js/resetView.js"></script>
+    <script src="js/cityCoordinates.js"></script>
+    <script src="js/metroSearch.js"></script>
+    <script src="js/bottomSheet.js"></script>
+    <script src="js/viewToggle.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/timeline.js"></script>
+    <script src="js/events/cbsaHover.js"></script>
+    <script src="js/events/tractHover.js"></script>
+    <script src="js/events/cbsaClick.js"></script>
+    <script src="js/events/zoomLayers.js"></script>
+    <script src="js/utils/chartUpdates.js"></script>
+    <script src="js/events/tractClick.js"></script>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiamVkbGViaSIsImEiOiJjanhhc3M4NnYwMmxsM3lyODlxYTFhOGRxIn0.746AmyW45uwRPeUy1PczOg';
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/jedlebi/cm387276m01hu01pd94ml8gzz',
+            center: [-96, 37.8],
+            zoom: 3.7,
+            minZoom: 3.2
+        });
+        const tractSources = ['gd0', 'gd1', 'gd2', 'gd31', 'gd32', 'gd4'];
+        const dispSources = ['gd0', 'gd1', 'gd2', 'gd31', 'gd32', 'gd4'];
+        const sourceLayerSuffixes = {
+            'gd0': '22imwf',
+            'gd1': '6tj49b',
+            'gd2': '55kapz',
+            'gd31': 'ak9vhu',
+            'gd32': '1fmokp', 
+            'gd4': 'ayrz8n'
+        };
+        const decades = [
+            ['==', 'gent80', 1],
+            ['==', 'g80_90', 1],
+            ['==', 'g80_00', 1],
+            ['==', 'g80_10', 1],
+            ['==', 'g80_20', 1]
+        ];
+
+        map.on('load', () => {
+            addSources(map);
+            addLayers(map);
+            
+            // Wait for style to be fully loaded
+            map.once('idle', () => {
+                populateMetroSearch(map);
+                initializeSearch(map);
+                initializeResetButton(map);
+                initializeViewToggle(map);
+                initializeCharts(map);
+                initializeTimeline(map);
+                initializeCbsaHover(map);
+                initializeTractHover(map);
+                initializeCbsaClick(map);
+                initializeZoomLayers(map);
+                initializeTractClick(map);
+            });
+        });
+    </script>
+</body>
+</html>
