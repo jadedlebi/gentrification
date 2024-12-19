@@ -89,48 +89,48 @@ function initializeCbsaClick(map) {
                 {
                     label: 'White',
                     data: [
-                        properties.nhwht70,
-                        properties.nhwht80,
-                        properties.nhwht90,
-                        properties.nhwht00,
-                        properties.nhwht10,
-                        properties.nhwht20
+                        parseInt(properties.nhwht70),
+                        parseInt(properties.nhwht80),
+                        parseInt(properties.nhwht90),
+                        parseInt(properties.nhwht00),
+                        parseInt(properties.nhwht10),
+                        parseInt(properties.nhwht20)
                     ],
                     borderColor: '#FFFFFF'
                 },
                 {
                     label: 'Black',
                     data: [
-                        properties.nhblk70,
-                        properties.nhblk80,
-                        properties.nhblk90,
-                        properties.nhblk00,
-                        properties.nhblk10,
-                        properties.nhblk20
+                        parseInt(properties.nhblk70),
+                        parseInt(properties.nhblk80),
+                        parseInt(properties.nhblk90),
+                        parseInt(properties.nhblk00),
+                        parseInt(properties.nhblk10),
+                        parseInt(properties.nhblk20)
                     ],
                     borderColor: '#4A90E2'
                 },
                 {
                     label: 'Asian',
                     data: [
-                        properties.asian70,
-                        properties.asian80,
-                        properties.asian90,
-                        properties.asian00,
-                        properties.asian10,
-                        properties.asian20
+                        parseInt(properties.asian70),
+                        parseInt(properties.asian80),
+                        parseInt(properties.asian90),
+                        parseInt(properties.asian00),
+                        parseInt(properties.asian10),
+                        parseInt(properties.asian20)
                     ],
                     borderColor: '#F5A623'
                 },
                 {
                     label: 'Hispanic',
                     data: [
-                        properties.hisp70,
-                        properties.hisp80,
-                        properties.hisp90,
-                        properties.hisp00,
-                        properties.hisp10,
-                        properties.hisp20
+                        parseInt(properties.hisp70),
+                        parseInt(properties.hisp80),
+                        parseInt(properties.hisp90),
+                        parseInt(properties.hisp00),
+                        parseInt(properties.hisp10),
+                        parseInt(properties.hisp20)
                     ],
                     borderColor: '#7ED321'
                 }
