@@ -39,8 +39,8 @@ function initializeTractClick(map) {
         const tractInfoHTML = `
             <div style="color: #ffffff; text-align: center; padding: 20px;">
                 <h3 style="margin: 5px 0;">GEOID: ${properties.geoid10}</h3>
-                <h3 style="margin: 5px 0;">Neighborhood: ${properties.neighborho}</h3>
-                <h1 style="line-height:30px; margin: 10px 0; color:#63a69b">
+                <h3 style="margin: 5px 0;">${properties.neighborho}, ${properties.place}</h3>
+                <h1 style="line-height:20px; margin: 10px 0; color:#63a69b; font-size: 3.5vh;">
                     ${gentWhen === "Not Gentrified" ? gentWhen : `Gentrified (${gentWhen})`}
                 </h1>
             </div>
