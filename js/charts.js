@@ -746,7 +746,7 @@ function updateDisplacementChart(data, title) {
                 
                 // Updated text styling
                 ctx.fillStyle = 'rgba(128, 128, 128, 0.8)';
-                ctx.font = 'italic 25px "Inter"'; // Increased size and added italic
+                ctx.font = 'italic 20px "Inter"';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 
