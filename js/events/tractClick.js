@@ -1,3 +1,6 @@
+let currentHighlightedTract = null;
+let currentHighlightedSource = null;
+
 function initializeTractClick(map) {
     function getGentWhen(properties) {
         const {gent80, gent90, gent00, gent10, gent20} = properties;
@@ -37,15 +40,28 @@ function initializeTractClick(map) {
     function updateTractView(e) {
         if (e.features.length === 0) return;
         
-        const properties = e.features[0].properties;
+        const clickedFeature = e.features[0];
+        const outlineLayerId = `${clickedFeature.source}-click-outline`;
+
+        // Clear previous highlight
+        if (currentHighlightedTract !== null && currentHighlightedSource !== null) {
+            map.setFilter(`${currentHighlightedSource}-click-outline`, ['==', ['get', 'geoid10'], '']);
+        }
+
+        // Set new highlight
+        currentHighlightedTract = clickedFeature.properties.geoid10;
+        currentHighlightedSource = clickedFeature.source;
+
+        // Set filter for outline
+        map.setFilter(outlineLayerId, ['==', ['get', 'geoid10'], currentHighlightedTract]);
+
+        const properties = clickedFeature.properties;
         const gentWhen = getGentWhen(properties);
         
-        // HTML content for both desktop and mobile
+        // HTML content for desktop
         const tractInfoHTML = `
-            <div style="color: #ffffff; text-align: center; padding-bottom: 20px;">
-                <h3 style="margin: 5px 0;">GEOID: ${properties.geoid10}</h3>
-                <h3 style="margin: 5px 0;">${properties.neighborho}, ${properties.place}</h3>
-                <h1 style="line-height:30px; margin: 10px 0; color:#63a69b; font-size: 3.5vh;">
+            <div class="tract-info-wrapper">
+                <h1 class="tract-info-title">
                     ${gentWhen === "Not Gentrified" ? 
                         "Not Gentrified" : 
                         (gentWhen && gentWhen.includes(',')) ? 
@@ -53,14 +69,68 @@ function initializeTractClick(map) {
                             `Gentrified (${gentWhen})`
                     }
                 </h1>
+                <table class="tract-info-table">
+                    <tr>
+                        <td><strong>CENSUS TRACT</strong></td>
+                        <td>${properties.geoid10}</td>
+                    </tr>
+                    ${properties.neighborho ? `
+                    <tr>
+                        <td><strong>NEIGHBORHOOD</strong></td>
+                        <td>${properties.neighborho}</td>
+                    </tr>
+                    ` : ''}
+                    <tr>
+                        <td><strong>CITY</strong></td>
+                        <td>${properties.place}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>METRO AREA</strong></td>
+                        <td>${properties.cbsa}</td>
+                    </tr>
+                </table>
             </div>
         `;
 
-        // Update desktop and mobile containers
+        // HTML content for mobile
+        const tractInfoMobileHTML = `
+            <div class="tract-info-wrapper">
+                <h1 class="tract-info-title">
+                    ${gentWhen === "Not Gentrified" ? 
+                        "Not Gentrified" : 
+                        (gentWhen && gentWhen.includes(',')) ? 
+                            `Gentrified Multiple Times (${gentWhen})` : 
+                            `Gentrified (${gentWhen})`
+                    }
+                </h1>
+                <table class="tract-info-table-mobile">
+                    <tr>
+                        <td><strong>CENSUS TRACT</strong></td>
+                        <td>${properties.geoid10}</td>
+                    </tr>
+                    ${properties.neighborho ? `
+                    <tr>
+                        <td><strong>NEIGHBORHOOD</strong></td>
+                        <td>${properties.neighborho}</td>
+                    </tr>
+                    ` : ''}
+                    <tr>
+                        <td><strong>CITY</strong></td>
+                        <td>${properties.place}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>METRO AREA</strong></td>
+                        <td>${properties.cbsa}</td>
+                    </tr>
+                </table>
+            </div>
+        `;
+
+        // Update containers with appropriate HTML
         const container = document.getElementById('gentrificationContainer');
         const containerMobile = document.getElementById('gentrificationContainer-mobile');
         container.innerHTML = tractInfoHTML;
-        containerMobile.innerHTML = tractInfoHTML;
+        containerMobile.innerHTML = tractInfoMobileHTML;
 
         // After setting the HTML content
         container.classList.add('tract-view');
@@ -235,14 +305,31 @@ function initializeTractClick(map) {
                 }
             ],
             gentDecade: firstGentDecade,
-            multipleGent: gentWhen && gentWhen.includes(',') ? true : false
+            multipleGent: gentWhen.includes(','),
+            options: {
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                }
+            }
         };
         updateDisplacementChart(dispData, `Population by Race in Tract ${properties.geoid10}`);
     }
 
-    // Add click handlers for both gentrification and displacement tract layers
     tractSources.forEach(source => {
         map.on('click', `${source}-gent-fill`, updateTractView);
+    });
+    
+    dispSources.forEach(source => {
         map.on('click', `${source}-disp-fill`, updateTractView);
+    });
+
+    document.getElementById('resetView').addEventListener('click', () => {
+        if (currentHighlightedTract !== null && currentHighlightedSource !== null) {
+            map.setFilter(`${currentHighlightedSource}-click-outline`, ['==', ['get', 'geoid10'], '']);
+            currentHighlightedTract = null;
+            currentHighlightedSource = null;
+        }
     });
 } 

@@ -1,4 +1,7 @@
 function initializeCbsaClick(map) {
+    // Add zoom controls to the map
+    map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
     // Define population thresholds and corresponding zoom levels
     const getZoomLevel = (population) => {
         if (population >= 2000000) {  // Large metros (e.g., Chicago, LA)
@@ -134,7 +137,14 @@ function initializeCbsaClick(map) {
                     ],
                     borderColor: '#7ED321'
                 }
-            ]
+            ],
+            options: {
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                }
+            }
         };
         updateDisplacementChart(dispData, `Population by Race in ${cityName}`);
     }

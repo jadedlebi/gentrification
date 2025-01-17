@@ -10,11 +10,18 @@ function initializeSearch(map) {
         if (!searchValue) return [];
         searchValue = searchValue.toLowerCase();
         
-        return Object.keys(CITY_COORDINATES).filter(city => {
+        // Add debug logging
+        console.log('CITY_COORDINATES available:', CITY_COORDINATES);
+        console.log('Search value:', searchValue);
+        
+        const filtered = Object.keys(CITY_COORDINATES).filter(city => {
             const cityLower = city.toLowerCase();
             const searchWords = searchValue.split(' ');
             return searchWords.every(word => cityLower.includes(word));
         });
+        
+        console.log('Filtered cities:', filtered);
+        return filtered;
     }
 
     // Function to highlight selected item
@@ -34,44 +41,82 @@ function initializeSearch(map) {
     function selectCity(city) {
         searchResults.style.display = 'none';
         const coordinates = CITY_COORDINATES[city];
-        if (coordinates) {
-            // Get population from cbsa-city layer features
-            const features = map.querySourceFeatures('cbsa-city', {
-                sourceLayer: 'gd24_cbsa-88j963',
-                filter: ['==', ['get', 'ccity'], city]
+        
+        if (!coordinates) {
+            console.error('No coordinates found for city:', city);
+            return;
+        }
+        
+        console.log('1. selectCity called with:', city);
+        console.log('2. Current coordinates:', coordinates);
+        
+        // Adjust initial zoom and animation parameters
+        map.flyTo({
+            center: coordinates,
+            zoom: 5.5,  // Start with a slightly wider view
+            speed: 2, // Slightly slower animation
+            curve: 1.2, // Gentler animation curve
+            essential: true
+        });
+
+        // Keep existing idle event handler
+        map.once('idle', () => {
+            const point = map.project(coordinates);
+            console.log('4. Projected point:', point);
+            
+            // Query with a small buffer around the point
+            const features = map.queryRenderedFeatures([
+                [point.x - 5, point.y - 5],
+                [point.x + 5, point.y + 5]
+            ], {
+                layers: ['cbsa-el', 'cbsa-disp'] // Query both layers
             });
+            
+            console.log('5. Features found:', features);
             
             if (features.length > 0) {
                 const properties = features[0].properties;
-                const population = properties.pop20;
+                console.log('6. Selected feature data:', properties);
                 
-                // Update charts with selected city's data
-                updateCharts(properties);
-                
-                let zoomLevel = 10; // Default zoom
-                if (population >= 2000000) { // Large metros
-                    zoomLevel = 10;
-                } else if (population >= 500000) { // Medium metros
-                    zoomLevel = 11;
-                } else { // Small metros
-                    zoomLevel = 12;
+                // Adjust zoom based on population
+                let zoomLevel = 10;
+                if (properties.pop20) {
+                    if (properties.pop20 >= 2000000) {
+                        zoomLevel = 9;
+                    } else if (properties.pop20 >= 500000) {
+                        zoomLevel = 10;
+                    } else {
+                        zoomLevel = 11;
+                    }
                 }
 
-                map.flyTo({
-                    center: coordinates,
-                    zoom: zoomLevel,
-                    essential: true,
-                    duration: 2000
-                });
+                // Update zoom if needed
+                if (map.getZoom() !== zoomLevel) {
+                    map.flyTo({
+                        center: coordinates,
+                        zoom: zoomLevel,
+                        essential: true,
+                        duration: 1000
+                    });
+                }
+
+                // Update charts with the data
+                updateCharts(properties);
+            } else {
+                console.error('No features found at coordinates:', coordinates);
             }
-        }
+        });
+        
+        // Update input and clear results
         searchInput.value = city;
         selectedIndex = -1;
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'none';
     }
 
     // Function to update results
     function updateResults(cities) {
-        searchResults.innerHTML = '';
+        searchResults.innerHTML = ''; // Clear existing results
         filteredCities = cities;
         selectedIndex = -1;
         
@@ -80,9 +125,14 @@ function initializeSearch(map) {
             return;
         }
 
+        // Add debug logging
+        console.log('Updating results with cities:', cities);
+
         cities.forEach(city => {
             const li = document.createElement('li');
             li.textContent = city;
+            li.style.padding = '8px 12px';
+            li.style.cursor = 'pointer';
             li.addEventListener('click', () => selectCity(city));
             li.addEventListener('mouseover', () => {
                 selectedIndex = Array.from(searchResults.children).indexOf(li);
@@ -91,7 +141,20 @@ function initializeSearch(map) {
             searchResults.appendChild(li);
         });
         
-        searchResults.style.display = cities.length > 0 ? 'block' : 'none';
+        // Make sure the results container is visible and properly positioned
+        if (cities.length > 0) {
+            searchResults.style.display = 'block';
+            searchResults.style.position = 'absolute';
+            searchResults.style.zIndex = '1000';
+            
+            // Position the results below the search input
+            const inputRect = searchInput.getBoundingClientRect();
+            searchResults.style.top = `${inputRect.bottom}px`;
+            searchResults.style.left = `${inputRect.left}px`;
+            searchResults.style.width = `${inputRect.width}px`;
+        } else {
+            searchResults.style.display = 'none';
+        }
     }
 
     // Input event listener

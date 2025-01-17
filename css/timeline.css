@@ -75,4 +75,17 @@
 #playButton:hover {
     transform: scale(1.08);
     box-shadow: 0 0 4px 4px rgba(33,150,243,0.4);
-} 
+}
+
+/* Update timeline slider color */
+.timeline-container input[type="range"]::-webkit-slider-thumb {
+    background: #00BCD4;
+}
+
+.timeline-container input[type="range"]::-moz-range-thumb {
+    background: #00BCD4;
+}
+
+.timeline-container input[type="range"]::-ms-thumb {
+    background: #00BCD4;
+}

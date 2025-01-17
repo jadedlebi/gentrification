@@ -16,7 +16,7 @@ function addLayers() {
                 0, 2,
                 746, 30
             ],
-            'circle-color': '#9CCEC5',
+            'circle-color': '#5BD6FF',
             'circle-opacity': 0.4,
             'circle-stroke-color': '#000000',
             'circle-stroke-width': 1,
@@ -42,7 +42,7 @@ function addLayers() {
                 0, 0,
                 142, 20
             ],
-            'circle-color': '#001f1a',
+            'circle-color': '#00343B',
             'circle-opacity': 0.8
         }
     });
@@ -105,6 +105,7 @@ function addLayers() {
             "fill-color": "#AAA9A9",
             "fill-opacity": 0.15
         },
+        filter: ['!=', ['get', 'geoid10'], '12057007300']
     });
 
     map.addLayer({ // total displacement circle
@@ -115,11 +116,11 @@ function addLayers() {
         paint: {
             'circle-color': [
                 'case',
-                ['<', ['to-number', ['get', 'cb80']], 0],
-                '#af2323',
-                '#17736a'
+                ['<', ['to-number', ['get', 'cb20']], 0],
+                '#757575',  // Gray for negative displacement
+                '#00BCD4'   // Bright cyan for positive displacement
             ],
-            'circle-opacity': 0.5,
+            'circle-opacity': 0.7,
             'circle-radius': [
                 'interpolate',
                 ['exponential', 0.999],
@@ -196,11 +197,11 @@ function addLayers() {
                 "fill-outline-color": "#000000",
                 "fill-color": [
                     "case",
-                        ["==", ["get", "gent80"], 1], "#c2ede5",
-                        ["==", ["get", "gent90"], 1], "#7fcec2",
-                        ["==", ["get", "gent00"], 1], "#3da697",
-                        ["==", ["get", "gent10"], 1], "#0d7264",
-                        ["==", ["get", "gent20"], 1], "#001f1a",
+                        ["==", ["get", "gent80"], 1], "#B2EBF2",
+                        ["==", ["get", "gent90"], 1], "#80DEEA",
+                        ["==", ["get", "gent00"], 1], "#00ACC1",
+                        ["==", ["get", "gent10"], 1], "#006064",
+                        ["==", ["get", "gent20"], 1], "#002b2d",
                         ["case", 
                             ["all", 
                             ["==", ["get", "g80_20"], 1],
@@ -292,7 +293,11 @@ function addLayers() {
             },
             layout: {
                 visibility: 'none'
-            }
+            },
+            filter: ['all',
+                ['!=', ['get', 'geoid10'], '12057007300'],
+                ['!=', ['get', 'cb80'], null]
+            ]
         });
         map.addLayer({ // displacement outline
             id: `${source}-disp-outline`,
@@ -306,7 +311,11 @@ function addLayers() {
             },
             layout: {
                 visibility: 'none'
-            }
+            },
+            filter: ['all',
+                ['!=', ['get', 'geoid10'], '12057007300'],
+                ['!=', ['get', 'cb80'], null]
+            ]
         });
         map.addLayer({ // displacement hover outline
             id: `${source}-disp-hover-outline`,
@@ -318,12 +327,39 @@ function addLayers() {
                 'line-width': 2,
                 'line-opacity': 0.8
             },
-            filter: ['all', 
+            filter: ['all',
+                ['!=', ['get', 'geoid10'], '12057007300'],
                 ['==', ['get', 'geoid10'], '']
             ],
             layout: {
                 visibility: 'none'
             },
         });    
+    });
+
+    // Add click outline layers separately (once per source)
+    [...tractSources, ...dispSources].forEach(source => {
+        const layerId = `${source}-click-outline`;
+        // Check if layer already exists before adding
+        if (!map.getLayer(layerId)) {
+            map.addLayer({
+                id: layerId,
+                type: 'line',
+                source: source,
+                'source-layer': `${source.replace('gd', 'gd_c')}-${sourceLayerSuffixes[source]}`,
+                paint: {
+                    'line-color': '#ffffff',
+                    'line-width': 2,
+                    'line-opacity': 0.8
+                },
+                filter: ['all',
+                    ['!=', ['get', 'geoid10'], '12057007300'],
+                    ['==', ['get', 'geoid10'], '']
+                ],
+                layout: {
+                    visibility: 'visible'
+                }
+            });
+        }
     });
 }

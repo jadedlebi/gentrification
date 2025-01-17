@@ -1,6 +1,43 @@
 /* Base styles - these apply to all screen sizes */
 .bottom-sheet {
-    display: none; /* Hide by default on all screens */
+    display: none; /* Hide by default on desktop */
+}
+
+/* Only show bottom sheet on mobile devices */
+@media screen and (max-width: 768px) {
+    .bottom-sheet {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(25, 25, 25, 0.95);
+        border-radius: 16px 16px 0 0;
+        z-index: 1000;
+    }
+}
+
+/* Hide desktop elements on mobile */
+@media screen and (max-width: 768px) {
+    .desktop-chart-container {
+        display: none;
+    }
+}
+
+/* Hide mobile elements on desktop */
+@media screen and (min-width: 769px) {
+    .mobile-chart-container {
+        display: none;
+    }
+}
+
+/* Bottom sheet handle styling */
+.bottom-sheet-handle {
+    width: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    margin: 12px auto;
 }
 
 /* Mobile styles */
@@ -237,5 +274,36 @@
         margin-left: auto; /* Push logo to the right */
         padding-right: 5px; /* Add a small right padding */
         margin-right: -15px; /* Push further right by creating negative margin */
+    }
+
+    /* Legend mobile adjustments */
+    .map-legend {
+        position: fixed;
+        bottom: auto;
+        top: 220px; /* Adjusted to be below the timeline controls */
+        right: auto;
+        left: 10px;
+        max-width: 160px;
+        font-size: 11px;
+        z-index: 1; /* Ensure it's above the map but below other controls */
+    }
+
+    .legend-title {
+        font-size: 12px;
+    }
+
+    .legend-item {
+        font-size: 11px;
+        margin-bottom: 6px;
+    }
+
+    .legend-color {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* When bottom sheet is expanded */
+    .bottom-sheet.expanded .map-legend {
+        display: none;
     }
 }

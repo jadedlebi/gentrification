@@ -1,3 +1,46 @@
+// Register the plugin globally at the top of your charts.js file
+Chart.register({
+    id: 'gentrificationPeriod',
+    beforeDraw: (chart) => {
+        const data = chart.data;
+        if (!data.gentDecade) return;
+
+        const {ctx} = chart;
+        const {left, right, top, bottom} = chart.chartArea;
+        const labels = chart.data.labels;
+        const startYear = data.gentDecade - 10;
+        const endYear = data.gentDecade;
+        
+        const startIdx = labels.indexOf(startYear.toString());
+        const endIdx = labels.indexOf(endYear.toString());
+        
+        if (startIdx === -1 || endIdx === -1) return;
+        
+        const xScale = chart.scales.x;
+        const xStart = xScale.getPixelForValue(labels[startIdx]);
+        const xEnd = xScale.getPixelForValue(labels[endIdx]);
+        
+        ctx.save();
+        ctx.fillStyle = 'rgba(128, 128, 128, 0.2)';
+        ctx.fillRect(xStart, top, xEnd - xStart, bottom - top);
+        
+        ctx.fillStyle = 'rgba(128, 128, 128, 0.8)';
+        ctx.font = `italic ${chart.height * 0.04}px "Inter"`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        
+        const text = data.multipleGent ? 
+            'First Decade of Gentrification' : 
+            'Decade of Gentrification';
+        
+        ctx.translate((xStart + xEnd) / 2, (top + bottom) / 2);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillText(text, 0, 0);
+        
+        ctx.restore();
+    }
+});
+
 // Initialize charts when map data is loaded
 function initializeCharts(map) {
     // Get data from the source
@@ -16,16 +59,92 @@ function initializeCharts(map) {
 
 // Define a consistent color palette matching map layers
 const chartColors = {
-    primary: '#63a69b',      // Slightly darker teal
+    primary: '#00BCD4',      // Bright cyan/turquoise blue
+    secondary: '#0097A7',    // Slightly darker shade for hover/secondary states
     grid: 'rgba(255, 255, 255, 0.1)',
-    text: '#ffffff'
+    text: '#ffffff',
+    background: '#2d2d2d'
 };
 
 // Store all chart instances globally
 let gentrificationChart, gentrificationChartMobile;
 let metricChart, metricChartMobile;
 let displacementChart, displacementChartMobile;
-let currentMetroData = null;  // Store current metro data
+let currentMetroData = {
+    demographics: {
+        label: 'Population',
+        data: [148089022.0, 180426392.0, 231594163.0, 263199606.0, 293968648.0, 316734968.0],
+        title: 'Total Population Nationwide'
+    },
+    homeValue: {
+        label: 'Median Home Value',
+        data: [147464.0, 181392.0, 241554.0, 233577.0, 300282.0, 400108.0],
+        title: 'Median Home Value Nationwide'
+    },
+    income: {
+        label: 'Median Income',
+        data: [65052.0, 57382.0, 66789.0, 69089.0, 62706.0, 79372.0],
+        title: 'Median Household Income Nationwide'
+    },
+    education: {
+        label: 'College Education',
+        data: [12.2, 18.0, 21.8, 25.0, 28.6, 30.9],
+        title: 'Percent College-Educated Nationwide'
+    }
+};
+
+// First, define the decade colors
+const decadeColors = {
+    1970: '#E0F7FA', // Lighter cyan for 1970 to differentiate from 1980
+    1980: '#B2EBF2',
+    1990: '#80DEEA',
+    2000: '#00ACC1',
+    2010: '#006064',
+    2020: '#002b2d'
+};
+
+function createBarChart(ctx, data, labels) {
+    return new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: labels.map(year => decadeColors[year]), // Map each year to its color
+                borderColor: 'rgba(255, 255, 255, 0.1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#ffffff'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#ffffff'
+                    }
+                }
+            }
+        }
+    });
+}
 
 function initGentrificationChart(features) {
     // Use exact numbers from table
@@ -47,7 +166,7 @@ function initGentrificationChart(features) {
             datasets: [{
                 label: 'Gentrified Tracts',
                 data: Object.values(sums),
-                backgroundColor: chartColors.primary,  // Make sure this is being used
+                backgroundColor: ['1980', '1990', '2000', '2010', '2020'].map(year => decadeColors[year]),
                 borderColor: 'transparent',
                 borderRadius: 4,
                 barThickness: 'flex',
@@ -181,7 +300,7 @@ function initMetricChart(features) {
                 datasets: [{
                     label: `${data[metric].calculation} ${data[metric].label}`,
                     data: data[metric].data,
-                    backgroundColor: chartColors.primary,  // Single color for all bars
+                    backgroundColor: ['1970', '1980', '1990', '2000', '2010', '2020'].map(year => decadeColors[year]),
                     borderColor: 'transparent',
                     borderRadius: 4,
                     barThickness: 'flex'
@@ -370,7 +489,18 @@ function initDisplacementMetricChart(features) {
             },
             plugins: {
                 legend: {
-                    display: false
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 40,
+                        boxHeight: 2,  // Make the boxes very thin to appear as lines
+                        color: '#ffffff',
+                        font: {
+                            family: "'Inter', sans-serif",
+                            size: 12
+                        },
+                        padding: 15
+                    }
                 },
                 tooltip: {
                     callbacks: {
@@ -639,12 +769,11 @@ function updateDisplacementChart(data, title) {
     // Add tension to each dataset
     if (data.datasets) {
         data.datasets.forEach(dataset => {
-            dataset.tension = 0.4;  // Increase smoothness of the curves
-            dataset.fill = false;   // Ensure no fill under the lines
+            dataset.tension = 0.4;
+            dataset.fill = false;
         });
     }
 
-    // Keep all original config
     const config = {
         type: 'line',
         data: data,
@@ -693,16 +822,18 @@ function updateDisplacementChart(data, title) {
             },
             plugins: {
                 legend: {
-                    display: false
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            let value = context.parsed.y;
-                            return context.dataset.label + ': ' + value.toLocaleString();
-                        }
-                    },
-                    position: 'nearest'
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 40,
+                        boxHeight: 1,  // Make the boxes very thin to appear as lines
+                        color: '#ffffff',
+                        font: {
+                            family: "'Inter', sans-serif",
+                            size: 12
+                        },
+                        padding: 15
+                    }
                 },
                 title: {
                     display: true,
@@ -719,51 +850,6 @@ function updateDisplacementChart(data, title) {
         }
     };
 
-    // Only add the new plugin for shading
-    if (data.gentDecade) {
-        config.plugins = [{
-            id: 'gentrificationPeriod',
-            beforeDraw: (chart) => {
-                const {ctx} = chart;
-                const {left, right, top, bottom} = chart.chartArea;
-                const labels = chart.data.labels;
-                const startYear = data.gentDecade - 10;
-                const endYear = data.gentDecade;
-                
-                const startIdx = labels.indexOf(startYear.toString());
-                const endIdx = labels.indexOf(endYear.toString());
-                
-                if (startIdx === -1 || endIdx === -1) return;
-                
-                const xScale = chart.scales.x;
-                const xStart = xScale.getPixelForValue(labels[startIdx]);
-                const xEnd = xScale.getPixelForValue(labels[endIdx]);
-                
-                // Draw shaded area (keep same color)
-                ctx.save();
-                ctx.fillStyle = 'rgba(128, 128, 128, 0.2)';
-                ctx.fillRect(xStart, top, xEnd - xStart, bottom - top);
-                
-                // Updated text styling
-                ctx.fillStyle = 'rgba(128, 128, 128, 0.8)';
-                ctx.font = 'italic 20px "Inter"';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                
-                const text = data.multipleGent ? 
-                    'First Decade of Gentrification' : 
-                    'Decade of Gentrification';
-                
-                // Rotate and position text
-                ctx.translate((xStart + xEnd) / 2, (top + bottom) / 2);
-                ctx.rotate(-Math.PI / 2);
-                ctx.fillText(text, 0, 0);
-                
-                ctx.restore();
-            }
-        }];
-    }
-
     if (displacementChart) displacementChart.destroy();
     if (displacementChartMobile) displacementChartMobile.destroy();
     
@@ -777,17 +863,31 @@ function updateDisplacementChart(data, title) {
 // Set up tab click handlers
 document.querySelectorAll('.metric-tab').forEach(tab => {
     tab.addEventListener('click', (e) => {
+        // Remove active class from all tabs
         document.querySelectorAll('.metric-tab').forEach(t => t.classList.remove('active'));
+        // Add active class to clicked tab
         e.target.classList.add('active');
-        updateMetricChart();  // Call without data to use stored currentMetroData
+        // Sync mobile tabs
+        const tabType = e.target.dataset.tab;
+        document.querySelectorAll(`#metricTabs-mobile .metric-tab[data-tab="${tabType}"]`)
+            .forEach(t => t.classList.add('active'));
+        // Update chart with current data
+        updateMetricChart(currentMetroData);
     });
 });
 
 // Also update mobile tabs
 document.querySelectorAll('#metricTabs-mobile .metric-tab').forEach(tab => {
     tab.addEventListener('click', (e) => {
+        // Remove active class from all mobile tabs
         document.querySelectorAll('#metricTabs-mobile .metric-tab').forEach(t => t.classList.remove('active'));
+        // Add active class to clicked tab
         e.target.classList.add('active');
-        updateMetricChart();  // Call without data to use stored currentMetroData
+        // Sync desktop tabs
+        const tabType = e.target.dataset.tab;
+        document.querySelectorAll(`#metricTabs .metric-tab[data-tab="${tabType}"]`)
+            .forEach(t => t.classList.add('active'));
+        // Update chart with current data
+        updateMetricChart(currentMetroData);
     });
 }); 

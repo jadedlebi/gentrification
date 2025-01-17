@@ -1,49 +1,73 @@
-/* Chart-specific Styling */
+/* Common chart container styles */
+.chart-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+    position: relative;
+}
+
+/* Apply common styles to all charts */
 #gentrificationChart,
 #metricChart,
 #gentrificationChart-mobile,
-#metricChart-mobile {
+#metricChart-mobile,
+#displacementMetricChart,
+#displacementMetricChart-mobile {
     width: 100%;
     height: 100%;
-    border-radius: 8px;
 }
 
 /* Chart Containers */
 #gentrificationContainer,
 #metricContainer,
 #displacementMetricContainer {
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
+    position: relative;
+    width: 100%;
+    height: calc(30vh - 1.25rem);
+    margin-bottom: 0.9375rem;
+}
+
+/* Add specific container styling */
+#gentrificationContainer {
+    z-index: 1;
+}
+
+#metricContainer,
+#displacementMetricContainer {
+    z-index: 2;
+}
+
+#gentrificationContainer.tract-view + #metricContainer {
+    margin-top: 2rem;
 }
 
 /* Desktop View States */
 @media screen and (min-width: 769px) {
-    #sidebar:not(.displacement-view) #gentrificationContainer {
-        height: 40vh !important;
-        margin-bottom: 2vh;
-    }
-
+    #sidebar:not(.displacement-view) #gentrificationContainer,
     #sidebar.displacement-view #gentrificationContainer {
-        height: 30vh !important;
-        margin-bottom: 2vh;
+        height: calc(30vh - 1.25rem) !important;
+        margin-bottom: 2rem;
     }
 
     #gentrificationContainer.tract-view {
         height: auto !important;
-        padding: 5px 0;
-        max-height: 100px;
-    }
-
-    #sidebar.displacement-view #displacementMetricContainer {
-        flex: 1;
-        min-height: 0;
-        height: auto !important;
+        padding: 0.3125rem 0;
+        max-height: 6.25rem;
     }
 
     #metricContainer {
-        height: 40vh;
-        padding-bottom: 30px;
+        height: calc(30vh - 1.25rem);
+        padding-bottom: 1.875rem;
+    }
+
+    /* Target the gentrification period text specifically */
+    #displacementMetricChart {
+        font-size: 1.5vh !important;
+    }
+
+    /* Ensure the canvas context inherits the font size */
+    #displacementMetricChart canvas {
+        font: inherit;
     }
 }
 
@@ -51,7 +75,7 @@
 .metric-chart-wrapper {
     flex: 1;
     display: flex;
-    margin-top: 10px;
+    margin-top: 0.625rem;
     height: 98%;
     position: relative;
 }
@@ -59,19 +83,19 @@
 /* Metric Tabs */
 #metricTabs {
     display: flex;
-    gap: 2px;
-    margin-top: 10px;
+    gap: 0.125rem;
+    /* margin-top: 0.625rem; */
 }
 
 .metric-tab {
     flex: 1;
-    padding: 5px;
+    padding: 0.3125rem;
     background: #4a4a4a;
     border: none;
     color: #ffffff;
     cursor: pointer;
-    border-radius: 4px;
-    font-size: 11px;
+    border-radius: 0.25rem;
+    font-size: 0.6875rem;
     transition: all 0.2s ease;
 }
 
@@ -90,30 +114,49 @@
 
 .label-text {
     vertical-align: middle;
-    margin-left: 10px;
+    margin-left: 0.625rem;
 }
 
 #demographicDropdown {
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 0.625rem;
     font-weight: bold;
 }
 
 /* Chart Mobile Specific */
 @media screen and (max-width: 768px) {
+    #gentrificationContainer-mobile,
+    #metricContainer-mobile,
+    #displacementMetricContainer-mobile {
+        position: relative;
+        width: 100%;
+        height: 15.625rem;
+        margin-bottom: 0.9375rem;
+    }
+
+    #gentrificationContainer-mobile {
+        z-index: 1;
+    }
+
+    #metricContainer-mobile,
+    #displacementMetricContainer-mobile {
+        z-index: 2;
+    }
+
     #gentrificationContainer-mobile.tract-view {
         height: auto !important;
-        padding: 5px 0;
-        max-height: 100px;
+        padding: 0.3125rem 0;
+        max-height: 6.25rem;
     }
 
     .mobile-charts-container {
+        margin-top: 20vh;
         transition: all 0.3s ease;
     }
 
     .mobile-charts-container.tract-view {
         height: 70vh;
-        padding-bottom: 20px;
+        padding-bottom: 1.25rem;
     }
 
     .mobile-charts-container canvas {
@@ -124,6 +167,284 @@
 
     .mobile-charts-container .gent-charts,
     .mobile-charts-container .disp-charts {
-        padding-bottom: 5px;
+        padding-bottom: 0.3125rem;
     }
+
+    /* Ensure charts stay below the table */
+    #gentrificationContainer-mobile {
+        position: absolute;
+        top: 10vh;
+        left: 0;
+        width: 100%;
+        z-index: 2;
+    }
+
+    #metricContainer-mobile,
+    #displacementMetricContainer-mobile {
+        position: relative;
+        width: 100%;
+        height: 15.625rem;
+        margin-bottom: 0.9375rem;
+    }
+
+    #displacementMetricChart-mobile {
+        font-size: 1vh !important;
+    }
+}
+
+/* Ensure the total sidebar content fits without scroll */
+.sidebar {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0.625rem;
+    overflow: hidden;
+}
+
+/* Adjust other sidebar elements to ensure charts fit */
+.sidebar-header {
+    height: 6vh;
+    flex-shrink: 0;
+    margin-bottom: 1rem;
+}
+
+.sidebar-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0.625rem;
+}
+
+/* Timeline and controls */
+.timeline-container {
+    height: 5vh;
+    flex-shrink: 0;
+    margin-bottom: 0.5rem;
+}
+
+/* Chart title and controls */
+.chart-header {
+    margin-bottom: 0.3125rem;
+}
+
+/* Ensure charts container has proper spacing */
+.charts-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9375rem;
+}
+
+/* Target both container and chart explicitly */
+#gentrificationContainer {
+    height: 25vh !important;
+    /* margin-bottom: 1rem; */
+    max-height: 25vh !important;
+}
+
+#gentrificationChart {
+    height: 100% !important;
+    max-height: 25vh !important;
+}
+
+/* Increase metric container to fill remaining space */
+#metricContainer,
+#displacementMetricContainer {
+    height: 44vh !important;
+    margin-bottom: 1rem;
+}
+
+#metricChart,
+#displacementMetricChart {
+    height: 100% !important;
+}
+
+/* Ensure charts maintain size when hidden/shown */
+.hidden {
+    display: none;
+    height: 32vh;
+}
+
+/* Common wrapper styles */
+.tract-info-wrapper {
+    color: #ffffff;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+/* Desktop table styles */
+.tract-info-table {
+    width: 100%;
+    color: #ffffff;
+    margin: 2vh auto;
+    border-collapse: separate;
+    border-spacing: 0 0.5vh;
+    font-size: 2.5vh;
+    height: auto;
+    min-height: 15vh;
+    line-height: 2.5vh;
+    margin-bottom: 2vh;
+}
+
+.tract-info-title {
+    margin: 1vh 0;
+    color: #57bbcd;
+    font-size: 3.5vh;
+    font-weight: 600;
+}
+
+/* Desktop table cells */
+.tract-info-table td {
+    padding: 0.3rem 0.8rem;
+}
+
+.tract-info-table td:first-child {
+    text-align: right;
+    width: 40%;
+}
+
+.tract-info-table td:last-child {
+    text-align: left;
+    border-radius: 0.25rem;
+}
+
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+    .tract-info-table-mobile {
+        width: 100%;
+        color: #ffffff;
+        margin: 0.5rem auto;
+        border-collapse: separate;
+        border-spacing: 0 0.25rem;
+        font-size: 0.75rem;
+        height: 15vh;
+        line-height: normal;
+    }
+
+    .tract-info-title {
+        font-size: 2.5vh;
+    }
+
+    .tract-info-table-mobile td {
+        padding: 0.25rem 0.5rem;
+    }
+
+    .tract-info-table-mobile td:first-child {
+        text-align: right;
+        width: 40%;
+    }
+
+    .tract-info-table-mobile td:last-child {
+        text-align: left;
+        border-radius: 0.25rem;
+    }
+}
+
+/* Chart bar colors for 5-bar charts (1980-2020) */
+.bar-1980 { fill: #B4E6E6; }
+.bar-1990 { fill: #89D3D3; }
+.bar-2000 { fill: #5EC0C0; }
+.bar-2010 { fill: #33ADAD; }
+.bar-2020 { fill: #089A9A; }
+
+/* Chart bar colors for 6-bar charts (1970-2020) */
+.bar-1970 { fill: #E0F5F5; }  /* Lighter cyan for 1970 */
+.bar-1980-six { fill: #B4E6E6; }
+.bar-1990-six { fill: #89D3D3; }
+.bar-2000-six { fill: #5EC0C0; }
+.bar-2010-six { fill: #33ADAD; }
+.bar-2020-six { fill: #089A9A; }
+
+/* Hover effects */
+.bar-1970:hover,
+.bar-1980:hover,
+.bar-1990:hover,
+.bar-2000:hover,
+.bar-2010:hover,
+.bar-2020:hover,
+.bar-1980-six:hover,
+.bar-1990-six:hover,
+.bar-2000-six:hover,
+.bar-2010-six:hover,
+.bar-2020-six:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    gap: 4px;
+    padding: 6px;
+}
+
+/* Ultra-compact top section */
+.header-container {
+    flex: 0 0 auto;
+    max-height: 55px;
+}
+
+.header-container .title-container {
+    margin: 0;
+}
+
+#title {
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0;
+}
+
+#subtitle {
+    font-size: 12px;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.search-container {
+    flex: 0 0 auto;
+    max-height: 30px;
+    margin: 2px 0;
+}
+
+.view-toggle-container {
+    flex: 0 0 auto;
+    padding: 2px 0;
+    margin: 8px 0;
+}
+
+.timeline-container {
+    flex: 0 0 auto;
+    margin: 0;
+    margin-bottom: 16px;
+}
+
+/* Charts sharing remaining space */
+#gentrificationContainer,
+#metricContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.metric-chart-wrapper {
+    flex: 1;
+    position: relative;
+    min-height: 0;
+}
+
+#metricTabs {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+/* Ensure charts fill their containers */
+canvas {
+    width: 100% !important;
+    height: 100% !important;
 }

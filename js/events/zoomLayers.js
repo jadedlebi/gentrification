@@ -1,4 +1,7 @@
 function initializeZoomLayers(map) {
+    // Initialize legend
+    initializeLegend(map);
+
     map.on('zoom', () => {
         const zoomLevel = map.getZoom();
         const toggleElement = document.getElementById('viewToggle');
