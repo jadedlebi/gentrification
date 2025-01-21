@@ -200,12 +200,12 @@ function initializeTractClick(map) {
             education: {
                 label: 'College Education',
                 data: [
-                    properties.pctcol70,
-                    properties.pctcol80,
-                    properties.pctcol90,
-                    properties.pctcol00,
-                    properties.pctcol10,
-                    properties.pctcol20
+                    properties.pctcol70 * 100,
+                    properties.pctcol80 * 100,
+                    properties.pctcol90 * 100,
+                    properties.pctcol00 * 100,
+                    properties.pctcol10 * 100,
+                    properties.pctcol20 * 100
                 ],
                 title: `Percent in Tract ${properties.geoid10} with 4-Year Degree or More`
             }

@@ -290,12 +290,18 @@ function updateGentrificationChart(data, title, retryCount = 0) {
                 x: {
                     grid: {
                         display: false
+                    },
+                    ticks: {
+                        color: '#ffffff'
                     }
                 },
                 y: {
                     beginAtZero: true,
                     grid: {
                         color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#ffffff'
                     }
                 }
             },
@@ -319,7 +325,18 @@ function updateGentrificationChart(data, title, retryCount = 0) {
 function updateMetricChart(data) {
     // Store the metro data when it's passed in
     if (data) {
-        currentMetroData = data;
+        // Create a deep copy and transform education data before storing
+        currentMetroData = JSON.parse(JSON.stringify(data));
+        if (currentMetroData.education) {
+            // Check if any value is less than 1 (indicating raw percentage)
+            const needsConversion = currentMetroData.education.data.some(value => value && value < 1);
+            if (needsConversion) {
+                currentMetroData.education.data = currentMetroData.education.data.map(value => 
+                    // Only multiply non-null values that are less than 1
+                    value && value < 1 ? value * 100 : value
+                );
+            }
+        }
     }
 
     const activeTab = document.querySelector('.metric-tab.active').dataset.tab;

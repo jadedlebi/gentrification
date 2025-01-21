@@ -308,7 +308,6 @@
     border-radius: 0.25rem;
 }
 
-
 /* Mobile styles */
 @media screen and (max-width: 768px) {
     .tract-info-table-mobile {
