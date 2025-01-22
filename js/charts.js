@@ -410,22 +410,22 @@ function initDisplacementMetricChart(features) {
         Asian: {
             label: 'Asian',
             color: '#F5A623',
-            data: [185664, 239175, 445313, 634118, 815323, 1165448]
+            data: [1807309, 3376128, 6922358, 11743570, 16894536, 23368702]
         },
         Black: {
             label: 'Black',
             color: '#4A90E2',
-            data: [3423916, 3191077, 3167583, 3142021, 2893834, 2821050]
+            data: [17524977, 22091289, 27760174, 33801582, 38532917, 42786721]
         },
         Hispanic: {
             label: 'Hispanic',
             color: '#7ED321',
-            data: [641686, 1611214, 2212395, 2903797, 3312002, 3622885]
+            data: [3908700, 13276158, 21865806, 34553452, 53085825, 64065370]
         },
         White: {
             label: 'White',
             color: '#FFFFFF',
-            data: [7249778, 5682070, 5833634, 5368908, 5567661, 6075793]
+            data: [124403989, 140280124, 173393057, 179328114, 181761662, 177603312]
         }
     };
 
@@ -513,7 +513,7 @@ function initDisplacementMetricChart(features) {
                 },
                 title: {
                     display: true,
-                    text: 'Population by Race Nationwide',
+                    text: 'Population by Race in Urban Areas Nationwide',
                     color: chartColors.text,
                     font: {
                         size: 14,

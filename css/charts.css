@@ -270,32 +270,34 @@
     color: #ffffff;
     text-align: center;
     padding: 0.5rem;
+    max-height: 30vh;
+    overflow-y: auto;
 }
 
 /* Desktop table styles */
 .tract-info-table {
     width: 100%;
     color: #ffffff;
-    margin: 2vh auto;
+    margin: 1vh auto;
     border-collapse: separate;
-    border-spacing: 0 0.5vh;
-    font-size: 2vh;
+    border-spacing: 0 0.3vh;
+    font-size: clamp(14px, 1.8vh, 20px); /* Min 14px, preferred 1.8vh, max 20px */
     height: auto;
-    min-height: 15vh;
-    line-height: 2.5vh;
-    margin-bottom: 2vh;
+    min-height: auto;
+    line-height: clamp(16px, 2vh, 24px);
+    margin-bottom: 1vh;
 }
 
 .tract-info-title {
-    margin: 1vh 0;
+    margin: 0.5vh 0;
     color: #57bbcd;
-    font-size: 3.5vh;
+    font-size: clamp(18px, 3.2vh, 28px); /* Increased from 16px/2.8vh/24px */
     font-weight: 600;
 }
 
 /* Desktop table cells */
 .tract-info-table td {
-    padding: 0.3rem 0.8rem;
+    padding: 0.2rem 0.6rem;
 }
 
 .tract-info-table td:first-child {

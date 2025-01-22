@@ -141,7 +141,7 @@ function updateCharts(properties) {
     }, 1000);
 }
 
-// Common chart options to remove legend and maintain aspect ratio
+// Modify the commonChartOptions to remove the specific formatting callback
 const commonChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -171,18 +171,6 @@ const commonChartOptions = {
                 color: '#ffffff',
                 font: {
                     family: "'Inter', sans-serif"
-                },
-                callback: function(value, index, values) {
-                    // Get the active tab to determine the format
-                    const activeTab = document.querySelector('.metric-tab.active')?.dataset.tab;
-                    
-                    if (activeTab === 'education') {
-                        return value + '%';
-                    }
-                    if (activeTab === 'homeValue' || activeTab === 'income') {
-                        return '$' + formatValue(value);
-                    }
-                    return formatValue(value);
                 }
             }
         },
@@ -361,6 +349,26 @@ function updateMetricChart(data) {
         options: {
             ...chartConfig,
             ...commonChartOptions,
+            scales: {
+                ...commonChartOptions.scales,
+                y: {
+                    ...commonChartOptions.scales.y,
+                    ticks: {
+                        ...commonChartOptions.scales.y.ticks,
+                        callback: function(value, index, values) {
+                            const activeTab = document.querySelector('.metric-tab.active')?.dataset.tab;
+                            
+                            if (activeTab === 'education') {
+                                return value + '%';
+                            }
+                            if (activeTab === 'homeValue' || activeTab === 'income') {
+                                return '$' + formatValue(value);
+                            }
+                            return formatValue(value);
+                        }
+                    }
+                }
+            },
             plugins: {
                 ...commonChartOptions.plugins,
                 title: {
@@ -421,6 +429,18 @@ function updateDisplacementChart(data, title) {
         options: {
             ...chartConfig,
             ...commonChartOptions,
+            scales: {
+                ...commonChartOptions.scales,
+                y: {
+                    ...commonChartOptions.scales.y,
+                    ticks: {
+                        ...commonChartOptions.scales.y.ticks,
+                        callback: function(value) {
+                            return formatValue(value); // No special formatting for displacement chart
+                        }
+                    }
+                }
+            },
             plugins: {
                 legend: {
                     display: true,
