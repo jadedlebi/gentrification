@@ -380,8 +380,8 @@ function addLayers() {
                 'interpolate',
                 ['linear'],
                 ['zoom'],
-                8, 0.5,
-                15, 2
+                8, 1,
+                15, 3
             ]
         },
         layout: {
