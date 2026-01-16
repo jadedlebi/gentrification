@@ -1,0 +1,50 @@
+# Environment and credentials
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*credentials*.json
+service-account*.json
+scripts/env.example
+
+# Automation scripts (keep private)
+scripts/update_tileset.py
+
+# Temporary export files
+scripts/temp_*.geojson
+scripts/temp_*.json
+*.geojson.tmp
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+ENV/
+.eggs/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+
+# Node (if any)
+node_modules/
+
+# OS files
+Thumbs.db

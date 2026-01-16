@@ -74,10 +74,10 @@ function initializeTractClick(map) {
                         <td><strong>CENSUS TRACT</strong></td>
                         <td>${properties.geoid10}</td>
                     </tr>
-                    ${properties.neighborho ? `
+                    ${properties.neighborhood ? `
                     <tr>
                         <td><strong>NEIGHBORHOOD</strong></td>
-                        <td>${properties.neighborho}</td>
+                        <td>${properties.neighborhood}</td>
                     </tr>
                     ` : ''}
                     <tr>
@@ -108,10 +108,10 @@ function initializeTractClick(map) {
                         <td><strong>CENSUS TRACT</strong></td>
                         <td>${properties.geoid10}</td>
                     </tr>
-                    ${properties.neighborho ? `
+                    ${properties.neighborhood ? `
                     <tr>
                         <td><strong>NEIGHBORHOOD</strong></td>
-                        <td>${properties.neighborho}</td>
+                        <td>${properties.neighborhood}</td>
                     </tr>
                     ` : ''}
                     <tr>

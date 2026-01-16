@@ -2,8 +2,8 @@ function addLayers() {
     map.addLayer({ // eligible circle
         id: 'cbsa-el',
         type: 'circle', 
-        source: 'cbsa-city',
-        'source-layer': 'gd24_cbsa-88j963',
+        source: 'cbsa-unified',
+        'source-layer': SOURCE_CONFIG.getCbsaSourceLayer(),
         filter: ['all',
             ['>', ['to-number', ['get', 'tel70']], 0],
             ['!=', ['get', 'tel70'], null]
@@ -26,8 +26,8 @@ function addLayers() {
     map.addLayer({ // gentrification circle
         id: 'cbsa-gent',
         type: 'circle',
-        source: 'cbsa-city',
-        'source-layer': 'gd24_cbsa-88j963', 
+        source: 'cbsa-unified',
+        'source-layer': SOURCE_CONFIG.getCbsaSourceLayer(), 
         filter: ['all',
             ['>', ['to-number', ['get', 'tgent80']], 0],
             ['!=', ['get', 'tgent80'], null],
@@ -49,8 +49,8 @@ function addLayers() {
     map.addLayer({ // cbsa hover for gentrification
         id: 'cbsa-hover1',
         type: 'circle',
-        source: 'cbsa-city',
-        'source-layer': 'gd24_cbsa-88j963', 
+        source: 'cbsa-unified',
+        'source-layer': SOURCE_CONFIG.getCbsaSourceLayer(), 
         filter: ['all',
             ['>', ['to-number', ['get', 'tel70']], 0],
             ['!=', ['get', 'tel70'], null]
@@ -111,8 +111,8 @@ function addLayers() {
     map.addLayer({ // total displacement circle
         id: 'cbsa-disp',
         type: 'circle',
-        source: 'cbsa-disp',
-        'source-layer': 'disp_cbsa-1oi7p6',
+        source: 'cbsa-unified',
+        'source-layer': SOURCE_CONFIG.getCbsaSourceLayer(),
         paint: {
             'circle-color': [
                 'case',
@@ -151,8 +151,8 @@ function addLayers() {
     map.addLayer({ // cbsa hover for displacement
         id: 'cbsa-hover2',
         type: 'circle',
-        source: 'cbsa-disp',
-        'source-layer': 'disp_cbsa-1oi7p6', 
+        source: 'cbsa-unified',
+        'source-layer': SOURCE_CONFIG.getCbsaSourceLayer(), 
         filter: ['all',
             ['!=', ['get', 'cb80'], null]
         ],
@@ -192,7 +192,7 @@ function addLayers() {
             type: 'fill',
             before: 'building',
             source: source,
-            'source-layer': `${source.replace('gd', 'gd_c')}-${sourceLayerSuffixes[source]}`, // Map to specific source layer suffix
+            'source-layer': SOURCE_CONFIG.getSourceLayer(source),
             paint: {
                 "fill-outline-color": "#000000",
                 "fill-color": [
@@ -226,7 +226,7 @@ function addLayers() {
             id: `${source}-gent-outline`,
             type: 'line',
             source: source,
-            'source-layer': `${source.replace('gd', 'gd_c')}-${sourceLayerSuffixes[source]}`, // Map to specific source layer suffix
+            'source-layer': SOURCE_CONFIG.getSourceLayer(source),
             paint: {
                 'line-color':
                 ["case", 
@@ -253,7 +253,7 @@ function addLayers() {
             id: `${source}-gent-hover-outline`,
             type: 'line',
             source: source,
-            'source-layer': `${source.replace('gd', 'gd_c')}-${sourceLayerSuffixes[source]}`,
+            'source-layer': SOURCE_CONFIG.getSourceLayer(source),
             paint: {
                 'line-color': '#ffffff',
                 'line-width': 2,
@@ -272,7 +272,7 @@ function addLayers() {
             type: 'fill',
             before: 'building',
             source: source,
-            'source-layer': `${source.replace('gd', 'gd_c')}-${sourceLayerSuffixes[source]}`,
+            'source-layer': SOURCE_CONFIG.getSourceLayer(source),
             paint: {
                 'fill-color': [
                     'interpolate',
@@ -303,7 +303,7 @@ function addLayers() {
             id: `${source}-disp-outline`,
             type: 'line',
             source: source,
-            'source-layer': `${source.replace('gd', 'gd_c')}-${sourceLayerSuffixes[source]}`, // Map to specific source layer suffix
+            'source-layer': SOURCE_CONFIG.getSourceLayer(source),
             paint: {
                 'line-color': 'transparent',
                 'line-width': 1,
@@ -321,7 +321,7 @@ function addLayers() {
             id: `${source}-disp-hover-outline`,
             type: 'line',
             source: source,
-            'source-layer': `${source.replace('gd', 'gd_c')}-${sourceLayerSuffixes[source]}`,
+            'source-layer': SOURCE_CONFIG.getSourceLayer(source),
             paint: {
                 'line-color': '#ffffff',
                 'line-width': 2,
@@ -346,7 +346,7 @@ function addLayers() {
                 id: layerId,
                 type: 'line',
                 source: source,
-                'source-layer': `${source.replace('gd', 'gd_c')}-${sourceLayerSuffixes[source]}`,
+                'source-layer': SOURCE_CONFIG.getSourceLayer(source),
                 paint: {
                     'line-color': '#ffffff',
                     'line-width': 2,

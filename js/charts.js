@@ -43,13 +43,14 @@ Chart.register({
 
 // Initialize charts when map data is loaded
 function initializeCharts(map) {
-    // Get data from the source
-    const features = map.querySourceFeatures('cbsa-city', {
-        sourceLayer: 'gd24_cbsa-88j963'
+    // Get data from the unified CBSA source (contains both gentrification and displacement data)
+    const features = map.querySourceFeatures('cbsa-unified', {
+        sourceLayer: SOURCE_CONFIG.getCbsaSourceLayer()
     });
     
-    const dispFeatures = map.querySourceFeatures('cbsa-disp', {
-        sourceLayer: 'disp24_cbsa-7y3mp4'
+    // Use same unified source for displacement data
+    const dispFeatures = map.querySourceFeatures('cbsa-unified', {
+        sourceLayer: SOURCE_CONFIG.getCbsaSourceLayer()
     });
     
     initGentrificationChart(features);

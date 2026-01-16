@@ -114,6 +114,7 @@
             </div>
         </div>
     </div>
+    <script src="js/sourceConfig.js"></script>
     <script src="js/sources.js"></script>
     <script src="js/layers.js"></script>
     <script src="js/resetView.js"></script>
@@ -139,16 +140,9 @@
             zoom: 3.7,
             minZoom: 3.2
         });
-        const tractSources = ['gd0', 'gd1', 'gd2', 'gd31', 'gd32', 'gd4'];
-        const dispSources = ['gd0', 'gd1', 'gd2', 'gd31', 'gd32', 'gd4'];
-        const sourceLayerSuffixes = {
-            'gd0': '22imwf',
-            'gd1': '6tj49b',
-            'gd2': '55kapz',
-            'gd31': 'ak9vhu',
-            'gd32': '1fmokp', 
-            'gd4': 'ayrz8n'
-        };
+        // Source arrays now come from centralized config (js/sourceConfig.js)
+        const tractSources = SOURCE_CONFIG.tractSources;
+        const dispSources = SOURCE_CONFIG.dispSources;
         const decades = [
             ['==', 'gent80', 1],
             ['==', 'g80_90', 1],
