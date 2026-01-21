@@ -1,8 +1,8 @@
 // Centralized source configuration
 // Update this file when data source changes
 //
-// Last updated: 2026-01-16 14:51:41
-// Tract source: hdma1-242116.nih.gd_geo
+// Last updated: 2026-01-21 14:20:07
+// Tract source: nih.gd joined with geo.census10_geo (shoreline-clipped)
 // CBSA source: Aggregation query from nih.gd, geo.states, geo.cbsa_cities_xy
 //
 // To update: python scripts/update_tileset.py
@@ -16,7 +16,7 @@
 //
 const SOURCE_CONFIG = {
     // =========================================
-    // TRACT CONFIGURATION (Census tract polygons)
+    // TRACT CONFIGURATION (Census tract polygons - shoreline-clipped)
     // =========================================
     tractSources: ['gd-unified'],
     dispSources: ['gd-unified'],
@@ -24,8 +24,8 @@ const SOURCE_CONFIG = {
     // Mapbox tileset URL
     tractTilesetUrl: 'mapbox://jedlebi.gd-tracts',
     
-    // Source layer name (actual name from Mapbox tileset)
-    tractSourceLayer: 'Gentrification Tracts - 2026-01-16',
+    // Source layer name (static - does not change with updates)
+    tractSourceLayer: 'gd-tracts',
     
     // =========================================
     // CBSA CONFIGURATION (Metro area points - consolidated)
@@ -35,8 +35,8 @@ const SOURCE_CONFIG = {
     // Mapbox tileset URL
     cbsaTilesetUrl: 'mapbox://jedlebi.cbsa-unified',
     
-    // Source layer name (actual name from Mapbox tileset)
-    cbsaSourceLayer: 'CBSA Unified Data - 2026-01-16',
+    // Source layer name (static - does not change with updates)
+    cbsaSourceLayer: 'cbsa-unified',
     
     // =========================================
     // HELPER FUNCTIONS

@@ -1,0 +1,7 @@
+# Requirements for BigQuery → Mapbox automation script
+# Install with: pip install -r scripts/requirements.txt
+
+google-cloud-bigquery>=3.0.0
+requests>=2.28.0
+boto3>=1.26.0
+python-dotenv>=1.0.0
