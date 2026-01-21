@@ -373,7 +373,7 @@ function initMetricChart(features) {
                                     return value.toFixed(1) + '%';
                                 }
                                 if (metric === 'homeValue' || metric === 'income') {
-                                    return '$' + value.toLocaleString();
+                                    return '$' + Math.round(value).toLocaleString();
                                 }
                                 // For demographics (population)
                                 return value.toLocaleString();
@@ -746,7 +746,7 @@ function updateMetricChart(data) {
                                 return value.toFixed(1) + '%';
                             }
                             if (activeTab === 'homeValue' || activeTab === 'income') {
-                                return '$' + value.toLocaleString();
+                                return '$' + Math.round(value).toLocaleString();
                             }
                             return value.toLocaleString();
                         }

@@ -385,7 +385,7 @@ function updateMetricChart(data) {
                                 return value.toFixed(1) + '%';
                             }
                             if (activeTab === 'homeValue' || activeTab === 'income') {
-                                return '$' + value.toLocaleString();
+                                return '$' + Math.round(value).toLocaleString();
                             }
                             return value.toLocaleString();
                         }
