@@ -24,8 +24,8 @@ const SOURCE_CONFIG = {
     // Mapbox tileset URL
     tractTilesetUrl: 'mapbox://jedlebi.gd-tracts',
     
-    // Source layer name (static - does not change with updates)
-    tractSourceLayer: 'gd-tracts',
+    // Source layer name (set by Tippecanoe -l flag in update_tileset.py)
+    tractSourceLayer: 'GD - Tract Level',
     
     // =========================================
     // CBSA CONFIGURATION (Metro area points - consolidated)
@@ -35,8 +35,8 @@ const SOURCE_CONFIG = {
     // Mapbox tileset URL
     cbsaTilesetUrl: 'mapbox://jedlebi.cbsa-unified',
     
-    // Source layer name (static - does not change with updates)
-    cbsaSourceLayer: 'cbsa-unified',
+    // Source layer name (set by Tippecanoe -l flag in update_tileset.py)
+    cbsaSourceLayer: 'GD - CBSA Level',
     
     // =========================================
     // HELPER FUNCTIONS
